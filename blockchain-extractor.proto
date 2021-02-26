@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package com.clover.blockchainextractor;
+
+option java_package = "com.clover.proto";
+option java_outer_classname = "BlockchainExtractorProto";
+
+option go_package = ".;proto";
+
+/**
+ *  _____       _   _ _   _
+ * | ____|_ __ | |_(_) |_(_) ___  ___
+ * |  _| | '_ \| __| | __| |/ _ \/ __|
+ * | |___| | | | |_| | |_| |  __/\__ \
+ * |_____|_| |_|\__|_|\__|_|\___||___/
+ *
+ **/
+
+
+message EthBlock {
+  message Transaction {
+    string transaction_hash = 1;
+    uint64 block_height = 3;
+    string gas_price = 4;
+    uint64 gas_limit = 5;
+    uint64 nonce = 6;
+    string transaction_fee = 7;
+    string value = 8;
+    string from_address = 9;
+    string to_address = 10;
+    uint64 timestamp = 11;
+    string raw_input_data = 12;
+    uint32 transaction_index = 13;
+    uint64 gas_used = 14;
+    uint64 status = 15;
+  }
+
+  message Header {
+    uint64 block_height = 1;
+    uint64 timestamp = 2;
+    string mine_address = 4;
+    uint64 size = 5;
+    uint64 gas_used = 6;
+    string extra_data = 7;
+    string block_hash = 8;
+    string parent_hash = 9;
+    string sha3_uncles = 10;
+    string state_root = 11;
+  }
+
+  repeated Transaction txs = 1;
+  Header header = 2;
+}
+
+/**
+ *  _  __      __ _
+ * | |/ /__ _ / _| | ____ _
+ * | ' // _` | |_| |/ / _` |
+ * | . \ (_| |  _|   < (_| |
+ * |_|\_\__,_|_| |_|\_\__,_|
+ *
+ **/
+
+/**
+ * Topic: v1.blockchainextractor.blockchanged
+ */
+message BlockChanged {
+  string blockchain_name = 1;
+  oneof block {
+    EthBlock eth_block = 2;
+  }
+}
