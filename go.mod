@@ -1,4 +1,4 @@
-module github.com/clover-network/proto-contract
+module github.com/clover-network/cloverscan-proto-contract
 
 go 1.15
 

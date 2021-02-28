@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package com.clover.blockchainextractor;
+package com.clover.extractor;
 
 option java_package = "com.clover.proto";
-option java_outer_classname = "BlockchainExtractorProto";
+option java_outer_classname = "ExtractorProto";
 
 option go_package = ".;proto";
 
