@@ -48,7 +48,7 @@ service TransactionIndexer {
   rpc GetTxsByHeightAndBlockchain (GetTxsByHeightAndBlockchainRequest) returns (SimpleTransactionsReply);
   rpc GetBlocksByHeight (GetBlocksByHeightRequest) returns (SimpleBlocksReply);
   rpc GetBlockDetails (GetBlockDetailsRequest) returns (GetBlockDetailsReply);
-  rpc GetTransactionDetails (GetTransactionDetailsRequest) returns (GetBlockDetailsReply);
+  rpc GetTransactionDetails (GetTransactionDetailsRequest) returns (GetTransactionDetailsReply);
 }
 
 
