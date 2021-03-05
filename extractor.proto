@@ -7,14 +7,14 @@ option java_outer_classname = "ExtractorProto";
 
 option go_package = ".;proto";
 
-/**
- *  _____       _   _ _   _
- * | ____|_ __ | |_(_) |_(_) ___  ___
- * |  _| | '_ \| __| | __| |/ _ \/ __|
- * | |___| | | | |_| | |_| |  __/\__ \
- * |_____|_| |_|\__|_|\__|_|\___||___/
- *
- **/
+//  ______ _______ _    _
+// |  ____|__   __| |  | |
+// | |__     | |  | |__| |
+// |  __|    | |  |  __  |
+// | |____   | |  | |  | |
+// |______|  |_|  |_|  |_|
+//
+//
 
 message EthTransaction {
   string transaction_hash = 1;
@@ -54,6 +54,74 @@ message EthBlock {
   EthBlockHeader header = 2;
 }
 
+//  ____ _______ _____
+// |  _ \__   __/ ____|
+// | |_) | | | | |
+// |  _ <  | | | |
+// | |_) | | | | |____
+// |____/  |_|  \_____|
+//
+
+message BtcBlockHeader {
+  uint64 block_height = 1;
+  uint64 timestamp = 2;
+  string block_hash = 3;
+  string parent_hash = 4;
+  string merkle_root = 5;
+  string bits = 6;
+  uint32 nonce = 7;
+  float difficulty = 9;
+  int32 size = 10;
+  int32 weight = 11;
+  string version = 12;
+  uint64 transactions_count = 13;
+}
+
+message BtcTransaction {
+  message ScriptSig {
+      string asm = 1;
+      string hex = 2;
+  }
+
+  message ScriptPubKeyResult {
+    string asm = 1;
+    string hex = 2;
+    int32 req_sigs = 3;
+    string type = 4;
+    repeated string addresses = 5;
+  }
+
+  message Vin {
+    string coinbase = 1;
+    string txid = 2;
+    uint32 vout = 3;
+    ScriptSig script_sig = 4;
+    uint32 sequence = 5;
+    repeated string witness = 6;
+  }
+
+  message Vout {
+    string bestBlock = 1;
+    int64 confirmations = 2;
+    float value = 3;
+    ScriptPubKeyResult script_pub_key = 4;
+    bool coinbase = 5;
+  }
+
+  string transaction_hash = 1;
+  uint64 block_height = 2;
+  uint64 timestamp = 3;
+  int32 size = 4;
+  int32 weight = 5;
+  repeated Vin vin = 6;
+  repeated Vout vout = 7;
+}
+
+message BtcBlock {
+  repeated BtcTransaction txs = 1;
+  BtcBlockHeader header = 2;
+}
+
 /**
  *  _  __      __ _
  * | |/ /__ _ / _| | ____ _
@@ -70,5 +138,6 @@ message BlockChanged {
   string blockchain_name = 1;
   oneof block {
     EthBlock eth_block = 2;
+    BtcBlock btc_block = 3;
   }
 }

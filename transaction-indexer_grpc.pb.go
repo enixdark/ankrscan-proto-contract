@@ -21,7 +21,7 @@ type TransactionIndexerClient interface {
 	GetTxsByHeightAndBlockchain(ctx context.Context, in *GetTxsByHeightAndBlockchainRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
 	GetBlocksByHeight(ctx context.Context, in *GetBlocksByHeightRequest, opts ...grpc.CallOption) (*SimpleBlocksReply, error)
 	GetBlockDetails(ctx context.Context, in *GetBlockDetailsRequest, opts ...grpc.CallOption) (*GetBlockDetailsReply, error)
-	GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetBlockDetailsReply, error)
+	GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetTransactionDetailsReply, error)
 }
 
 type transactionIndexerClient struct {
@@ -68,8 +68,8 @@ func (c *transactionIndexerClient) GetBlockDetails(ctx context.Context, in *GetB
 	return out, nil
 }
 
-func (c *transactionIndexerClient) GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetBlockDetailsReply, error) {
-	out := new(GetBlockDetailsReply)
+func (c *transactionIndexerClient) GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetTransactionDetailsReply, error) {
+	out := new(GetTransactionDetailsReply)
 	err := c.cc.Invoke(ctx, "/com.clover.extractor.TransactionIndexer/GetTransactionDetails", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ type TransactionIndexerServer interface {
 	GetTxsByHeightAndBlockchain(context.Context, *GetTxsByHeightAndBlockchainRequest) (*SimpleTransactionsReply, error)
 	GetBlocksByHeight(context.Context, *GetBlocksByHeightRequest) (*SimpleBlocksReply, error)
 	GetBlockDetails(context.Context, *GetBlockDetailsRequest) (*GetBlockDetailsReply, error)
-	GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetBlockDetailsReply, error)
+	GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetTransactionDetailsReply, error)
 	mustEmbedUnimplementedTransactionIndexerServer()
 }
 
@@ -105,7 +105,7 @@ func (UnimplementedTransactionIndexerServer) GetBlocksByHeight(context.Context, 
 func (UnimplementedTransactionIndexerServer) GetBlockDetails(context.Context, *GetBlockDetailsRequest) (*GetBlockDetailsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockDetails not implemented")
 }
-func (UnimplementedTransactionIndexerServer) GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetBlockDetailsReply, error) {
+func (UnimplementedTransactionIndexerServer) GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetTransactionDetailsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionDetails not implemented")
 }
 func (UnimplementedTransactionIndexerServer) mustEmbedUnimplementedTransactionIndexerServer() {}

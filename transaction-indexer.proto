@@ -85,7 +85,8 @@ message GetBlockDetailsRequest {
 message GetBlockDetailsReply {
   string blockchain_name = 1;
   oneof block {
-    EthBlockHeader eth_block = 2;
+    EthBlock eth_block = 2;
+    BtcBlock btc_block = 3;
   }
 }
 
@@ -98,5 +99,6 @@ message GetTransactionDetailsReply {
   string blockchain_name = 1;
   oneof transaction {
     EthTransaction eth_transaction = 2;
+    BtcTransaction btc_transaction = 3;
   }
 }
