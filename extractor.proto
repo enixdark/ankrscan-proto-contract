@@ -70,7 +70,7 @@ message BtcBlockHeader {
   string merkle_root = 5;
   string bits = 6;
   uint32 nonce = 7;
-  float difficulty = 9;
+  double difficulty = 9;
   int32 size = 10;
   int32 weight = 11;
   string version = 12;
@@ -101,7 +101,7 @@ message BtcTransaction {
   }
 
   message Vout {
-    float value = 1;
+    double value = 1;
     uint32 n = 2;
     ScriptPubKeyResult script_pub_key = 3;
   }
