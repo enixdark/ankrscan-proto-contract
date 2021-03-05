@@ -101,11 +101,9 @@ message BtcTransaction {
   }
 
   message Vout {
-    string bestBlock = 1;
-    int64 confirmations = 2;
-    float value = 3;
-    ScriptPubKeyResult script_pub_key = 4;
-    bool coinbase = 5;
+    float value = 1;
+    uint32 n = 2;
+    ScriptPubKeyResult script_pub_key = 3;
   }
 
   string transaction_hash = 1;
