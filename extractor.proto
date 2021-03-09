@@ -78,26 +78,16 @@ message BtcBlockHeader {
 }
 
 message BtcTransaction {
-  message ScriptSig {
-      string asm = 1;
-      string hex = 2;
-  }
-
   message ScriptPubKeyResult {
-    string asm = 1;
-    string hex = 2;
     int32 req_sigs = 3;
     string type = 4;
     repeated string addresses = 5;
   }
 
   message Vin {
-    string coinbase = 1;
+    bool is_coinbase = 1;
     string txid = 2;
     uint32 vout = 3;
-    ScriptSig script_sig = 4;
-    uint32 sequence = 5;
-    repeated string witness = 6;
   }
 
   message Vout {
