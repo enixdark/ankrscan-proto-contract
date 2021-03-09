@@ -91,7 +91,7 @@ message BtcTransaction {
   }
 
   message Vout {
-    double value = 1;
+    uint64 value = 1;
     uint32 n = 2;
     ScriptPubKeyResult script_pub_key = 3;
   }
