@@ -110,6 +110,57 @@ message BtcBlock {
   BtcBlockHeader header = 2;
 }
 
+//  _____   ____ _______
+// |  __ \ / __ \__   __|
+// | |  | | |  | | | |
+// | |  | | |  | | | |
+// | |__| | |__| | | |
+// |_____/ \____/  |_|
+//
+//
+
+
+message DotEvent {
+  string method = 1;
+  string data_json = 2;
+}
+
+message DotTransaction {
+  string transaction_id = 1;
+  string transaction_hash = 2;
+  uint64 block_height = 3;
+  uint64 timestamp = 4;
+  uint32 transaction_index = 5;
+  string method = 6;
+  string from_address = 7; // transaction signer
+  string to_address = 8; // retrieved from the args of balance.Transfer transaction
+  string partial_fee = 9;
+  string tip_fee = 10;
+  string transaction_fee = 11;
+  uint64 nonce = 12;
+  string args_json = 13;
+  bool success = 14;
+  repeated DotEvent events = 15;
+  string value = 16; // retrieved from the args of balance.Transfer transaction
+}
+
+message DotBlockHeader {
+  uint64 block_height = 1;
+  uint64 timestamp = 2;
+  string author_id = 3;
+  string block_hash = 4;
+  string parent_hash = 5;
+  string state_root = 6;
+  string extrinsic_root = 7;
+  uint64 transactions_count = 8;
+}
+
+message DotBlock {
+  repeated DotTransaction txs = 1;
+  DotBlockHeader header = 2;
+}
+
+
 /**
  *  _  __      __ _
  * | |/ /__ _ / _| | ____ _
