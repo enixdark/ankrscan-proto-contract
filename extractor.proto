@@ -178,5 +178,6 @@ message BlockChanged {
   oneof block {
     EthBlock eth_block = 2;
     BtcBlock btc_block = 3;
+    DotBlock dot_block = 4;
   }
 }
