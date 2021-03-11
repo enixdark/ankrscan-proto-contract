@@ -88,6 +88,8 @@ message BtcTransaction {
     bool is_coinbase = 1;
     string txid = 2;
     uint32 vout = 3;
+    int64 value = 4;
+    repeated string addresses = 5;
   }
 
   message Vout {
@@ -103,6 +105,8 @@ message BtcTransaction {
   int32 weight = 5;
   repeated Vin vin = 6;
   repeated Vout vout = 7;
+  string transaction_fee = 8;
+  string value = 9;
 }
 
 message BtcBlock {
