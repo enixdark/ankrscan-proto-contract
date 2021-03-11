@@ -1143,6 +1143,108 @@ func (*BlockChanged_BtcBlock) isBlockChanged_Block() {}
 
 func (*BlockChanged_DotBlock) isBlockChanged_Block() {}
 
+type GetLatestBalanceRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	BlockchainName string `protobuf:"bytes,1,opt,name=blockchain_name,json=blockchainName,proto3" json:"blockchain_name,omitempty"`
+	Address        string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (x *GetLatestBalanceRequest) Reset() {
+	*x = GetLatestBalanceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_extractor_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetLatestBalanceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLatestBalanceRequest) ProtoMessage() {}
+
+func (x *GetLatestBalanceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_extractor_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLatestBalanceRequest.ProtoReflect.Descriptor instead.
+func (*GetLatestBalanceRequest) Descriptor() ([]byte, []int) {
+	return file_extractor_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetLatestBalanceRequest) GetBlockchainName() string {
+	if x != nil {
+		return x.BlockchainName
+	}
+	return ""
+}
+
+func (x *GetLatestBalanceRequest) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+type GetLatestBalanceReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+}
+
+func (x *GetLatestBalanceReply) Reset() {
+	*x = GetLatestBalanceReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_extractor_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetLatestBalanceReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetLatestBalanceReply) ProtoMessage() {}
+
+func (x *GetLatestBalanceReply) ProtoReflect() protoreflect.Message {
+	mi := &file_extractor_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetLatestBalanceReply.ProtoReflect.Descriptor instead.
+func (*GetLatestBalanceReply) Descriptor() ([]byte, []int) {
+	return file_extractor_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetLatestBalanceReply) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
 type BtcTransaction_ScriptPubKeyResult struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1156,7 +1258,7 @@ type BtcTransaction_ScriptPubKeyResult struct {
 func (x *BtcTransaction_ScriptPubKeyResult) Reset() {
 	*x = BtcTransaction_ScriptPubKeyResult{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_extractor_proto_msgTypes[11]
+		mi := &file_extractor_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1169,7 +1271,7 @@ func (x *BtcTransaction_ScriptPubKeyResult) String() string {
 func (*BtcTransaction_ScriptPubKeyResult) ProtoMessage() {}
 
 func (x *BtcTransaction_ScriptPubKeyResult) ProtoReflect() protoreflect.Message {
-	mi := &file_extractor_proto_msgTypes[11]
+	mi := &file_extractor_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1221,7 +1323,7 @@ type BtcTransaction_Vin struct {
 func (x *BtcTransaction_Vin) Reset() {
 	*x = BtcTransaction_Vin{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_extractor_proto_msgTypes[12]
+		mi := &file_extractor_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1234,7 +1336,7 @@ func (x *BtcTransaction_Vin) String() string {
 func (*BtcTransaction_Vin) ProtoMessage() {}
 
 func (x *BtcTransaction_Vin) ProtoReflect() protoreflect.Message {
-	mi := &file_extractor_proto_msgTypes[12]
+	mi := &file_extractor_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1298,7 +1400,7 @@ type BtcTransaction_Vout struct {
 func (x *BtcTransaction_Vout) Reset() {
 	*x = BtcTransaction_Vout{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_extractor_proto_msgTypes[13]
+		mi := &file_extractor_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1311,7 +1413,7 @@ func (x *BtcTransaction_Vout) String() string {
 func (*BtcTransaction_Vout) ProtoMessage() {}
 
 func (x *BtcTransaction_Vout) ProtoReflect() protoreflect.Message {
-	mi := &file_extractor_proto_msgTypes[13]
+	mi := &file_extractor_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1572,10 +1674,27 @@ var file_extractor_proto_rawDesc = []byte{
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x6c, 0x6f, 0x76, 0x65,
 	0x72, 0x2e, 0x65, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x2e, 0x44, 0x6f, 0x74, 0x42,
 	0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x00, 0x52, 0x08, 0x64, 0x6f, 0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b,
-	0x42, 0x07, 0x0a, 0x05, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x42, 0x2b, 0x0a, 0x10, 0x63, 0x6f, 0x6d,
-	0x2e, 0x63, 0x6c, 0x6f, 0x76, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x42, 0x0e, 0x45,
-	0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x07, 0x2e,
-	0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x42, 0x07, 0x0a, 0x05, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x22, 0x5c, 0x0a, 0x17, 0x47, 0x65, 0x74,
+	0x4c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x42, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x27, 0x0a, 0x0f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x63, 0x68, 0x61,
+	0x69, 0x6e, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x62,
+	0x6c, 0x6f, 0x63, 0x6b, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x18, 0x0a,
+	0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
+	0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x22, 0x2d, 0x0a, 0x15, 0x47, 0x65, 0x74, 0x4c, 0x61,
+	0x74, 0x65, 0x73, 0x74, 0x42, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x32, 0x7b, 0x0a, 0x09, 0x45, 0x78, 0x74, 0x72, 0x61, 0x63,
+	0x74, 0x6f, 0x72, 0x12, 0x6e, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x4c, 0x61, 0x74, 0x65, 0x73, 0x74,
+	0x42, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x12, 0x2d, 0x2e, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x6c,
+	0x6f, 0x76, 0x65, 0x72, 0x2e, 0x65, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x2e, 0x47,
+	0x65, 0x74, 0x4c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x42, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x2e, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x6c, 0x6f,
+	0x76, 0x65, 0x72, 0x2e, 0x65, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x2e, 0x47, 0x65,
+	0x74, 0x4c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x42, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x52, 0x65,
+	0x70, 0x6c, 0x79, 0x42, 0x2b, 0x0a, 0x10, 0x63, 0x6f, 0x6d, 0x2e, 0x63, 0x6c, 0x6f, 0x76, 0x65,
+	0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x42, 0x0e, 0x45, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74,
+	0x6f, 0x72, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x07, 0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1590,7 +1709,7 @@ func file_extractor_proto_rawDescGZIP() []byte {
 	return file_extractor_proto_rawDescData
 }
 
-var file_extractor_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_extractor_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_extractor_proto_goTypes = []interface{}{
 	(*EthTransaction)(nil),                    // 0: com.clover.extractor.EthTransaction
 	(*EthBlockHeader)(nil),                    // 1: com.clover.extractor.EthBlockHeader
@@ -1603,15 +1722,17 @@ var file_extractor_proto_goTypes = []interface{}{
 	(*DotBlockHeader)(nil),                    // 8: com.clover.extractor.DotBlockHeader
 	(*DotBlock)(nil),                          // 9: com.clover.extractor.DotBlock
 	(*BlockChanged)(nil),                      // 10: com.clover.extractor.BlockChanged
-	(*BtcTransaction_ScriptPubKeyResult)(nil), // 11: com.clover.extractor.BtcTransaction.ScriptPubKeyResult
-	(*BtcTransaction_Vin)(nil),                // 12: com.clover.extractor.BtcTransaction.Vin
-	(*BtcTransaction_Vout)(nil),               // 13: com.clover.extractor.BtcTransaction.Vout
+	(*GetLatestBalanceRequest)(nil),           // 11: com.clover.extractor.GetLatestBalanceRequest
+	(*GetLatestBalanceReply)(nil),             // 12: com.clover.extractor.GetLatestBalanceReply
+	(*BtcTransaction_ScriptPubKeyResult)(nil), // 13: com.clover.extractor.BtcTransaction.ScriptPubKeyResult
+	(*BtcTransaction_Vin)(nil),                // 14: com.clover.extractor.BtcTransaction.Vin
+	(*BtcTransaction_Vout)(nil),               // 15: com.clover.extractor.BtcTransaction.Vout
 }
 var file_extractor_proto_depIdxs = []int32{
 	0,  // 0: com.clover.extractor.EthBlock.txs:type_name -> com.clover.extractor.EthTransaction
 	1,  // 1: com.clover.extractor.EthBlock.header:type_name -> com.clover.extractor.EthBlockHeader
-	12, // 2: com.clover.extractor.BtcTransaction.vin:type_name -> com.clover.extractor.BtcTransaction.Vin
-	13, // 3: com.clover.extractor.BtcTransaction.vout:type_name -> com.clover.extractor.BtcTransaction.Vout
+	14, // 2: com.clover.extractor.BtcTransaction.vin:type_name -> com.clover.extractor.BtcTransaction.Vin
+	15, // 3: com.clover.extractor.BtcTransaction.vout:type_name -> com.clover.extractor.BtcTransaction.Vout
 	4,  // 4: com.clover.extractor.BtcBlock.txs:type_name -> com.clover.extractor.BtcTransaction
 	3,  // 5: com.clover.extractor.BtcBlock.header:type_name -> com.clover.extractor.BtcBlockHeader
 	6,  // 6: com.clover.extractor.DotTransaction.events:type_name -> com.clover.extractor.DotEvent
@@ -1620,9 +1741,11 @@ var file_extractor_proto_depIdxs = []int32{
 	2,  // 9: com.clover.extractor.BlockChanged.eth_block:type_name -> com.clover.extractor.EthBlock
 	5,  // 10: com.clover.extractor.BlockChanged.btc_block:type_name -> com.clover.extractor.BtcBlock
 	9,  // 11: com.clover.extractor.BlockChanged.dot_block:type_name -> com.clover.extractor.DotBlock
-	11, // 12: com.clover.extractor.BtcTransaction.Vout.script_pub_key:type_name -> com.clover.extractor.BtcTransaction.ScriptPubKeyResult
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
+	13, // 12: com.clover.extractor.BtcTransaction.Vout.script_pub_key:type_name -> com.clover.extractor.BtcTransaction.ScriptPubKeyResult
+	11, // 13: com.clover.extractor.Extractor.GetLatestBalance:input_type -> com.clover.extractor.GetLatestBalanceRequest
+	12, // 14: com.clover.extractor.Extractor.GetLatestBalance:output_type -> com.clover.extractor.GetLatestBalanceReply
+	14, // [14:15] is the sub-list for method output_type
+	13, // [13:14] is the sub-list for method input_type
 	13, // [13:13] is the sub-list for extension type_name
 	13, // [13:13] is the sub-list for extension extendee
 	0,  // [0:13] is the sub-list for field type_name
@@ -1767,7 +1890,7 @@ func file_extractor_proto_init() {
 			}
 		}
 		file_extractor_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BtcTransaction_ScriptPubKeyResult); i {
+			switch v := v.(*GetLatestBalanceRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1779,7 +1902,7 @@ func file_extractor_proto_init() {
 			}
 		}
 		file_extractor_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BtcTransaction_Vin); i {
+			switch v := v.(*GetLatestBalanceReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1791,6 +1914,30 @@ func file_extractor_proto_init() {
 			}
 		}
 		file_extractor_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BtcTransaction_ScriptPubKeyResult); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_extractor_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BtcTransaction_Vin); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_extractor_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BtcTransaction_Vout); i {
 			case 0:
 				return &v.state
@@ -1814,9 +1961,9 @@ func file_extractor_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_extractor_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   16,
 			NumExtensions: 0,
-			NumServices:   0,
+			NumServices:   1,
 		},
 		GoTypes:           file_extractor_proto_goTypes,
 		DependencyIndexes: file_extractor_proto_depIdxs,
