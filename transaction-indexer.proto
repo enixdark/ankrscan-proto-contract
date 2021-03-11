@@ -87,6 +87,7 @@ message GetBlockDetailsReply {
   oneof block {
     EthBlockHeader eth_block = 2;
     BtcBlockHeader btc_block = 3;
+    DotBlockHeader dot_block = 4;
   }
 }
 
@@ -100,5 +101,6 @@ message GetTransactionDetailsReply {
   oneof transaction {
     EthTransaction eth_transaction = 2;
     BtcTransaction btc_transaction = 3;
+    DotTransaction dot_transaction = 4;
   }
 }
