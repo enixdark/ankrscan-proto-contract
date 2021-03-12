@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package com.clover.extractor;
+
+option java_package = "com.clover.proto";
+option java_outer_classname = "ExtractorProto";
+
+option go_package = ".;proto";
+
+/**
+ *  _____       _   _ _   _
+ * | ____|_ __ | |_(_) |_(_) ___  ___
+ * |  _| | '_ \| __| | __| |/ _ \/ __|
+ * | |___| | | | |_| | |_| |  __/\__ \
+ * |_____|_| |_|\__|_|\__|_|\___||___/
+ *
+ **/
+
+message TxOut {
+  string tx_out_hash = 1;
+  uint32 vout_n = 2;
+}
+
+message TxoInfo {
+  TxOut tx_out = 1;
+  string value = 2;
+  string spend_tx_hash = 3;
+  string vin_n = 4;
+  repeated string addresses = 5;
+  uint64 timestamp = 6;
+}
+
+/**
+ *        ____  ____   ____
+ *   __ _|  _ \|  _ \ / ___|
+ *  / _` | |_) | |_) | |
+ * | (_| |  _ <|  __/| |___
+ *  \__, |_| \_\_|    \____|
+ *  |___/
+ *
+ **/
+
+service TxoChecker {
+  rpc GetTxoInfoByTxHash (GetTxoInfoByTxHashRequest) returns (GetTxoInfoByTxHashReply);
+  rpc GetTxoInfoByTxHashAndVout (GetTxoInfoByTxHashAndVoutRequest) returns (GetTxoInfoByTxHashReply);
+}
+
+message GetTxoInfoByTxHashRequest {
+  string blockchain_name = 1;
+  string tx_hash = 2;
+}
+
+message GetTxoInfoByTxHashAndVoutRequest {
+  string blockchain_name = 1;
+  repeated TxOut tx_out = 2;
+}
+
+message GetTxoInfoByTxHashReply {
+  string blockchain_name = 1;
+  repeated TxoInfo txos = 2;
+}
