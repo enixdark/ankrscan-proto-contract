@@ -18,8 +18,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TxoCheckerClient interface {
-	GetTxoInfoByTxHash(ctx context.Context, in *GetTxoInfoByTxHashRequest, opts ...grpc.CallOption) (*GetTxoInfoByTxHashReply, error)
-	GetTxoInfoByTxHashAndVout(ctx context.Context, in *GetTxoInfoByTxHashAndVoutRequest, opts ...grpc.CallOption) (*GetTxoInfoByTxHashReply, error)
+	GetTxoInfoByTxHash(ctx context.Context, in *GetTxoInfoByTxHashRequest, opts ...grpc.CallOption) (*GetTxoInfoReply, error)
+	GetTxoInfoByTxHashAndVout(ctx context.Context, in *GetTxoInfoByTxHashAndVoutRequest, opts ...grpc.CallOption) (*GetTxoInfoReply, error)
 }
 
 type txoCheckerClient struct {
@@ -30,8 +30,8 @@ func NewTxoCheckerClient(cc grpc.ClientConnInterface) TxoCheckerClient {
 	return &txoCheckerClient{cc}
 }
 
-func (c *txoCheckerClient) GetTxoInfoByTxHash(ctx context.Context, in *GetTxoInfoByTxHashRequest, opts ...grpc.CallOption) (*GetTxoInfoByTxHashReply, error) {
-	out := new(GetTxoInfoByTxHashReply)
+func (c *txoCheckerClient) GetTxoInfoByTxHash(ctx context.Context, in *GetTxoInfoByTxHashRequest, opts ...grpc.CallOption) (*GetTxoInfoReply, error) {
+	out := new(GetTxoInfoReply)
 	err := c.cc.Invoke(ctx, "/com.clover.extractor.TxoChecker/GetTxoInfoByTxHash", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -39,8 +39,8 @@ func (c *txoCheckerClient) GetTxoInfoByTxHash(ctx context.Context, in *GetTxoInf
 	return out, nil
 }
 
-func (c *txoCheckerClient) GetTxoInfoByTxHashAndVout(ctx context.Context, in *GetTxoInfoByTxHashAndVoutRequest, opts ...grpc.CallOption) (*GetTxoInfoByTxHashReply, error) {
-	out := new(GetTxoInfoByTxHashReply)
+func (c *txoCheckerClient) GetTxoInfoByTxHashAndVout(ctx context.Context, in *GetTxoInfoByTxHashAndVoutRequest, opts ...grpc.CallOption) (*GetTxoInfoReply, error) {
+	out := new(GetTxoInfoReply)
 	err := c.cc.Invoke(ctx, "/com.clover.extractor.TxoChecker/GetTxoInfoByTxHashAndVout", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,8 +52,8 @@ func (c *txoCheckerClient) GetTxoInfoByTxHashAndVout(ctx context.Context, in *Ge
 // All implementations must embed UnimplementedTxoCheckerServer
 // for forward compatibility
 type TxoCheckerServer interface {
-	GetTxoInfoByTxHash(context.Context, *GetTxoInfoByTxHashRequest) (*GetTxoInfoByTxHashReply, error)
-	GetTxoInfoByTxHashAndVout(context.Context, *GetTxoInfoByTxHashAndVoutRequest) (*GetTxoInfoByTxHashReply, error)
+	GetTxoInfoByTxHash(context.Context, *GetTxoInfoByTxHashRequest) (*GetTxoInfoReply, error)
+	GetTxoInfoByTxHashAndVout(context.Context, *GetTxoInfoByTxHashAndVoutRequest) (*GetTxoInfoReply, error)
 	mustEmbedUnimplementedTxoCheckerServer()
 }
 
@@ -61,10 +61,10 @@ type TxoCheckerServer interface {
 type UnimplementedTxoCheckerServer struct {
 }
 
-func (UnimplementedTxoCheckerServer) GetTxoInfoByTxHash(context.Context, *GetTxoInfoByTxHashRequest) (*GetTxoInfoByTxHashReply, error) {
+func (UnimplementedTxoCheckerServer) GetTxoInfoByTxHash(context.Context, *GetTxoInfoByTxHashRequest) (*GetTxoInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTxoInfoByTxHash not implemented")
 }
-func (UnimplementedTxoCheckerServer) GetTxoInfoByTxHashAndVout(context.Context, *GetTxoInfoByTxHashAndVoutRequest) (*GetTxoInfoByTxHashReply, error) {
+func (UnimplementedTxoCheckerServer) GetTxoInfoByTxHashAndVout(context.Context, *GetTxoInfoByTxHashAndVoutRequest) (*GetTxoInfoReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTxoInfoByTxHashAndVout not implemented")
 }
 func (UnimplementedTxoCheckerServer) mustEmbedUnimplementedTxoCheckerServer() {}

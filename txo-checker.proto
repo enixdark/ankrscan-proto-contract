@@ -41,8 +41,8 @@ message TxoInfo {
  **/
 
 service TxoChecker {
-  rpc GetTxoInfoByTxHash (GetTxoInfoByTxHashRequest) returns (GetTxoInfoByTxHashReply);
-  rpc GetTxoInfoByTxHashAndVout (GetTxoInfoByTxHashAndVoutRequest) returns (GetTxoInfoByTxHashReply);
+  rpc GetTxoInfoByTxHash (GetTxoInfoByTxHashRequest) returns (GetTxoInfoReply);
+  rpc GetTxoInfoByTxHashAndVout (GetTxoInfoByTxHashAndVoutRequest) returns (GetTxoInfoReply);
 }
 
 message GetTxoInfoByTxHashRequest {
@@ -55,7 +55,7 @@ message GetTxoInfoByTxHashAndVoutRequest {
   repeated TxOut tx_out = 2;
 }
 
-message GetTxoInfoByTxHashReply {
+message GetTxoInfoReply {
   string blockchain_name = 1;
   repeated TxoInfo txos = 2;
 }
