@@ -23,7 +23,7 @@ message TxOut {
 
 message TxoInfo {
   TxOut tx_out = 1;
-  string value = 2;
+  int64 value = 2;
   string spend_tx_hash = 3;
   uint32 vin_n = 4;
   repeated string addresses = 5;
