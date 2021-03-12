@@ -25,7 +25,7 @@ message TxoInfo {
   TxOut tx_out = 1;
   string value = 2;
   string spend_tx_hash = 3;
-  string vin_n = 4;
+  uint32 vin_n = 4;
   repeated string addresses = 5;
   uint64 timestamp = 6;
 }
