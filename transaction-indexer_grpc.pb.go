@@ -23,6 +23,7 @@ type TransactionIndexerClient interface {
 	GetBlockDetails(ctx context.Context, in *GetBlockDetailsRequest, opts ...grpc.CallOption) (*GetBlockDetailsReply, error)
 	GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetTransactionDetailsReply, error)
 	GetLatestBlocks(ctx context.Context, in *GetLatestBlocksRequest, opts ...grpc.CallOption) (*SimpleBlocksReply, error)
+	GetLatestTransactions(ctx context.Context, in *GetLatestTransactionsRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
 }
 
 type transactionIndexerClient struct {
@@ -87,6 +88,15 @@ func (c *transactionIndexerClient) GetLatestBlocks(ctx context.Context, in *GetL
 	return out, nil
 }
 
+func (c *transactionIndexerClient) GetLatestTransactions(ctx context.Context, in *GetLatestTransactionsRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error) {
+	out := new(SimpleTransactionsReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.TransactionIndexer/GetLatestTransactions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionIndexerServer is the server API for TransactionIndexer service.
 // All implementations must embed UnimplementedTransactionIndexerServer
 // for forward compatibility
@@ -97,6 +107,7 @@ type TransactionIndexerServer interface {
 	GetBlockDetails(context.Context, *GetBlockDetailsRequest) (*GetBlockDetailsReply, error)
 	GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetTransactionDetailsReply, error)
 	GetLatestBlocks(context.Context, *GetLatestBlocksRequest) (*SimpleBlocksReply, error)
+	GetLatestTransactions(context.Context, *GetLatestTransactionsRequest) (*SimpleTransactionsReply, error)
 	mustEmbedUnimplementedTransactionIndexerServer()
 }
 
@@ -121,6 +132,9 @@ func (UnimplementedTransactionIndexerServer) GetTransactionDetails(context.Conte
 }
 func (UnimplementedTransactionIndexerServer) GetLatestBlocks(context.Context, *GetLatestBlocksRequest) (*SimpleBlocksReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLatestBlocks not implemented")
+}
+func (UnimplementedTransactionIndexerServer) GetLatestTransactions(context.Context, *GetLatestTransactionsRequest) (*SimpleTransactionsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestTransactions not implemented")
 }
 func (UnimplementedTransactionIndexerServer) mustEmbedUnimplementedTransactionIndexerServer() {}
 
@@ -243,6 +257,24 @@ func _TransactionIndexer_GetLatestBlocks_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionIndexer_GetLatestTransactions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLatestTransactionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionIndexerServer).GetLatestTransactions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.TransactionIndexer/GetLatestTransactions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionIndexerServer).GetLatestTransactions(ctx, req.(*GetLatestTransactionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionIndexer_ServiceDesc is the grpc.ServiceDesc for TransactionIndexer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -273,6 +305,10 @@ var TransactionIndexer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLatestBlocks",
 			Handler:    _TransactionIndexer_GetLatestBlocks_Handler,
+		},
+		{
+			MethodName: "GetLatestTransactions",
+			Handler:    _TransactionIndexer_GetLatestTransactions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
