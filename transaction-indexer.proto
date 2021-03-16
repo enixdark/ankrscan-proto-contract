@@ -24,6 +24,7 @@ message SimpleTransaction {
   string to_address = 5;
   string value = 6;
   uint64 timestamp = 7;
+  bool success = 8;
 }
 
 message SimpleBlock {
@@ -31,6 +32,7 @@ message SimpleBlock {
   uint64 block_height = 2;
   uint64 timestamp = 3;
   uint64 transactions_count = 4;
+  string block_hash = 5;
 }
 
 /**
