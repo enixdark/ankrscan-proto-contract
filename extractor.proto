@@ -164,6 +164,15 @@ message DotBlock {
   DotBlockHeader header = 2;
 }
 
+message TransactionDetails {
+  string blockchain_name = 1;
+  oneof transaction {
+    EthTransaction eth_block = 2;
+    BtcTransaction btc_block = 3;
+    DotTransaction dot_block = 4;
+  }
+}
+
 
 /**
  *  _  __      __ _
@@ -198,6 +207,7 @@ message BlockChanged {
 
 service Extractor {
   rpc GetLatestBalance (GetLatestBalanceRequest) returns (GetLatestBalanceReply);
+  rpc GetTransactionByHash (GetTransactionByHashRequest) returns (GetTransactionByHashReply);
 }
 
 message GetLatestBalanceRequest {
@@ -207,4 +217,13 @@ message GetLatestBalanceRequest {
 
 message GetLatestBalanceReply {
   string value = 1;
+}
+
+message GetTransactionByHashRequest {
+  string blockchain_name = 1;
+  string transaction_hash = 2;
+}
+
+message GetTransactionByHashReply {
+  TransactionDetails details = 1;
 }

@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ExtractorClient interface {
 	GetLatestBalance(ctx context.Context, in *GetLatestBalanceRequest, opts ...grpc.CallOption) (*GetLatestBalanceReply, error)
+	GetTransactionByHash(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error)
 }
 
 type extractorClient struct {
@@ -37,11 +38,21 @@ func (c *extractorClient) GetLatestBalance(ctx context.Context, in *GetLatestBal
 	return out, nil
 }
 
+func (c *extractorClient) GetTransactionByHash(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error) {
+	out := new(GetTransactionByHashReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetTransactionByHash", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExtractorServer is the server API for Extractor service.
 // All implementations must embed UnimplementedExtractorServer
 // for forward compatibility
 type ExtractorServer interface {
 	GetLatestBalance(context.Context, *GetLatestBalanceRequest) (*GetLatestBalanceReply, error)
+	GetTransactionByHash(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error)
 	mustEmbedUnimplementedExtractorServer()
 }
 
@@ -51,6 +62,9 @@ type UnimplementedExtractorServer struct {
 
 func (UnimplementedExtractorServer) GetLatestBalance(context.Context, *GetLatestBalanceRequest) (*GetLatestBalanceReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLatestBalance not implemented")
+}
+func (UnimplementedExtractorServer) GetTransactionByHash(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByHash not implemented")
 }
 func (UnimplementedExtractorServer) mustEmbedUnimplementedExtractorServer() {}
 
@@ -83,6 +97,24 @@ func _Extractor_GetLatestBalance_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Extractor_GetTransactionByHash_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionByHashRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).GetTransactionByHash(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.Extractor/GetTransactionByHash",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).GetTransactionByHash(ctx, req.(*GetTransactionByHashRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Extractor_ServiceDesc is the grpc.ServiceDesc for Extractor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -93,6 +125,10 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLatestBalance",
 			Handler:    _Extractor_GetLatestBalance_Handler,
+		},
+		{
+			MethodName: "GetTransactionByHash",
+			Handler:    _Extractor_GetTransactionByHash_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
