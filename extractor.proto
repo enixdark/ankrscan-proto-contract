@@ -173,16 +173,6 @@ message TransactionDetails {
   }
 }
 
-message BlockDetails {
-  string blockchain_name = 1;
-  oneof transaction {
-    EthTransaction eth_tx = 2;
-    BtcTransaction btc_tx = 3;
-    DotTransaction dot_tx = 4;
-  }
-}
-
-
 
 /**
  *  _  __      __ _
@@ -245,5 +235,5 @@ message GetBlockByHeightRequest {
 }
 
 message GetBlockByHeightReply {
-  BlockDetails details = 1;
+  BlockChanged details = 1;
 }
