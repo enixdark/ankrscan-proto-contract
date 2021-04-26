@@ -5,7 +5,7 @@ package com.clover.extractor;
 option java_package = "com.clover.proto";
 option java_outer_classname = "ExtractorProto";
 import "extractor.proto";
-option go_package = ".;proto";
+option go_package = "./;proto";
 
 /**
  *  _____       _   _ _   _
