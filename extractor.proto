@@ -57,7 +57,7 @@ message EthBlock {
 message EthBlockRaw {
   repeated bytes transactions = 1;
   repeated bytes receipts = 2;
-  repeated bytes header = 3;
+  bytes header = 3;
 }
 
 //  ____ _______ _____
