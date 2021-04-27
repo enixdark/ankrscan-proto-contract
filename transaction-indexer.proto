@@ -16,6 +16,13 @@ option go_package = "./;proto";
  *
  **/
 
+enum SimpleTransactionType {
+  UNKNOWN = 0;
+  BALANCE_TRANSFER = 1;
+  CONTRACT_CALL = 2;
+  CONTRACT_DEPLOY = 3;
+}
+
 message SimpleTransaction {
   string blockchain_name = 1;
   string transaction_hash = 2;
@@ -25,6 +32,9 @@ message SimpleTransaction {
   string value = 6;
   uint64 timestamp = 7;
   bool success = 8;
+  string method = 9;
+  string contract = 10;
+  SimpleTransactionType type = 11;
 }
 
 message SimpleBlock {
