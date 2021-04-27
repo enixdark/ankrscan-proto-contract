@@ -32,9 +32,9 @@ message SimpleTransaction {
   string value = 6;
   uint64 timestamp = 7;
   bool success = 8;
-  string method = 9;
-  string contract = 10;
-  SimpleTransactionType type = 11;
+  string other_address = 9;
+  string other_value = 10;
+  string method = 11;
 }
 
 message SimpleBlock {
