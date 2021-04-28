@@ -31,9 +31,9 @@ message EthTransaction {
   uint32 transaction_index = 13;
   uint64 gas_used = 14;
   uint64 status = 15;
-  // raw data
-  bytes transaction_json = 16;
-  bytes receipt_json = 17;
+  bytes transaction_json = 16; // raw data
+  bytes receipt_json = 17; // raw data
+  bool is_contract_call = 18;
 }
 
 
