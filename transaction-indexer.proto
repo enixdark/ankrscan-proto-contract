@@ -64,6 +64,7 @@ service TransactionIndexer {
   rpc GetTransactionDetails (GetTransactionDetailsRequest) returns (GetTransactionDetailsReply);
   rpc GetLatestBlocks (GetLatestBlocksRequest) returns (SimpleBlocksReply);
   rpc GetLatestTransactions (GetLatestTransactionsRequest) returns (SimpleTransactionsReply);
+  rpc GetMoneyTransfersByAddress (GetTxsByAddressRequest) returns (MoneyTransfersReply);
 }
 
 
@@ -75,6 +76,10 @@ message GetTxsByAddressRequest {
 
 message SimpleTransactionsReply {
   repeated SimpleTransaction txs = 1;
+}
+
+message MoneyTransfersReply {
+  repeated MoneyTransferTransaction txs = 1;
 }
 
 message GetTxsByHeightAndBlockchainRequest {
