@@ -23,13 +23,20 @@ message SimpleTransaction {
   string from_address = 4;
   string to_address = 5;
   string value = 6;
-  int32 value_decimals = 11;
-  int32 value_symbol = 12;
   uint64 timestamp = 7;
   bool success = 8;
   string method = 9;
-  string contract_name = 10;
-  string contract_address = 13;
+}
+
+message MoneyTransferTransaction {
+  string blockchain_name = 1;
+  string transaction_hash = 2;
+  uint64 block_height = 3;
+  string from_address = 4;
+  string to_address = 5;
+  string value = 6;
+  uint64 timestamp = 7;
+  string contract_address = 8;
 }
 
 message SimpleBlock {
