@@ -202,14 +202,15 @@ message BlockChanged {
   }
 }
 
+message NodeConfig {
+  string blockchain_name = 1;
+  string node_url = 2;
+}
+
 /**
  * Topic: v1.blockchainextractor.nodechanged
  */
 message NodeChanged {
-  message NodeConfig {
-    string blockchain_name = 1;
-    string node_url = 2;
-  }
   repeated NodeConfig configs = 3;
 }
 
