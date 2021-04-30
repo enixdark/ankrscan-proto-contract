@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package com.clover.extractor;
+
+option java_package = "com.clover.proto";
+option java_outer_classname = "ExtractorProto";
+
+option go_package = "./;proto";
+
+/**
+ *  _____       _   _ _   _
+ * | ____|_ __ | |_(_) |_(_) ___  ___
+ * |  _| | '_ \| __| | __| |/ _ \/ __|
+ * | |___| | | | |_| | |_| |  __/\__ \
+ * |_____|_| |_|\__|_|\__|_|\___||___/
+ *
+ **/
+
+message Contract {
+  string blockchain_name = 1;
+  string address = 2;
+  string name = 3;
+  int32 decimals = 4;
+  string symbol = 5;
+  ContractStatus status = 6;
+}
+
+enum ContractStatus {
+  UNKNOWN = 0;
+  FOUND = 1;
+  SCANNED = 2;
+  VERIFIED = 3;
+}
+
+/**
+ *        ____  ____   ____
+ *   __ _|  _ \|  _ \ / ___|
+ *  / _` | |_) | |_) | |
+ * | (_| |  _ <|  __/| |___
+ *  \__, |_| \_\_|    \____|
+ *  |___/
+ *
+ **/
+
+service ContractRegistry {
+  rpc GetContract (GetContractRequest) returns (GetContractReply);
+}
+
+message GetContractRequest {
+  string blockchain_name = 1;
+  string address = 2;
+}
+
+message GetContractReply {
+  Contract contract = 1;
+}
