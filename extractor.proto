@@ -210,7 +210,7 @@ message NodeChanged {
     string blockchain_name = 1;
     string node_url = 2;
   }
-  repeated NodeChanged configs = 3;
+  repeated NodeConfig configs = 3;
 }
 
 /**
