@@ -17,12 +17,12 @@ option go_package = "./;proto";
  *
  **/
 
-message Transactions {
+message GatewayTransactions {
   repeated SimpleTransaction txs = 1;
   repeated Contract contracts = 2;
 }
 
-message MoneyTransfers {
+message GatewayMoneyTransfers {
   repeated MoneyTransferTransaction txs = 1;
   repeated Contract contracts = 2;
 }
