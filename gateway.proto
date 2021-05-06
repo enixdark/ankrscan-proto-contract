@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package com.clover.extractor;
+
+option java_package = "com.clover.proto";
+option java_outer_classname = "ExtractorProto";
+import "transaction-indexer.proto";
+import "contract-registry.proto";
+option go_package = "./;proto";
+
+/**
+ *  _____       _   _ _   _
+ * | ____|_ __ | |_(_) |_(_) ___  ___
+ * |  _| | '_ \| __| | __| |/ _ \/ __|
+ * | |___| | | | |_| | |_| |  __/\__ \
+ * |_____|_| |_|\__|_|\__|_|\___||___/
+ *
+ **/
+
+message Transactions {
+  repeated SimpleTransaction txs = 1;
+  repeated Contract contracts = 2;
+}
+
+message MoneyTransfers {
+  repeated MoneyTransferTransaction txs = 1;
+  repeated Contract contracts = 2;
+}
