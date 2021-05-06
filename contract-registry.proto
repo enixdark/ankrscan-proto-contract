@@ -54,3 +54,7 @@ message GetContractRequest {
 message GetContractReply {
   Contract contract = 1;
 }
+
+message GetContractsReply {
+  repeated Contract contracts = 1;
+}
