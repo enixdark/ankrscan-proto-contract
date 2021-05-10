@@ -26,7 +26,7 @@ message Contract {
 }
 
 
-message Balance {
+message TokenBalance {
   Contract contract = 1;
   string value = 2;
   string address = 3;
@@ -68,5 +68,5 @@ message GetBalanceRequest {
 }
 
 message GetBalanceReply {
-  repeated Balance balances = 1;
+  repeated TokenBalance balances = 1;
 }
