@@ -25,6 +25,13 @@ message Contract {
   ContractStatus status = 6;
 }
 
+
+message Balance {
+  Contract contract = 1;
+  string value = 2;
+  string address = 3;
+}
+
 enum ContractStatus {
   UNKNOWN = 0;
   FOUND = 1;
@@ -44,6 +51,7 @@ enum ContractStatus {
 
 service ContractRegistry {
   rpc GetContract (GetContractRequest) returns (GetContractReply);
+  rpc GetBalance (GetBalanceRequest) returns (GetBalanceReply);
 }
 
 message GetContractRequest {
@@ -53,4 +61,12 @@ message GetContractRequest {
 
 message GetContractReply {
   Contract contract = 1;
+}
+
+message GetBalanceRequest {
+  string address = 1;
+}
+
+message GetBalanceReply {
+  repeated Balance balances = 1;
 }

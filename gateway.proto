@@ -17,6 +17,17 @@ option go_package = "./;proto";
  *
  **/
 
+message ExtendedSimpleTransaction {
+  SimpleTransaction tx = 1;
+
+  string from_address_name = 4;
+  string to_address_name = 5;
+  string value_decimals = 6;
+  uint64 timestamp = 7;
+  bool success = 8;
+  string method = 9;
+}
+
 message GatewayTransactions {
   repeated SimpleTransaction txs = 1;
   repeated Contract contracts = 2;

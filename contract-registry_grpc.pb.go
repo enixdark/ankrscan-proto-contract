@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ContractRegistryClient interface {
 	GetContract(ctx context.Context, in *GetContractRequest, opts ...grpc.CallOption) (*GetContractReply, error)
+	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error)
 }
 
 type contractRegistryClient struct {
@@ -37,11 +38,21 @@ func (c *contractRegistryClient) GetContract(ctx context.Context, in *GetContrac
 	return out, nil
 }
 
+func (c *contractRegistryClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error) {
+	out := new(GetBalanceReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetBalance", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ContractRegistryServer is the server API for ContractRegistry service.
 // All implementations must embed UnimplementedContractRegistryServer
 // for forward compatibility
 type ContractRegistryServer interface {
 	GetContract(context.Context, *GetContractRequest) (*GetContractReply, error)
+	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error)
 	mustEmbedUnimplementedContractRegistryServer()
 }
 
@@ -51,6 +62,9 @@ type UnimplementedContractRegistryServer struct {
 
 func (UnimplementedContractRegistryServer) GetContract(context.Context, *GetContractRequest) (*GetContractReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetContract not implemented")
+}
+func (UnimplementedContractRegistryServer) GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
 }
 func (UnimplementedContractRegistryServer) mustEmbedUnimplementedContractRegistryServer() {}
 
@@ -83,6 +97,24 @@ func _ContractRegistry_GetContract_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ContractRegistry_GetBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContractRegistryServer).GetBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.ContractRegistry/GetBalance",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContractRegistryServer).GetBalance(ctx, req.(*GetBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ContractRegistry_ServiceDesc is the grpc.ServiceDesc for ContractRegistry service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -93,6 +125,10 @@ var ContractRegistry_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetContract",
 			Handler:    _ContractRegistry_GetContract_Handler,
+		},
+		{
+			MethodName: "GetBalance",
+			Handler:    _ContractRegistry_GetBalance_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
