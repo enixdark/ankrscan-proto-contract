@@ -27,9 +27,10 @@ message Contract {
 
 
 message TokenBalance {
-  Contract contract = 1;
+  string value_symbol = 1;
   string value = 2;
-  string address = 3;
+  string value_decimals = 3;
+  string contract_address = 4;
 }
 
 enum ContractStatus {
