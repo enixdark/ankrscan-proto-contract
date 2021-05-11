@@ -29,7 +29,7 @@ message Contract {
 message TokenBalance {
   string value_symbol = 1;
   string value = 2;
-  string value_decimals = 3;
+  int32 value_decimals = 3;
   string contract_address = 4;
 }
 
