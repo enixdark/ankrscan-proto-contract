@@ -41,7 +41,8 @@ enum ContractStatus {
 
 enum ContractType {
   TYPE_UNKNOWN = 0;
-  TYPE_ERC20 = 1;
+  TYPE_GENERAL = 1;
+  TYPE_ERC20 = 2;
 }
 
 /**
