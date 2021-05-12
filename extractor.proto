@@ -1,0 +1,258 @@
+syntax = "proto3";
+
+package com.clover.extractor;
+
+option java_package = "com.clover.proto";
+option java_outer_classname = "ExtractorProto";
+
+option go_package = "./;proto";
+
+//  ______ _______ _    _
+// |  ____|__   __| |  | |
+// | |__     | |  | |__| |
+// |  __|    | |  |  __  |
+// | |____   | |  | |  | |
+// |______|  |_|  |_|  |_|
+//
+//
+
+message EthTransaction {
+  string transaction_hash = 1;
+  uint64 block_height = 3;
+  string gas_price = 4;
+  uint64 gas_limit = 5;
+  uint64 nonce = 6;
+  string transaction_fee = 7;
+  string value = 8;
+  string from_address = 9;
+  string to_address = 10;
+  uint64 timestamp = 11;
+  string raw_input_data = 12;
+  uint32 transaction_index = 13;
+  uint64 gas_used = 14;
+  uint64 status = 15;
+  bytes transaction_json = 16; // raw data
+  bytes receipt_json = 17; // raw data
+  bool is_contract_call = 18;
+}
+
+
+message EthBlockHeader {
+  uint64 block_height = 1;
+  uint64 timestamp = 2;
+  string mine_address = 4;
+  uint64 size = 5;
+  uint64 gas_used = 6;
+  string extra_data = 7;
+  string block_hash = 8;
+  string parent_hash = 9;
+  string sha3_uncles = 10;
+  string state_root = 11;
+  uint64 transactions_count = 12;
+}
+
+
+message EthBlock {
+  repeated EthTransaction txs = 1;
+  EthBlockHeader header = 2;
+  // raw data
+  bytes header_json = 6;
+}
+
+//  ____ _______ _____
+// |  _ \__   __/ ____|
+// | |_) | | | | |
+// |  _ <  | | | |
+// | |_) | | | | |____
+// |____/  |_|  \_____|
+//
+
+message BtcBlockHeader {
+  uint64 block_height = 1;
+  uint64 timestamp = 2;
+  string block_hash = 3;
+  string parent_hash = 4;
+  string merkle_root = 5;
+  string bits = 6;
+  uint32 nonce = 7;
+  double difficulty = 9;
+  int32 size = 10;
+  int32 weight = 11;
+  string version = 12;
+  uint64 transactions_count = 13;
+}
+
+message BtcTransaction {
+  message ScriptPubKeyResult {
+    int32 req_sigs = 3;
+    string type = 4;
+    repeated string addresses = 5;
+  }
+
+  message Vin {
+    bool is_coinbase = 1;
+    string txid = 2;
+    uint32 vout = 3;
+    int64 value = 4;
+    repeated string addresses = 5;
+  }
+
+  message Vout {
+    int64 value = 1;
+    uint32 n = 2;
+    ScriptPubKeyResult script_pub_key = 3;
+  }
+
+  string transaction_hash = 1;
+  uint64 block_height = 2;
+  uint64 timestamp = 3;
+  int32 size = 4;
+  int32 weight = 5;
+  repeated Vin vin = 6;
+  repeated Vout vout = 7;
+  string transaction_fee = 8;
+  string value = 9;
+}
+
+message BtcBlock {
+  repeated BtcTransaction txs = 1;
+  BtcBlockHeader header = 2;
+}
+
+//  _____   ____ _______
+// |  __ \ / __ \__   __|
+// | |  | | |  | | | |
+// | |  | | |  | | | |
+// | |__| | |__| | | |
+// |_____/ \____/  |_|
+//
+//
+
+
+message DotEvent {
+  string method = 1;
+  string data_json = 2;
+}
+
+message DotTransaction {
+  string transaction_id = 1;
+  string transaction_hash = 2;
+  uint64 block_height = 3;
+  uint64 timestamp = 4;
+  uint32 transaction_index = 5;
+  string method = 6;
+  string from_address = 7; // transaction signer
+  string to_address = 8; // retrieved from the args of balance.Transfer transaction
+  string partial_fee = 9;
+  string tip_fee = 10;
+  string transaction_fee = 11;
+  uint64 nonce = 12;
+  string args_json = 13;
+  bool success = 14;
+  repeated DotEvent events = 15;
+  string value = 16; // retrieved from the args of balance.Transfer transaction
+}
+
+message DotBlockHeader {
+  uint64 block_height = 1;
+  uint64 timestamp = 2;
+  string author_id = 3;
+  string block_hash = 4;
+  string parent_hash = 5;
+  string state_root = 6;
+  string extrinsic_root = 7;
+  uint64 transactions_count = 8;
+}
+
+message DotBlock {
+  repeated DotTransaction txs = 1;
+  DotBlockHeader header = 2;
+}
+
+message TransactionDetails {
+  string blockchain_name = 1;
+  oneof transaction {
+    EthTransaction eth_tx = 2;
+    BtcTransaction btc_tx = 3;
+    DotTransaction dot_tx = 4;
+  }
+}
+
+/**
+ *  _  __      __ _
+ * | |/ /__ _ / _| | ____ _
+ * | ' // _` | |_| |/ / _` |
+ * | . \ (_| |  _|   < (_| |
+ * |_|\_\__,_|_| |_|\_\__,_|
+ *
+ **/
+
+/**
+ * Topic: v1.blockchainextractor.blockchanged
+ */
+message BlockChanged {
+  string blockchain_name = 1;
+  string block_hash = 5;
+  string parent_hash = 6;
+  uint64 block_height = 7;
+  oneof block {
+    EthBlock eth_block = 2;
+    BtcBlock btc_block = 3;
+    DotBlock dot_block = 4;
+  }
+}
+
+message NodeConfig {
+  string blockchain_name = 1;
+  string node_url = 2;
+}
+
+/**
+ * Topic: v1.blockchainextractor.nodechanged
+ */
+message NodeChanged {
+  repeated NodeConfig configs = 3;
+}
+
+/**
+ *        ____  ____   ____
+ *   __ _|  _ \|  _ \ / ___|
+ *  / _` | |_) | |_) | |
+ * | (_| |  _ <|  __/| |___
+ *  \__, |_| \_\_|    \____|
+ *  |___/
+ *
+ **/
+
+service Extractor {
+  rpc GetLatestBalance (GetLatestBalanceRequest) returns (GetLatestBalanceReply);
+  rpc GetTransactionByHash (GetTransactionByHashRequest) returns (GetTransactionByHashReply);
+  rpc GetBlockByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
+}
+
+message GetLatestBalanceRequest {
+  string blockchain_name = 1;
+  string address = 2;
+}
+
+message GetLatestBalanceReply {
+  string value = 1;
+}
+
+message GetTransactionByHashRequest {
+  string blockchain_name = 1;
+  string transaction_hash = 2;
+}
+
+message GetTransactionByHashReply {
+  TransactionDetails details = 1;
+}
+
+message GetBlockByHeightRequest {
+  string blockchain_name = 1;
+  uint64 block_height = 2;
+}
+
+message GetBlockByHeightReply {
+  BlockChanged details = 1;
+}
