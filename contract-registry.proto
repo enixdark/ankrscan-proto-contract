@@ -23,6 +23,7 @@ message Contract {
   int32 decimals = 4;
   string symbol = 5;
   ContractStatus status = 6;
+  ContractType type = 7;
 }
 
 
@@ -36,6 +37,11 @@ enum ContractStatus {
   FOUND = 1;
   SCANNED = 2;
   VERIFIED = 3;
+}
+
+enum ContractType {
+  TYPE_UNKNOWN = 0;
+  TYPE_ERC20 = 1;
 }
 
 /**
