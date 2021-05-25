@@ -27,6 +27,7 @@ message SimpleTransaction {
   bool success = 8;
   string method = 9;
   string id = 10;
+  TransactionType type = 11;
 }
 
 message MoneyTransferTransaction {
@@ -40,6 +41,13 @@ message MoneyTransferTransaction {
   string contract_address = 8;
   string id = 9;
 }
+
+enum TransactionType {
+  DefaultTransaction = 0;
+  ContractDeploy = 1;
+  ContractCall = 2;
+}
+
 
 message SimpleBlock {
   string blockchain_name = 1;
