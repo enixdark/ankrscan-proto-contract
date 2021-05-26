@@ -76,6 +76,9 @@ service TransactionIndexer {
   rpc GetLatestBlocks (GetLatestBlocksRequest) returns (SimpleBlocksReply);
   rpc GetLatestTransactions (GetLatestTransactionsRequest) returns (SimpleTransactionsReply);
   rpc GetMoneyTransfersByAddress (GetTxsByAddressRequest) returns (MoneyTransfersReply);
+
+  rpc GetMoneyTransfersByAddressAndTime (GetTxsByAddressAndTimeRequest) returns (MoneyTransfersReply);
+  rpc GetTxsByAddressAndTime (GetTxsByAddressAndTimeRequest) returns (SimpleTransactionsReply);
 }
 
 
@@ -83,6 +86,13 @@ message GetTxsByAddressRequest {
   string address = 1;
   uint32 page_index = 2;
   uint32 page_size = 3;
+}
+
+message GetTxsByAddressAndTimeRequest {
+  string address = 1;
+  uint32 limit = 2;
+  uint64 after_timestamp = 3; // get limited amount of transactions by address after timestamp
+  uint64 after_id = 4;
 }
 
 message SimpleTransactionsReply {
