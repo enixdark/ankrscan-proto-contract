@@ -215,6 +215,14 @@ message NodeChanged {
 }
 
 /**
+ * Topic: v1.blockchainextractor.latestchanged
+ */
+message LatestBlockChanged {
+  string blockchain_name = 1;
+  uint64 block_height = 2;
+}
+
+/**
  *        ____  ____   ____
  *   __ _|  _ \|  _ \ / ___|
  *  / _` | |_) | |_) | |
