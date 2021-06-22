@@ -131,7 +131,7 @@ message BtcBlock {
 
 message DotEvent {
   string method = 1;
-  string data_json = 2;
+  repeated string arguments = 2;
 }
 
 message DotTransaction {
