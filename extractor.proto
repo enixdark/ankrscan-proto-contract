@@ -195,6 +195,7 @@ message BlockChanged {
   string block_hash = 5;
   string parent_hash = 6;
   uint64 block_height = 7;
+  uint64 transactions_count = 8;
   oneof block {
     EthBlock eth_block = 2;
     BtcBlock btc_block = 3;
