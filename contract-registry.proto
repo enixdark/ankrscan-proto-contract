@@ -58,6 +58,7 @@ enum ContractType {
 service ContractRegistry {
   rpc GetContract (GetContractRequest) returns (GetContractReply);
   rpc GetBalance (GetBalanceRequest) returns (GetBalanceReply);
+  rpc GetChainInteractions (GetChainInteractionsRequest) returns (GetChainInteractionsReply);
 }
 
 message GetContractRequest {
@@ -75,4 +76,12 @@ message GetBalanceRequest {
 
 message GetBalanceReply {
   repeated TokenBalance balances = 1;
+}
+
+message GetChainInteractionsRequest {
+  string address = 1;
+}
+
+message GetChainInteractionsReply {
+  repeated string chains = 2;
 }

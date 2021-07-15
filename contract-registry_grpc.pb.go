@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 type ContractRegistryClient interface {
 	GetContract(ctx context.Context, in *GetContractRequest, opts ...grpc.CallOption) (*GetContractReply, error)
 	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error)
+	GetChainInteractions(ctx context.Context, in *GetChainInteractionsRequest, opts ...grpc.CallOption) (*GetChainInteractionsReply, error)
 }
 
 type contractRegistryClient struct {
@@ -47,12 +48,22 @@ func (c *contractRegistryClient) GetBalance(ctx context.Context, in *GetBalanceR
 	return out, nil
 }
 
+func (c *contractRegistryClient) GetChainInteractions(ctx context.Context, in *GetChainInteractionsRequest, opts ...grpc.CallOption) (*GetChainInteractionsReply, error) {
+	out := new(GetChainInteractionsReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetChainInteractions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ContractRegistryServer is the server API for ContractRegistry service.
 // All implementations must embed UnimplementedContractRegistryServer
 // for forward compatibility
 type ContractRegistryServer interface {
 	GetContract(context.Context, *GetContractRequest) (*GetContractReply, error)
 	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error)
+	GetChainInteractions(context.Context, *GetChainInteractionsRequest) (*GetChainInteractionsReply, error)
 	mustEmbedUnimplementedContractRegistryServer()
 }
 
@@ -65,6 +76,9 @@ func (UnimplementedContractRegistryServer) GetContract(context.Context, *GetCont
 }
 func (UnimplementedContractRegistryServer) GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
+}
+func (UnimplementedContractRegistryServer) GetChainInteractions(context.Context, *GetChainInteractionsRequest) (*GetChainInteractionsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChainInteractions not implemented")
 }
 func (UnimplementedContractRegistryServer) mustEmbedUnimplementedContractRegistryServer() {}
 
@@ -115,6 +129,24 @@ func _ContractRegistry_GetBalance_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ContractRegistry_GetChainInteractions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetChainInteractionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContractRegistryServer).GetChainInteractions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.ContractRegistry/GetChainInteractions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContractRegistryServer).GetChainInteractions(ctx, req.(*GetChainInteractionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ContractRegistry_ServiceDesc is the grpc.ServiceDesc for ContractRegistry service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -129,6 +161,10 @@ var ContractRegistry_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBalance",
 			Handler:    _ContractRegistry_GetBalance_Handler,
+		},
+		{
+			MethodName: "GetChainInteractions",
+			Handler:    _ContractRegistry_GetChainInteractions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
