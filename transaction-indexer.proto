@@ -69,6 +69,7 @@ message SimpleBlock {
 
 service TransactionIndexer {
   rpc GetTxsByAddress (GetTxsByAddressRequest) returns (SimpleTransactionsReply);
+  rpc GetTxsByHash (GetTxsByHashRequest) returns (SimpleTransactionsReply);
   rpc GetTxsByHeightAndBlockchain (GetTxsByHeightAndBlockchainRequest) returns (SimpleTransactionsReply);
   rpc GetBlocksByHeight (GetBlocksByHeightRequest) returns (SimpleBlocksReply);
   rpc GetBlockDetails (GetBlockDetailsRequest) returns (GetBlockDetailsReply);
@@ -81,6 +82,9 @@ service TransactionIndexer {
   rpc GetTxsByAddressAndTime (GetTxsByAddressAndTimeRequest) returns (SimpleTransactionsReply);
 }
 
+message GetTxsByHashRequest {
+  string hash = 1;
+}
 
 message GetTxsByAddressRequest {
   string address = 1;

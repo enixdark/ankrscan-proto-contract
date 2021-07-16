@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TransactionIndexerClient interface {
 	GetTxsByAddress(ctx context.Context, in *GetTxsByAddressRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
+	GetTxsByHash(ctx context.Context, in *GetTxsByHashRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
 	GetTxsByHeightAndBlockchain(ctx context.Context, in *GetTxsByHeightAndBlockchainRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
 	GetBlocksByHeight(ctx context.Context, in *GetBlocksByHeightRequest, opts ...grpc.CallOption) (*SimpleBlocksReply, error)
 	GetBlockDetails(ctx context.Context, in *GetBlockDetailsRequest, opts ...grpc.CallOption) (*GetBlockDetailsReply, error)
@@ -40,6 +41,15 @@ func NewTransactionIndexerClient(cc grpc.ClientConnInterface) TransactionIndexer
 func (c *transactionIndexerClient) GetTxsByAddress(ctx context.Context, in *GetTxsByAddressRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error) {
 	out := new(SimpleTransactionsReply)
 	err := c.cc.Invoke(ctx, "/com.clover.extractor.TransactionIndexer/GetTxsByAddress", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionIndexerClient) GetTxsByHash(ctx context.Context, in *GetTxsByHashRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error) {
+	out := new(SimpleTransactionsReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.TransactionIndexer/GetTxsByHash", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,6 +142,7 @@ func (c *transactionIndexerClient) GetTxsByAddressAndTime(ctx context.Context, i
 // for forward compatibility
 type TransactionIndexerServer interface {
 	GetTxsByAddress(context.Context, *GetTxsByAddressRequest) (*SimpleTransactionsReply, error)
+	GetTxsByHash(context.Context, *GetTxsByHashRequest) (*SimpleTransactionsReply, error)
 	GetTxsByHeightAndBlockchain(context.Context, *GetTxsByHeightAndBlockchainRequest) (*SimpleTransactionsReply, error)
 	GetBlocksByHeight(context.Context, *GetBlocksByHeightRequest) (*SimpleBlocksReply, error)
 	GetBlockDetails(context.Context, *GetBlockDetailsRequest) (*GetBlockDetailsReply, error)
@@ -150,6 +161,9 @@ type UnimplementedTransactionIndexerServer struct {
 
 func (UnimplementedTransactionIndexerServer) GetTxsByAddress(context.Context, *GetTxsByAddressRequest) (*SimpleTransactionsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTxsByAddress not implemented")
+}
+func (UnimplementedTransactionIndexerServer) GetTxsByHash(context.Context, *GetTxsByHashRequest) (*SimpleTransactionsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTxsByHash not implemented")
 }
 func (UnimplementedTransactionIndexerServer) GetTxsByHeightAndBlockchain(context.Context, *GetTxsByHeightAndBlockchainRequest) (*SimpleTransactionsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTxsByHeightAndBlockchain not implemented")
@@ -205,6 +219,24 @@ func _TransactionIndexer_GetTxsByAddress_Handler(srv interface{}, ctx context.Co
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionIndexerServer).GetTxsByAddress(ctx, req.(*GetTxsByAddressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionIndexer_GetTxsByHash_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTxsByHashRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionIndexerServer).GetTxsByHash(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.TransactionIndexer/GetTxsByHash",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionIndexerServer).GetTxsByHash(ctx, req.(*GetTxsByHashRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -381,6 +413,10 @@ var TransactionIndexer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTxsByAddress",
 			Handler:    _TransactionIndexer_GetTxsByAddress_Handler,
+		},
+		{
+			MethodName: "GetTxsByHash",
+			Handler:    _TransactionIndexer_GetTxsByHash_Handler,
 		},
 		{
 			MethodName: "GetTxsByHeightAndBlockchain",
