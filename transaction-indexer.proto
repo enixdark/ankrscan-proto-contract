@@ -122,32 +122,14 @@ message SimpleBlocksReply {
   repeated SimpleBlock blocks = 1;
 }
 
-message GetBlockDetailsRequest {
-  string blockchain_name = 1;
-  uint64 block_height = 2;
-}
-
-message GetBlockDetailsReply {
-  string blockchain_name = 1;
-  oneof block {
-    EthBlockHeader eth_block = 2;
-    BtcBlockHeader btc_block = 3;
-    DotBlockHeader dot_block = 4;
-  }
-}
-
 message GetTransactionDetailsRequest {
   string blockchain_name = 1;
   string transaction_hash = 2;
 }
 
 message GetTransactionDetailsReply {
-  string blockchain_name = 1;
-  oneof transaction {
-    EthTransaction eth_transaction = 2;
-    BtcTransaction btc_transaction = 3;
-    DotTransaction dot_transaction = 4;
-  }
+    TransactionDetails details = 1;
+    SimpleTransaction simple = 2;
 }
 
 message GetLatestBlocksRequest {
