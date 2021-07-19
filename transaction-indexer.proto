@@ -72,7 +72,6 @@ service TransactionIndexer {
   rpc GetTxsByHash (GetTxsByHashRequest) returns (SimpleTransactionsReply);
   rpc GetTxsByHeightAndBlockchain (GetTxsByHeightAndBlockchainRequest) returns (SimpleTransactionsReply);
   rpc GetBlocksByHeight (GetBlocksByHeightRequest) returns (SimpleBlocksReply);
-  rpc GetBlockDetails (GetBlockDetailsRequest) returns (GetBlockDetailsReply);
   rpc GetTransactionDetails (GetTransactionDetailsRequest) returns (GetTransactionDetailsReply);
   rpc GetLatestBlocks (GetLatestBlocksRequest) returns (SimpleBlocksReply);
   rpc GetLatestTransactions (GetLatestTransactionsRequest) returns (SimpleTransactionsReply);
