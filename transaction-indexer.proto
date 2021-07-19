@@ -72,6 +72,7 @@ service TransactionIndexer {
   rpc GetTxsByHash (GetTxsByHashRequest) returns (SimpleTransactionsReply);
   rpc GetTxsByHeightAndBlockchain (GetTxsByHeightAndBlockchainRequest) returns (SimpleTransactionsReply);
   rpc GetBlocksByHeight (GetBlocksByHeightRequest) returns (SimpleBlocksReply);
+  rpc GetBlockDetails (GetBlockDetailsRequest) returns (GetBlockDetailsReply);
   rpc GetTransactionDetails (GetTransactionDetailsRequest) returns (GetTransactionDetailsReply);
   rpc GetLatestBlocks (GetLatestBlocksRequest) returns (SimpleBlocksReply);
   rpc GetLatestTransactions (GetLatestTransactionsRequest) returns (SimpleTransactionsReply);
@@ -119,6 +120,20 @@ message GetBlocksByHeightRequest {
 
 message SimpleBlocksReply {
   repeated SimpleBlock blocks = 1;
+}
+
+message GetBlockDetailsRequest {
+  string blockchain_name = 1;
+  uint64 block_height = 2;
+}
+
+message GetBlockDetailsReply {
+  string blockchain_name = 1;
+  oneof block {
+    EthBlockHeader eth_block = 2;
+    BtcBlockHeader btc_block = 3;
+    DotBlockHeader dot_block = 4;
+  }
 }
 
 message GetTransactionDetailsRequest {

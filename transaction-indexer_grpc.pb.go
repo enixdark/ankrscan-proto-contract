@@ -21,6 +21,7 @@ type TransactionIndexerClient interface {
 	GetTxsByHash(ctx context.Context, in *GetTxsByHashRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
 	GetTxsByHeightAndBlockchain(ctx context.Context, in *GetTxsByHeightAndBlockchainRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
 	GetBlocksByHeight(ctx context.Context, in *GetBlocksByHeightRequest, opts ...grpc.CallOption) (*SimpleBlocksReply, error)
+	GetBlockDetails(ctx context.Context, in *GetBlockDetailsRequest, opts ...grpc.CallOption) (*GetBlockDetailsReply, error)
 	GetTransactionDetails(ctx context.Context, in *GetTransactionDetailsRequest, opts ...grpc.CallOption) (*GetTransactionDetailsReply, error)
 	GetLatestBlocks(ctx context.Context, in *GetLatestBlocksRequest, opts ...grpc.CallOption) (*SimpleBlocksReply, error)
 	GetLatestTransactions(ctx context.Context, in *GetLatestTransactionsRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
@@ -67,6 +68,15 @@ func (c *transactionIndexerClient) GetTxsByHeightAndBlockchain(ctx context.Conte
 func (c *transactionIndexerClient) GetBlocksByHeight(ctx context.Context, in *GetBlocksByHeightRequest, opts ...grpc.CallOption) (*SimpleBlocksReply, error) {
 	out := new(SimpleBlocksReply)
 	err := c.cc.Invoke(ctx, "/com.clover.extractor.TransactionIndexer/GetBlocksByHeight", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *transactionIndexerClient) GetBlockDetails(ctx context.Context, in *GetBlockDetailsRequest, opts ...grpc.CallOption) (*GetBlockDetailsReply, error) {
+	out := new(GetBlockDetailsReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.TransactionIndexer/GetBlockDetails", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -135,6 +145,7 @@ type TransactionIndexerServer interface {
 	GetTxsByHash(context.Context, *GetTxsByHashRequest) (*SimpleTransactionsReply, error)
 	GetTxsByHeightAndBlockchain(context.Context, *GetTxsByHeightAndBlockchainRequest) (*SimpleTransactionsReply, error)
 	GetBlocksByHeight(context.Context, *GetBlocksByHeightRequest) (*SimpleBlocksReply, error)
+	GetBlockDetails(context.Context, *GetBlockDetailsRequest) (*GetBlockDetailsReply, error)
 	GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetTransactionDetailsReply, error)
 	GetLatestBlocks(context.Context, *GetLatestBlocksRequest) (*SimpleBlocksReply, error)
 	GetLatestTransactions(context.Context, *GetLatestTransactionsRequest) (*SimpleTransactionsReply, error)
@@ -159,6 +170,9 @@ func (UnimplementedTransactionIndexerServer) GetTxsByHeightAndBlockchain(context
 }
 func (UnimplementedTransactionIndexerServer) GetBlocksByHeight(context.Context, *GetBlocksByHeightRequest) (*SimpleBlocksReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlocksByHeight not implemented")
+}
+func (UnimplementedTransactionIndexerServer) GetBlockDetails(context.Context, *GetBlockDetailsRequest) (*GetBlockDetailsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBlockDetails not implemented")
 }
 func (UnimplementedTransactionIndexerServer) GetTransactionDetails(context.Context, *GetTransactionDetailsRequest) (*GetTransactionDetailsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionDetails not implemented")
@@ -259,6 +273,24 @@ func _TransactionIndexer_GetBlocksByHeight_Handler(srv interface{}, ctx context.
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TransactionIndexerServer).GetBlocksByHeight(ctx, req.(*GetBlocksByHeightRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TransactionIndexer_GetBlockDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBlockDetailsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionIndexerServer).GetBlockDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.TransactionIndexer/GetBlockDetails",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionIndexerServer).GetBlockDetails(ctx, req.(*GetBlockDetailsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -393,6 +425,10 @@ var TransactionIndexer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBlocksByHeight",
 			Handler:    _TransactionIndexer_GetBlocksByHeight_Handler,
+		},
+		{
+			MethodName: "GetBlockDetails",
+			Handler:    _TransactionIndexer_GetBlockDetails_Handler,
 		},
 		{
 			MethodName: "GetTransactionDetails",
