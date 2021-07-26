@@ -24,6 +24,8 @@ message Contract {
   string symbol = 5;
   ContractStatus status = 6;
   ContractType type = 7;
+  string logo = 8;
+  float usd_price = 9;
 }
 
 
