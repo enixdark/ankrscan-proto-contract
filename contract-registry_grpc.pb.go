@@ -18,6 +18,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ContractRegistryClient interface {
 	GetContract(ctx context.Context, in *GetContractRequest, opts ...grpc.CallOption) (*GetContractReply, error)
+	GetCmcAssetBySymbol(ctx context.Context, in *GetCmcAssetBySymbolRequest, opts ...grpc.CallOption) (*GetCmcAssetReply, error)
 	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error)
 	GetChainInteractions(ctx context.Context, in *GetChainInteractionsRequest, opts ...grpc.CallOption) (*GetChainInteractionsReply, error)
 }
@@ -33,6 +34,15 @@ func NewContractRegistryClient(cc grpc.ClientConnInterface) ContractRegistryClie
 func (c *contractRegistryClient) GetContract(ctx context.Context, in *GetContractRequest, opts ...grpc.CallOption) (*GetContractReply, error) {
 	out := new(GetContractReply)
 	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetContract", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *contractRegistryClient) GetCmcAssetBySymbol(ctx context.Context, in *GetCmcAssetBySymbolRequest, opts ...grpc.CallOption) (*GetCmcAssetReply, error) {
+	out := new(GetCmcAssetReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetCmcAssetBySymbol", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,6 +72,7 @@ func (c *contractRegistryClient) GetChainInteractions(ctx context.Context, in *G
 // for forward compatibility
 type ContractRegistryServer interface {
 	GetContract(context.Context, *GetContractRequest) (*GetContractReply, error)
+	GetCmcAssetBySymbol(context.Context, *GetCmcAssetBySymbolRequest) (*GetCmcAssetReply, error)
 	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error)
 	GetChainInteractions(context.Context, *GetChainInteractionsRequest) (*GetChainInteractionsReply, error)
 	mustEmbedUnimplementedContractRegistryServer()
@@ -73,6 +84,9 @@ type UnimplementedContractRegistryServer struct {
 
 func (UnimplementedContractRegistryServer) GetContract(context.Context, *GetContractRequest) (*GetContractReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetContract not implemented")
+}
+func (UnimplementedContractRegistryServer) GetCmcAssetBySymbol(context.Context, *GetCmcAssetBySymbolRequest) (*GetCmcAssetReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCmcAssetBySymbol not implemented")
 }
 func (UnimplementedContractRegistryServer) GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
@@ -107,6 +121,24 @@ func _ContractRegistry_GetContract_Handler(srv interface{}, ctx context.Context,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ContractRegistryServer).GetContract(ctx, req.(*GetContractRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ContractRegistry_GetCmcAssetBySymbol_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCmcAssetBySymbolRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContractRegistryServer).GetCmcAssetBySymbol(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.ContractRegistry/GetCmcAssetBySymbol",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContractRegistryServer).GetCmcAssetBySymbol(ctx, req.(*GetCmcAssetBySymbolRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -157,6 +189,10 @@ var ContractRegistry_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetContract",
 			Handler:    _ContractRegistry_GetContract_Handler,
+		},
+		{
+			MethodName: "GetCmcAssetBySymbol",
+			Handler:    _ContractRegistry_GetCmcAssetBySymbol_Handler,
 		},
 		{
 			MethodName: "GetBalance",
