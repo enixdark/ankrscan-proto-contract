@@ -25,13 +25,13 @@ message Contract {
   ContractStatus status = 6;
   ContractType type = 7;
   string logo = 8;
-  float usd_price = 9;
+  double usd_price = 9;
 }
 
 message CmcAsset {
   string symbol = 1;
   string logo = 2;
-  float usd_price = 3;
+  double usd_price = 3;
 }
 
 
