@@ -55,6 +55,7 @@ message EthBlockHeader {
 message EthBlock {
   repeated EthTransaction txs = 1;
   EthBlockHeader header = 2;
+  bool no_receipts = 3;
   // raw data
   bytes header_json = 6;
 }
