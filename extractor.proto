@@ -238,6 +238,7 @@ service Extractor {
   rpc GetLatestBalance (GetLatestBalanceRequest) returns (GetLatestBalanceReply);
   rpc GetTransactionByHash (GetTransactionByHashRequest) returns (GetTransactionByHashReply);
   rpc GetBlockByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
+  rpc GetBlockHeaderByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
 }
 
 message GetLatestBalanceRequest {

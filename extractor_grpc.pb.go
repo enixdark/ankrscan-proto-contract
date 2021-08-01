@@ -20,6 +20,7 @@ type ExtractorClient interface {
 	GetLatestBalance(ctx context.Context, in *GetLatestBalanceRequest, opts ...grpc.CallOption) (*GetLatestBalanceReply, error)
 	GetTransactionByHash(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error)
 	GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
+	GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
 }
 
 type extractorClient struct {
@@ -57,6 +58,15 @@ func (c *extractorClient) GetBlockByHeight(ctx context.Context, in *GetBlockByHe
 	return out, nil
 }
 
+func (c *extractorClient) GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error) {
+	out := new(GetBlockByHeightReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetBlockHeaderByHeight", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExtractorServer is the server API for Extractor service.
 // All implementations must embed UnimplementedExtractorServer
 // for forward compatibility
@@ -64,6 +74,7 @@ type ExtractorServer interface {
 	GetLatestBalance(context.Context, *GetLatestBalanceRequest) (*GetLatestBalanceReply, error)
 	GetTransactionByHash(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error)
 	GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
+	GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
 	mustEmbedUnimplementedExtractorServer()
 }
 
@@ -79,6 +90,9 @@ func (UnimplementedExtractorServer) GetTransactionByHash(context.Context, *GetTr
 }
 func (UnimplementedExtractorServer) GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockByHeight not implemented")
+}
+func (UnimplementedExtractorServer) GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBlockHeaderByHeight not implemented")
 }
 func (UnimplementedExtractorServer) mustEmbedUnimplementedExtractorServer() {}
 
@@ -147,6 +161,24 @@ func _Extractor_GetBlockByHeight_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Extractor_GetBlockHeaderByHeight_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBlockByHeightRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).GetBlockHeaderByHeight(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.Extractor/GetBlockHeaderByHeight",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).GetBlockHeaderByHeight(ctx, req.(*GetBlockByHeightRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Extractor_ServiceDesc is the grpc.ServiceDesc for Extractor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -165,6 +197,10 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBlockByHeight",
 			Handler:    _Extractor_GetBlockByHeight_Handler,
+		},
+		{
+			MethodName: "GetBlockHeaderByHeight",
+			Handler:    _Extractor_GetBlockHeaderByHeight_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
