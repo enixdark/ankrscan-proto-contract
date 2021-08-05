@@ -144,6 +144,7 @@ message GetTransactionDetailsRequest {
 message GetTransactionDetailsReply {
     TransactionDetails details = 1;
     SimpleTransaction simple = 2;
+    repeated MoneyTransferTransaction money_transfers = 3;
 }
 
 message GetLatestBlocksRequest {
