@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 type ExtractorClient interface {
 	GetLatestBalance(ctx context.Context, in *GetLatestBalanceRequest, opts ...grpc.CallOption) (*GetLatestBalanceReply, error)
 	GetTransactionByHash(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error)
+	GetTransactionByHashFast(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error)
 	GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
 	GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
 }
@@ -49,6 +50,15 @@ func (c *extractorClient) GetTransactionByHash(ctx context.Context, in *GetTrans
 	return out, nil
 }
 
+func (c *extractorClient) GetTransactionByHashFast(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error) {
+	out := new(GetTransactionByHashReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetTransactionByHashFast", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *extractorClient) GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error) {
 	out := new(GetBlockByHeightReply)
 	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetBlockByHeight", in, out, opts...)
@@ -73,6 +83,7 @@ func (c *extractorClient) GetBlockHeaderByHeight(ctx context.Context, in *GetBlo
 type ExtractorServer interface {
 	GetLatestBalance(context.Context, *GetLatestBalanceRequest) (*GetLatestBalanceReply, error)
 	GetTransactionByHash(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error)
+	GetTransactionByHashFast(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error)
 	GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
 	GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
 	mustEmbedUnimplementedExtractorServer()
@@ -87,6 +98,9 @@ func (UnimplementedExtractorServer) GetLatestBalance(context.Context, *GetLatest
 }
 func (UnimplementedExtractorServer) GetTransactionByHash(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByHash not implemented")
+}
+func (UnimplementedExtractorServer) GetTransactionByHashFast(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByHashFast not implemented")
 }
 func (UnimplementedExtractorServer) GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockByHeight not implemented")
@@ -143,6 +157,24 @@ func _Extractor_GetTransactionByHash_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Extractor_GetTransactionByHashFast_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTransactionByHashRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).GetTransactionByHashFast(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.Extractor/GetTransactionByHashFast",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).GetTransactionByHashFast(ctx, req.(*GetTransactionByHashRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Extractor_GetBlockByHeight_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetBlockByHeightRequest)
 	if err := dec(in); err != nil {
@@ -193,6 +225,10 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTransactionByHash",
 			Handler:    _Extractor_GetTransactionByHash_Handler,
+		},
+		{
+			MethodName: "GetTransactionByHashFast",
+			Handler:    _Extractor_GetTransactionByHashFast_Handler,
 		},
 		{
 			MethodName: "GetBlockByHeight",
