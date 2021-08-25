@@ -48,6 +48,12 @@ enum TransactionType {
   ContractCall = 2;
 }
 
+enum TransactionStorageType {
+  NativeTransactionStorage = 0;
+  MoneyTransferStorage = 1; // filtered out zero and failed native transactions and include ERC-20
+  NftTransferStorage = 2; // include ERC-1155, ERC-721
+}
+
 
 message SimpleBlock {
   string blockchain_name = 1;
@@ -93,10 +99,15 @@ message GetTxsByAddressRequest {
 }
 
 message GetTxsByAddressAndTimeRequest {
-  string address = 1;
+  string address = 1; // for backward compatibility
   uint32 limit = 2;
   uint64 after_timestamp = 3; // get limited amount of transactions by address after timestamp
   string after_id = 4;
+
+  // new api
+  repeated string addresses = 5;
+  repeated string blockchains = 6;
+  repeated TransactionStorageType storage_types = 7;
 }
 
 message SimpleTransactionsReply {
@@ -142,9 +153,9 @@ message GetTransactionDetailsRequest {
 }
 
 message GetTransactionDetailsReply {
-    TransactionDetails details = 1;
-    SimpleTransaction simple = 2;
-    repeated MoneyTransferTransaction money_transfers = 3;
+  TransactionDetails details = 1;
+  SimpleTransaction simple = 2;
+  repeated MoneyTransferTransaction money_transfers = 3;
 }
 
 message GetLatestBlocksRequest {
