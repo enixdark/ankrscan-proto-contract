@@ -40,6 +40,8 @@ message MoneyTransferTransaction {
   uint64 timestamp = 7;
   string contract_address = 8;
   string id = 9;
+  string method = 10;
+  string token_id = 11;
 }
 
 enum TransactionType {
