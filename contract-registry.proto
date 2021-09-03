@@ -51,6 +51,8 @@ enum ContractType {
   TYPE_UNKNOWN = 0;
   TYPE_GENERAL = 1;
   TYPE_ERC20 = 2;
+  TYPE_ERC721 = 3;
+  TYPE_ERC1155 = 4;
 }
 
 /**
