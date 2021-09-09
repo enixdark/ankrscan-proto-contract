@@ -57,11 +57,11 @@ enum TransactionStorageType {
 }
 
 enum TransferType {
-  TYPE_UNKNOWN = 0;
-  TYPE_NATIVE = 1;
-  TYPE_ERC20 = 2;
-  TYPE_ERC721 = 3;
-  TYPE_ERC1155 = 4;
+  TRANSFER_TYPE_UNKNOWN = 0;
+  TRANSFER_TYPE_NATIVE = 1;
+  TRANSFER_TYPE_ERC20 = 2;
+  TRANSFER_TYPE_ERC721 = 3;
+  TRANSFER_TYPE_ERC1155 = 4;
 }
 
 message SimpleBlock {
