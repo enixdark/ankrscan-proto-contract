@@ -42,6 +42,7 @@ message MoneyTransferTransaction {
   string id = 9;
   string method = 10;
   string token_id = 11;
+  TransferType transfer_type = 12;
 }
 
 enum TransactionType {
