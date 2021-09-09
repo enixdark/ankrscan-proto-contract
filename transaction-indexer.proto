@@ -56,6 +56,13 @@ enum TransactionStorageType {
   NftTransferStorage = 2; // include ERC-1155, ERC-721
 }
 
+enum TransferType {
+  TYPE_UNKNOWN = 0;
+  TYPE_NATIVE = 1;
+  TYPE_ERC20 = 2;
+  TYPE_ERC721 = 3;
+  TYPE_ERC1155 = 4;
+}
 
 message SimpleBlock {
   string blockchain_name = 1;
