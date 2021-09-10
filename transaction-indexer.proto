@@ -96,6 +96,16 @@ service TransactionIndexer {
 
   rpc GetMoneyTransfersByAddressAndTime (GetTxsByAddressAndTimeRequest) returns (MoneyTransfersReply);
   rpc GetTxsByAddressAndTime (GetTxsByAddressAndTimeRequest) returns (SimpleTransactionsReply);
+
+  rpc GetChainInteractions (GetChainInteractionsTIRequest) returns (GetChainInteractionsTIReply);
+}
+
+message GetChainInteractionsTIRequest {
+  string address = 1;
+}
+
+message GetChainInteractionsTIReply {
+  repeated string chains = 2;
 }
 
 message GetTxsByHashRequest {

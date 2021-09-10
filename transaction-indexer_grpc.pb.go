@@ -28,6 +28,7 @@ type TransactionIndexerClient interface {
 	GetMoneyTransfersByAddress(ctx context.Context, in *GetTxsByAddressRequest, opts ...grpc.CallOption) (*MoneyTransfersReply, error)
 	GetMoneyTransfersByAddressAndTime(ctx context.Context, in *GetTxsByAddressAndTimeRequest, opts ...grpc.CallOption) (*MoneyTransfersReply, error)
 	GetTxsByAddressAndTime(ctx context.Context, in *GetTxsByAddressAndTimeRequest, opts ...grpc.CallOption) (*SimpleTransactionsReply, error)
+	GetChainInteractions(ctx context.Context, in *GetChainInteractionsTIRequest, opts ...grpc.CallOption) (*GetChainInteractionsTIReply, error)
 }
 
 type transactionIndexerClient struct {
@@ -137,6 +138,15 @@ func (c *transactionIndexerClient) GetTxsByAddressAndTime(ctx context.Context, i
 	return out, nil
 }
 
+func (c *transactionIndexerClient) GetChainInteractions(ctx context.Context, in *GetChainInteractionsTIRequest, opts ...grpc.CallOption) (*GetChainInteractionsTIReply, error) {
+	out := new(GetChainInteractionsTIReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.TransactionIndexer/GetChainInteractions", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TransactionIndexerServer is the server API for TransactionIndexer service.
 // All implementations must embed UnimplementedTransactionIndexerServer
 // for forward compatibility
@@ -152,6 +162,7 @@ type TransactionIndexerServer interface {
 	GetMoneyTransfersByAddress(context.Context, *GetTxsByAddressRequest) (*MoneyTransfersReply, error)
 	GetMoneyTransfersByAddressAndTime(context.Context, *GetTxsByAddressAndTimeRequest) (*MoneyTransfersReply, error)
 	GetTxsByAddressAndTime(context.Context, *GetTxsByAddressAndTimeRequest) (*SimpleTransactionsReply, error)
+	GetChainInteractions(context.Context, *GetChainInteractionsTIRequest) (*GetChainInteractionsTIReply, error)
 	mustEmbedUnimplementedTransactionIndexerServer()
 }
 
@@ -191,6 +202,9 @@ func (UnimplementedTransactionIndexerServer) GetMoneyTransfersByAddressAndTime(c
 }
 func (UnimplementedTransactionIndexerServer) GetTxsByAddressAndTime(context.Context, *GetTxsByAddressAndTimeRequest) (*SimpleTransactionsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTxsByAddressAndTime not implemented")
+}
+func (UnimplementedTransactionIndexerServer) GetChainInteractions(context.Context, *GetChainInteractionsTIRequest) (*GetChainInteractionsTIReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetChainInteractions not implemented")
 }
 func (UnimplementedTransactionIndexerServer) mustEmbedUnimplementedTransactionIndexerServer() {}
 
@@ -403,6 +417,24 @@ func _TransactionIndexer_GetTxsByAddressAndTime_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TransactionIndexer_GetChainInteractions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetChainInteractionsTIRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TransactionIndexerServer).GetChainInteractions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.TransactionIndexer/GetChainInteractions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TransactionIndexerServer).GetChainInteractions(ctx, req.(*GetChainInteractionsTIRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TransactionIndexer_ServiceDesc is the grpc.ServiceDesc for TransactionIndexer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -453,6 +485,10 @@ var TransactionIndexer_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTxsByAddressAndTime",
 			Handler:    _TransactionIndexer_GetTxsByAddressAndTime_Handler,
+		},
+		{
+			MethodName: "GetChainInteractions",
+			Handler:    _TransactionIndexer_GetChainInteractions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
