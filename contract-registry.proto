@@ -26,12 +26,14 @@ message Contract {
   ContractType type = 7;
   string logo = 8;
   double usd_price = 9;
+  double market_cap = 10;
 }
 
 message CmcAsset {
   string symbol = 1;
   string logo = 2;
   double usd_price = 3;
+  double market_cap = 4;
 }
 
 
