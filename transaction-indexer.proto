@@ -63,6 +63,8 @@ enum TransferType {
   TRANSFER_TYPE_ERC20 = 2;
   TRANSFER_TYPE_ERC721 = 3;
   TRANSFER_TYPE_ERC1155 = 4;
+  TRANSFER_TYPE_ERC20_WRAP = 5; // deposit event to WETH (Wrapped Ether)
+  TRANSFER_TYPE_ERC20_UNWRAP = 6; // withdrawal event from WETH (Wrapped Ether)
 }
 
 message SimpleBlock {
