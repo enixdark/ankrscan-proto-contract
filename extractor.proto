@@ -26,10 +26,10 @@ message EthLog {
 
 message EthTransactionCompact {
   // eth_getTransactionByHash
-  bytes hash = 1;
+  bytes transaction_hash = 1;
   uint64 nonce = 2;
   bytes block_hash = 3;
-  uint64 block_number = 4;
+  uint64 block_height = 4;
   uint64 transaction_index = 5;
   bytes from = 6;
   bytes to = 7;
@@ -46,8 +46,8 @@ message EthTransactionCompact {
 }
 
 message EthBlockCompact {
-  uint64 number = 1;
-  bytes hash = 2;
+  uint64 block_height = 1;
+  bytes block_hash = 2;
   bytes parent_hash = 3;
   bytes nonce = 4;
   bytes sha3_uncles = 5;
