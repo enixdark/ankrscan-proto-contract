@@ -16,6 +16,55 @@ option go_package = "./;proto";
 //
 //
 
+message EthLog {
+  bytes address = 1;
+  repeated bytes topics = 2;
+  bytes data = 3;
+  int64 log_index = 4;
+  bool removed = 5;
+}
+
+message EthTransactionCompact {
+  // eth_getTransactionByHash
+  bytes hash = 1;
+  int64 nonce = 2;
+  bytes block_hash = 3;
+  int64 block_number = 4;
+  int64 transaction_index = 5;
+  bytes from = 6;
+  bytes to = 7;
+  bytes value = 8;
+  int64 gas = 9;
+  bytes gas_price = 10;
+  bytes input = 11;
+  // eth_getTransactionReceipt
+  bytes contract_address = 12;
+  int64 cumulative_gas_used = 13;
+  int64 gas_used = 14;
+  int64 status = 15;
+  repeated EthLog logs = 16;
+}
+
+message EthBlockCompact {
+  int64 number = 1;
+  bytes hash = 2;
+  bytes parent_hash = 3;
+  bytes nonce = 4;
+  bytes sha3_uncles = 5;
+  bytes transactions_root = 6;
+  bytes state_root = 7;
+  bytes miner = 8;
+  bytes difficulty = 9;
+  bytes total_difficulty = 10;
+  bytes extra_data = 11;
+  int64 size = 12;
+  int64 gas_limit = 13;
+  int64 gas_used = 14;
+  int64 timestamp = 15;
+  repeated bytes uncles = 16;
+  repeated EthTransactionCompact transactions = 17;
+}
+
 message EthTransaction {
   string transaction_hash = 1;
   uint64 block_height = 3;
@@ -176,6 +225,7 @@ message TransactionDetails {
     EthTransaction eth_tx = 2;
     BtcTransaction btc_tx = 3;
     DotTransaction dot_tx = 4;
+    EthTransactionCompact eth_tx_compact = 5; // EthTransaction is too large
   }
 }
 
@@ -201,6 +251,7 @@ message BlockChanged {
     EthBlock eth_block = 2;
     BtcBlock btc_block = 3;
     DotBlock dot_block = 4;
+    EthBlockCompact eth_block_compact = 9;
   }
 }
 

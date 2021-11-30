@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package com.ankrscan.blockchainsettings;
+
+option java_package = "com.clover.proto";
+option java_outer_classname = "BlockchainSettingsProto";
+
+option go_package = "./;proto";
+
+/**
+ *  _____       _   _ _   _
+ * | ____|_ __ | |_(_) |_(_) ___  ___
+ * |  _| | '_ \| __| | __| |/ _ \/ __|
+ * | |___| | | | |_| | |_| |  __/\__ \
+ * |_____|_| |_|\__|_|\__|_|\___||___/
+ *
+ **/
+enum ChainType {
+  CHAIN_TYPE_ETHEREUM = 0;
+  CHAIN_TYPE_POLKADOT = 1;
+}
+
+message BlockchainSettings {
+  string blockchain_name = 1;
+  string verbose_name = 2;
+  string kafka_blocks_topic = 3;
+  ChainType chain_type = 4;
+  string node_url = 5;
+  string symbol = 6;
+  int64 decimals = 7;
+}
+
+/**
+ *  _  __      __ _
+ * | |/ /__ _ / _| | ____ _
+ * | ' // _` | |_| |/ / _` |
+ * | . \ (_| |  _|   < (_| |
+ * |_|\_\__,_|_| |_|\_\__,_|
+ *
+ **/
+
+/**
+ * Topic: v1.blockchainsettings.settingschanged
+ */
+message SettingsChanged {
+  repeated BlockchainSettings settings = 1;
+}
