@@ -25,6 +25,7 @@ message EthLog {
 }
 
 message EthTransactionCompact {
+  string blockchain_name = 17;
   // eth_getTransactionByHash
   bytes transaction_hash = 1;
   uint64 nonce = 2;
@@ -45,7 +46,8 @@ message EthTransactionCompact {
   repeated EthLog logs = 16;
 }
 
-message EthBlockCompact {
+message EthBlockHeaderCompact {
+  string blockchain_name = 17;
   uint64 block_height = 1;
   bytes block_hash = 2;
   bytes parent_hash = 3;
@@ -62,7 +64,11 @@ message EthBlockCompact {
   uint64 gas_used = 14;
   uint64 timestamp = 15;
   repeated bytes uncles = 16;
-  repeated EthTransactionCompact transactions = 17;
+}
+
+message EthBlockCompact {
+  EthBlockHeaderCompact header = 1;
+  repeated EthTransactionCompact transactions = 2;
 }
 
 message EthTransaction {
