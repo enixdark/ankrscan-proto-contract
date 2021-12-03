@@ -20,7 +20,7 @@ message EthLog {
   bytes address = 1;
   repeated bytes topics = 2;
   bytes data = 3;
-  uint64 log_index = 4;
+  uint32 log_index = 4;
   bool removed = 5;
 }
 
@@ -31,7 +31,7 @@ message EthTransactionCompact {
   uint64 nonce = 2;
   bytes block_hash = 3;
   uint64 block_height = 4;
-  uint64 transaction_index = 5;
+  uint32 transaction_index = 5;
   bytes from = 6;
   bytes to = 7;
   bytes value = 8;
@@ -44,9 +44,10 @@ message EthTransactionCompact {
   uint64 gas_used = 14;
   uint64 status = 15;
   repeated EthLog logs = 16;
+  uint32 logs_count = 18;
 }
 
-message EthBlockHeaderCompact {
+message EthBlockCompact {
   string blockchain_name = 17;
   uint64 block_height = 1;
   bytes block_hash = 2;
@@ -64,11 +65,8 @@ message EthBlockHeaderCompact {
   uint64 gas_used = 14;
   uint64 timestamp = 15;
   repeated bytes uncles = 16;
-}
-
-message EthBlockCompact {
-  EthBlockHeaderCompact header = 1;
-  repeated EthTransactionCompact transactions = 2;
+  repeated EthTransactionCompact transactions = 18;
+  uint32 transactions_count = 19;
 }
 
 message EthTransaction {
