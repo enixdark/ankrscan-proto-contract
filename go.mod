@@ -1,4 +1,4 @@
-module github.com/clover-network/cloverscan-proto-contract
+module github.com/Ankr-network/ankrscan-proto-contract
 
 go 1.15
 
