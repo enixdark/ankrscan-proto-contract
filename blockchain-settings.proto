@@ -16,18 +16,21 @@ option go_package = "./;proto";
  *
  **/
 enum ChainType {
-  CHAIN_TYPE_ETHEREUM = 0;
-  CHAIN_TYPE_POLKADOT = 1;
+  CHAIN_TYPE_UNKNOWN = 0;
+  CHAIN_TYPE_ETHEREUM = 1;
+  CHAIN_TYPE_POLKADOT = 2;
+}
+
+message BlockchainConstants {
+  string blockchain_name = 1;
+  string verbose_name = 2;
+  ChainType chain_type = 4;
+  string symbol = 6;
+  int64 decimals = 7;
 }
 
 message BlockchainSettings {
-  string blockchain_name = 1;
-  string verbose_name = 2;
-  string kafka_blocks_topic = 3;
-  ChainType chain_type = 4;
-  string node_url = 5;
-  string symbol = 6;
-  int64 decimals = 7;
+  BlockchainConstants constants = 1;
 }
 
 /**
