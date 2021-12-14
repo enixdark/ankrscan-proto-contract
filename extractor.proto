@@ -24,36 +24,24 @@ message EthLog {
   bool removed = 5;
 }
 
-message EthTransactionCompact {
+message EthTransaction {
   // eth_getTransactionByHash
-  bytes transaction_hash = 1;
-  uint64 nonce = 2;
-  bytes block_hash = 3;
-  uint64 block_height = 4;
-  uint32 transaction_index = 5;
-  bytes from = 6;
-  bytes to = 7;
-  bytes value = 8;
-  uint64 gas = 9;
-  bytes gas_price = 10;
-  bytes input = 11;
+  uint64 nonce = 1;
+  bytes from = 2;
+  bytes to = 3;
+  bytes value = 4;
+  uint64 gas = 5;
+  bytes gas_price = 6;
+  bytes input = 7;
   // eth_getTransactionReceipt
-  bytes contract_address = 12;
-  uint64 cumulative_gas_used = 13;
-  uint64 gas_used = 14;
-  uint64 status = 15;
-  repeated EthLog logs = 16;
-  // additional
-  string blockchain_name = 17;
-  uint32 logs_count = 18;
-  uint64 timestamp = 19;
+  bytes contract_address = 8;
+  uint64 cumulative_gas_used = 9;
+  uint64 gas_used = 10;
+  uint64 status = 11;
+  repeated EthLog logs = 12;
 }
 
-message EthBlockCompact {
-  string blockchain_name = 17;
-  uint64 block_height = 1;
-  bytes block_hash = 2;
-  bytes parent_hash = 3;
+message EthBlock {
   bytes nonce = 4;
   bytes sha3_uncles = 5;
   bytes transactions_root = 6;
@@ -65,114 +53,7 @@ message EthBlockCompact {
   uint64 size = 12;
   uint64 gas_limit = 13;
   uint64 gas_used = 14;
-  uint64 timestamp = 15;
   repeated bytes uncles = 16;
-  repeated EthTransactionCompact transactions = 18;
-  uint32 transactions_count = 19;
-}
-
-message EthTransaction {
-  string transaction_hash = 1;
-  uint64 block_height = 3;
-  string gas_price = 4;
-  uint64 gas_limit = 5;
-  uint64 nonce = 6;
-  string transaction_fee = 7;
-  string value = 8;
-  string from_address = 9;
-  string to_address = 10;
-  uint64 timestamp = 11;
-  string raw_input_data = 12;
-  uint32 transaction_index = 13;
-  uint64 gas_used = 14;
-  uint64 status = 15;
-  bytes transaction_json = 16; // raw data
-  bytes receipt_json = 17; // raw data
-  bool is_contract_call = 18;
-}
-
-
-message EthBlockHeader {
-  uint64 block_height = 1;
-  uint64 timestamp = 2;
-  string mine_address = 4;
-  uint64 size = 5;
-  uint64 gas_used = 6;
-  string extra_data = 7;
-  string block_hash = 8;
-  string parent_hash = 9;
-  string sha3_uncles = 10;
-  string state_root = 11;
-  uint64 transactions_count = 12;
-}
-
-
-message EthBlock {
-  repeated EthTransaction txs = 1;
-  EthBlockHeader header = 2;
-  bool no_receipts = 3;
-  // raw data
-  bytes header_json = 6;
-}
-
-//  ____ _______ _____
-// |  _ \__   __/ ____|
-// | |_) | | | | |
-// |  _ <  | | | |
-// | |_) | | | | |____
-// |____/  |_|  \_____|
-//
-
-message BtcBlockHeader {
-  uint64 block_height = 1;
-  uint64 timestamp = 2;
-  string block_hash = 3;
-  string parent_hash = 4;
-  string merkle_root = 5;
-  string bits = 6;
-  uint32 nonce = 7;
-  double difficulty = 9;
-  int32 size = 10;
-  int32 weight = 11;
-  string version = 12;
-  uint64 transactions_count = 13;
-}
-
-message BtcTransaction {
-  message ScriptPubKeyResult {
-    int32 req_sigs = 3;
-    string type = 4;
-    repeated string addresses = 5;
-  }
-
-  message Vin {
-    bool is_coinbase = 1;
-    string txid = 2;
-    uint32 vout = 3;
-    int64 value = 4;
-    repeated string addresses = 5;
-  }
-
-  message Vout {
-    int64 value = 1;
-    uint32 n = 2;
-    ScriptPubKeyResult script_pub_key = 3;
-  }
-
-  string transaction_hash = 1;
-  uint64 block_height = 2;
-  uint64 timestamp = 3;
-  int32 size = 4;
-  int32 weight = 5;
-  repeated Vin vin = 6;
-  repeated Vout vout = 7;
-  string transaction_fee = 8;
-  string value = 9;
-}
-
-message BtcBlock {
-  repeated BtcTransaction txs = 1;
-  BtcBlockHeader header = 2;
 }
 
 //  _____   ____ _______
@@ -227,11 +108,28 @@ message DotBlock {
 
 message TransactionDetails {
   string blockchain_name = 1;
+  bytes block_hash = 2;
+  bytes parent_hash = 3;
+  uint64 block_height = 4;
+  bytes transaction_hash = 5;
+  uint32 transaction_index = 6;
+  uint64 timestamp = 7;
   oneof transaction {
-    EthTransaction eth_tx = 2;
-    BtcTransaction btc_tx = 3;
-    DotTransaction dot_tx = 4;
-    EthTransactionCompact eth_tx_compact = 5; // EthTransaction is too large
+    EthTransaction eth_tx = 8;
+    DotTransaction dot_tx = 9;
+  }
+}
+
+message BlockHeader {
+  string blockchain_name = 1;
+  bytes block_hash = 2;
+  bytes parent_hash = 3;
+  uint64 block_height = 4;
+  uint64 transactions_count = 5;
+  uint64 timestamp = 6;
+  oneof header {
+    EthBlock eth_block = 7;
+    DotBlock dot_block = 8;
   }
 }
 
@@ -248,17 +146,8 @@ message TransactionDetails {
  * Topic: v1.blockchainextractor.blockchanged
  */
 message BlockChanged {
-  string blockchain_name = 1;
-  bytes block_hash = 5;
-  bytes parent_hash = 6;
-  uint64 block_height = 7;
-  uint64 transactions_count = 8;
-  oneof block {
-    EthBlock eth_block = 2;
-    BtcBlock btc_block = 3;
-    DotBlock dot_block = 4;
-    EthBlockCompact eth_block_compact = 9;
-  }
+  BlockHeader header = 1;
+  repeated TransactionDetails transactions = 2;
 }
 
 message NodeConfig {
