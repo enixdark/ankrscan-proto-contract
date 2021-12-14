@@ -114,7 +114,7 @@ message TransactionDetails {
   bytes transaction_hash = 5;
   uint32 transaction_index = 6;
   uint64 timestamp = 7;
-  oneof transaction {
+  oneof specific {
     EthTransaction eth_tx = 8;
     DotTransaction dot_tx = 9;
   }
@@ -127,7 +127,7 @@ message BlockHeader {
   uint64 block_height = 4;
   uint64 transactions_count = 5;
   uint64 timestamp = 6;
-  oneof header {
+  oneof specific {
     EthBlock eth_block = 7;
     DotBlock dot_block = 8;
   }
