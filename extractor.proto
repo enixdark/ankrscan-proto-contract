@@ -220,3 +220,8 @@ message BlockByNumberAndHashRequest {
   uint64 block_height = 2;
   bytes block_hash = 3;
 }
+
+message BlockByNumberRequest {
+  string blockchain_name = 1;
+  uint64 block_height = 2;
+}
