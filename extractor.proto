@@ -72,17 +72,12 @@ message DotEvent {
 }
 
 message DotTransaction {
-  string transaction_id = 1;
-  string transaction_hash = 2;
-  uint64 block_height = 3;
-  uint64 timestamp = 4;
-  uint32 transaction_index = 5;
-  string method = 6;
-  string from_address = 7; // transaction signer
-  string to_address = 8; // retrieved from the args of balance.Transfer transaction
-  string partial_fee = 9;
-  string tip_fee = 10;
-  string transaction_fee = 11;
+  string transaction_hash = 1;
+  string method = 2;
+  bytes from = 3;
+  bytes partial_fee = 4;
+  bytes tip_fee = 5;
+  bytes transaction_fee = 6;
   uint64 nonce = 12;
   string args_json = 13;
   bool success = 14;
@@ -111,7 +106,7 @@ message TransactionDetails {
   bytes block_hash = 2;
   uint64 block_height = 3;
   bytes transaction_hash = 4;
-  uint32 transaction_index = 5;
+  uint64 transaction_index = 5;
   uint64 timestamp = 6;
   oneof specific {
     EthTransaction eth_tx = 7;
