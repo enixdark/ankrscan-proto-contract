@@ -218,3 +218,9 @@ message BlockByNumberRequest {
   string blockchain_name = 1;
   uint64 block_height = 2;
 }
+
+message BlocksRangeRequest {
+  string blockchain_name = 1;
+  uint64 from_block_height = 2;
+  uint64 to_block_height = 3;
+}
