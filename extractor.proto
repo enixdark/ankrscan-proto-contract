@@ -20,8 +20,7 @@ message EthLog {
   bytes address = 1;
   repeated bytes topics = 2;
   bytes data = 3;
-  uint32 log_index = 4;
-  bool removed = 5;
+  bool removed = 4;
 }
 
 message EthTransaction {
