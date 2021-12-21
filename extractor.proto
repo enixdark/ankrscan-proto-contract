@@ -193,19 +193,19 @@ service Extractor {
   rpc GetBlockHeaderByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
 
   // extractors management
-  rpc GetExtractorConfigs (GetExtractorConfigsRequest) returns (ExtractorsConfigs);
-  rpc UpdateExtractorConfigs (ExtractorsConfigs) returns (ExtractorsConfigs);
+  rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
+  rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
 }
 
-message GetExtractorConfigsRequest {
+message GetExtractorsRequest {
 
 }
 
-message UpdateExtractorConfigRequest {
-  ExtractorConfig config = 1;
+message UpdateExtractorsRequest {
+  repeated ExtractorConfig configs = 1;
 }
 
-message ExtractorsConfigs {
+message ExtractorConfigs {
   repeated ExtractorConfig configs = 1;
 }
 

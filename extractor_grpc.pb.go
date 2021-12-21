@@ -23,8 +23,8 @@ type ExtractorClient interface {
 	GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
 	GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
 	// extractors management
-	GetExtractorConfigs(ctx context.Context, in *GetExtractorConfigsRequest, opts ...grpc.CallOption) (*ExtractorsConfigs, error)
-	UpdateExtractorConfigs(ctx context.Context, in *ExtractorsConfigs, opts ...grpc.CallOption) (*ExtractorsConfigs, error)
+	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
+	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 }
 
 type extractorClient struct {
@@ -80,18 +80,18 @@ func (c *extractorClient) GetBlockHeaderByHeight(ctx context.Context, in *GetBlo
 	return out, nil
 }
 
-func (c *extractorClient) GetExtractorConfigs(ctx context.Context, in *GetExtractorConfigsRequest, opts ...grpc.CallOption) (*ExtractorsConfigs, error) {
-	out := new(ExtractorsConfigs)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetExtractorConfigs", in, out, opts...)
+func (c *extractorClient) GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
+	out := new(ExtractorConfigs)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *extractorClient) UpdateExtractorConfigs(ctx context.Context, in *ExtractorsConfigs, opts ...grpc.CallOption) (*ExtractorsConfigs, error) {
-	out := new(ExtractorsConfigs)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/UpdateExtractorConfigs", in, out, opts...)
+func (c *extractorClient) UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
+	out := new(ExtractorConfigs)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/UpdateExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -108,8 +108,8 @@ type ExtractorServer interface {
 	GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
 	GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
 	// extractors management
-	GetExtractorConfigs(context.Context, *GetExtractorConfigsRequest) (*ExtractorsConfigs, error)
-	UpdateExtractorConfigs(context.Context, *ExtractorsConfigs) (*ExtractorsConfigs, error)
+	GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error)
+	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
 	mustEmbedUnimplementedExtractorServer()
 }
 
@@ -132,11 +132,11 @@ func (UnimplementedExtractorServer) GetBlockByHeight(context.Context, *GetBlockB
 func (UnimplementedExtractorServer) GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockHeaderByHeight not implemented")
 }
-func (UnimplementedExtractorServer) GetExtractorConfigs(context.Context, *GetExtractorConfigsRequest) (*ExtractorsConfigs, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetExtractorConfigs not implemented")
+func (UnimplementedExtractorServer) GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetExtractors not implemented")
 }
-func (UnimplementedExtractorServer) UpdateExtractorConfigs(context.Context, *ExtractorsConfigs) (*ExtractorsConfigs, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractorConfigs not implemented")
+func (UnimplementedExtractorServer) UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractors not implemented")
 }
 func (UnimplementedExtractorServer) mustEmbedUnimplementedExtractorServer() {}
 
@@ -241,38 +241,38 @@ func _Extractor_GetBlockHeaderByHeight_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Extractor_GetExtractorConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetExtractorConfigsRequest)
+func _Extractor_GetExtractors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetExtractorsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ExtractorServer).GetExtractorConfigs(ctx, in)
+		return srv.(ExtractorServer).GetExtractors(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/GetExtractorConfigs",
+		FullMethod: "/com.clover.extractor.Extractor/GetExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).GetExtractorConfigs(ctx, req.(*GetExtractorConfigsRequest))
+		return srv.(ExtractorServer).GetExtractors(ctx, req.(*GetExtractorsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Extractor_UpdateExtractorConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ExtractorsConfigs)
+func _Extractor_UpdateExtractors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateExtractorsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ExtractorServer).UpdateExtractorConfigs(ctx, in)
+		return srv.(ExtractorServer).UpdateExtractors(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/UpdateExtractorConfigs",
+		FullMethod: "/com.clover.extractor.Extractor/UpdateExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).UpdateExtractorConfigs(ctx, req.(*ExtractorsConfigs))
+		return srv.(ExtractorServer).UpdateExtractors(ctx, req.(*UpdateExtractorsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -305,12 +305,12 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Extractor_GetBlockHeaderByHeight_Handler,
 		},
 		{
-			MethodName: "GetExtractorConfigs",
-			Handler:    _Extractor_GetExtractorConfigs_Handler,
+			MethodName: "GetExtractors",
+			Handler:    _Extractor_GetExtractors_Handler,
 		},
 		{
-			MethodName: "UpdateExtractorConfigs",
-			Handler:    _Extractor_UpdateExtractorConfigs_Handler,
+			MethodName: "UpdateExtractors",
+			Handler:    _Extractor_UpdateExtractors_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
