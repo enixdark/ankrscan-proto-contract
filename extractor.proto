@@ -126,6 +126,18 @@ message BlockHeader {
   }
 }
 
+message ExtractorConfig {
+  uint64 id = 1;
+  string blockchain_name = 2;
+  uint64 latest_processed_block = 3;
+  bool enabled = 4;
+  uint64 parallel_blocks = 5;
+  uint64 parallel_transactions = 6;
+  uint64 workers = 7;
+  string node_url = 8;
+  bool backward = 9;
+}
+
 /**
  *  _  __      __ _
  * | |/ /__ _ / _| | ____ _
