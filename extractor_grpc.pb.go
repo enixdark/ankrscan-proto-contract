@@ -25,6 +25,7 @@ type ExtractorClient interface {
 	// extractors management
 	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
+	UpdateLatestBlock(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 }
 
@@ -99,6 +100,15 @@ func (c *extractorClient) UpdateExtractors(ctx context.Context, in *UpdateExtrac
 	return out, nil
 }
 
+func (c *extractorClient) UpdateLatestBlock(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
+	out := new(ExtractorConfigs)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/UpdateLatestBlock", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *extractorClient) DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
 	out := new(ExtractorConfigs)
 	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/DeleteExtractors", in, out, opts...)
@@ -120,6 +130,7 @@ type ExtractorServer interface {
 	// extractors management
 	GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error)
 	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
+	UpdateLatestBlock(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
 	DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error)
 	mustEmbedUnimplementedExtractorServer()
 }
@@ -148,6 +159,9 @@ func (UnimplementedExtractorServer) GetExtractors(context.Context, *GetExtractor
 }
 func (UnimplementedExtractorServer) UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractors not implemented")
+}
+func (UnimplementedExtractorServer) UpdateLatestBlock(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLatestBlock not implemented")
 }
 func (UnimplementedExtractorServer) DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteExtractors not implemented")
@@ -291,6 +305,24 @@ func _Extractor_UpdateExtractors_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Extractor_UpdateLatestBlock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateExtractorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).UpdateLatestBlock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.extractor.Extractor/UpdateLatestBlock",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).UpdateLatestBlock(ctx, req.(*UpdateExtractorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Extractor_DeleteExtractors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteExtractorsRequest)
 	if err := dec(in); err != nil {
@@ -343,6 +375,10 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateExtractors",
 			Handler:    _Extractor_UpdateExtractors_Handler,
+		},
+		{
+			MethodName: "UpdateLatestBlock",
+			Handler:    _Extractor_UpdateLatestBlock_Handler,
 		},
 		{
 			MethodName: "DeleteExtractors",
