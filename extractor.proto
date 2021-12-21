@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package com.clover.extractor;
+package com.ankrscan.extractor;
 
-option java_package = "com.clover.proto";
+option java_package = "com.ankrscan.proto";
 option java_outer_classname = "ExtractorProto";
 
 option go_package = "./;proto";

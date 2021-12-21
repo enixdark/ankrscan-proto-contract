@@ -38,7 +38,7 @@ func NewExtractorClient(cc grpc.ClientConnInterface) ExtractorClient {
 
 func (c *extractorClient) GetLatestBalance(ctx context.Context, in *GetLatestBalanceRequest, opts ...grpc.CallOption) (*GetLatestBalanceReply, error) {
 	out := new(GetLatestBalanceReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetLatestBalance", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetLatestBalance", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *extractorClient) GetLatestBalance(ctx context.Context, in *GetLatestBal
 
 func (c *extractorClient) GetTransactionByHash(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error) {
 	out := new(GetTransactionByHashReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetTransactionByHash", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetTransactionByHash", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *extractorClient) GetTransactionByHash(ctx context.Context, in *GetTrans
 
 func (c *extractorClient) GetTransactionByHashFast(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error) {
 	out := new(GetTransactionByHashReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetTransactionByHashFast", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetTransactionByHashFast", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *extractorClient) GetTransactionByHashFast(ctx context.Context, in *GetT
 
 func (c *extractorClient) GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error) {
 	out := new(GetBlockByHeightReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetBlockByHeight", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetBlockByHeight", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (c *extractorClient) GetBlockByHeight(ctx context.Context, in *GetBlockByHe
 
 func (c *extractorClient) GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error) {
 	out := new(GetBlockByHeightReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetBlockHeaderByHeight", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetBlockHeaderByHeight", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,7 +83,7 @@ func (c *extractorClient) GetBlockHeaderByHeight(ctx context.Context, in *GetBlo
 
 func (c *extractorClient) GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
 	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/GetExtractors", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +92,7 @@ func (c *extractorClient) GetExtractors(ctx context.Context, in *GetExtractorsRe
 
 func (c *extractorClient) UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
 	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/UpdateExtractors", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/UpdateExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func (c *extractorClient) UpdateExtractors(ctx context.Context, in *UpdateExtrac
 
 func (c *extractorClient) DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
 	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/DeleteExtractors", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/DeleteExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +175,7 @@ func _Extractor_GetLatestBalance_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/GetLatestBalance",
+		FullMethod: "/com.ankrscan.extractor.Extractor/GetLatestBalance",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).GetLatestBalance(ctx, req.(*GetLatestBalanceRequest))
@@ -193,7 +193,7 @@ func _Extractor_GetTransactionByHash_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/GetTransactionByHash",
+		FullMethod: "/com.ankrscan.extractor.Extractor/GetTransactionByHash",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).GetTransactionByHash(ctx, req.(*GetTransactionByHashRequest))
@@ -211,7 +211,7 @@ func _Extractor_GetTransactionByHashFast_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/GetTransactionByHashFast",
+		FullMethod: "/com.ankrscan.extractor.Extractor/GetTransactionByHashFast",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).GetTransactionByHashFast(ctx, req.(*GetTransactionByHashRequest))
@@ -229,7 +229,7 @@ func _Extractor_GetBlockByHeight_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/GetBlockByHeight",
+		FullMethod: "/com.ankrscan.extractor.Extractor/GetBlockByHeight",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).GetBlockByHeight(ctx, req.(*GetBlockByHeightRequest))
@@ -247,7 +247,7 @@ func _Extractor_GetBlockHeaderByHeight_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/GetBlockHeaderByHeight",
+		FullMethod: "/com.ankrscan.extractor.Extractor/GetBlockHeaderByHeight",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).GetBlockHeaderByHeight(ctx, req.(*GetBlockByHeightRequest))
@@ -265,7 +265,7 @@ func _Extractor_GetExtractors_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/GetExtractors",
+		FullMethod: "/com.ankrscan.extractor.Extractor/GetExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).GetExtractors(ctx, req.(*GetExtractorsRequest))
@@ -283,7 +283,7 @@ func _Extractor_UpdateExtractors_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/UpdateExtractors",
+		FullMethod: "/com.ankrscan.extractor.Extractor/UpdateExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).UpdateExtractors(ctx, req.(*UpdateExtractorsRequest))
@@ -301,7 +301,7 @@ func _Extractor_DeleteExtractors_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.Extractor/DeleteExtractors",
+		FullMethod: "/com.ankrscan.extractor.Extractor/DeleteExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).DeleteExtractors(ctx, req.(*DeleteExtractorsRequest))
@@ -313,7 +313,7 @@ func _Extractor_DeleteExtractors_Handler(srv interface{}, ctx context.Context, d
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Extractor_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "com.clover.extractor.Extractor",
+	ServiceName: "com.ankrscan.extractor.Extractor",
 	HandlerType: (*ExtractorServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
