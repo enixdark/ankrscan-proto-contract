@@ -195,7 +195,6 @@ service Extractor {
   // extractors management
   rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
   rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
-  rpc UpdateLatestBlock (UpdateExtractorsRequest) returns (ExtractorConfigs);
   rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
 }
 
@@ -209,6 +208,7 @@ message DeleteExtractorsRequest {
 
 message UpdateExtractorsRequest {
   repeated ExtractorConfig configs = 1;
+  bool update_latest = 2;
 }
 
 message ExtractorConfigs {
