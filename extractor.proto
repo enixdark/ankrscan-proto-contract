@@ -191,6 +191,22 @@ service Extractor {
   rpc GetTransactionByHashFast (GetTransactionByHashRequest) returns (GetTransactionByHashReply);
   rpc GetBlockByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
   rpc GetBlockHeaderByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
+
+  // extractors management
+  rpc GetExtractorConfigs (GetExtractorConfigsRequest) returns (ExtractorsConfigs);
+  rpc UpdateExtractorConfigs (ExtractorsConfigs) returns (ExtractorsConfigs);
+}
+
+message GetExtractorConfigsRequest {
+
+}
+
+message UpdateExtractorConfigRequest {
+  ExtractorConfig config = 1;
+}
+
+message ExtractorsConfigs {
+  repeated ExtractorConfig configs = 1;
 }
 
 message GetLatestBalanceRequest {
