@@ -129,7 +129,7 @@ message BlockHeader {
 message ExtractorConfig {
   uint64 id = 1;
   string blockchain_name = 2;
-  uint64 latest_processed_block = 3;
+  int64 latest_processed_block = 3; // set to -1 to start from origin
   bool enabled = 4;
   uint64 parallel_blocks = 5;
   uint64 parallel_txs_batch = 6;
