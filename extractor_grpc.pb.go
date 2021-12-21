@@ -25,6 +25,7 @@ type ExtractorClient interface {
 	// extractors management
 	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
+	DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 }
 
 type extractorClient struct {
@@ -98,6 +99,15 @@ func (c *extractorClient) UpdateExtractors(ctx context.Context, in *UpdateExtrac
 	return out, nil
 }
 
+func (c *extractorClient) DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
+	out := new(ExtractorConfigs)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.Extractor/DeleteExtractors", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExtractorServer is the server API for Extractor service.
 // All implementations must embed UnimplementedExtractorServer
 // for forward compatibility
@@ -110,6 +120,7 @@ type ExtractorServer interface {
 	// extractors management
 	GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error)
 	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
+	DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error)
 	mustEmbedUnimplementedExtractorServer()
 }
 
@@ -137,6 +148,9 @@ func (UnimplementedExtractorServer) GetExtractors(context.Context, *GetExtractor
 }
 func (UnimplementedExtractorServer) UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractors not implemented")
+}
+func (UnimplementedExtractorServer) DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteExtractors not implemented")
 }
 func (UnimplementedExtractorServer) mustEmbedUnimplementedExtractorServer() {}
 
@@ -277,6 +291,24 @@ func _Extractor_UpdateExtractors_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Extractor_DeleteExtractors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteExtractorsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).DeleteExtractors(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.clover.extractor.Extractor/DeleteExtractors",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).DeleteExtractors(ctx, req.(*DeleteExtractorsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Extractor_ServiceDesc is the grpc.ServiceDesc for Extractor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -311,6 +343,10 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateExtractors",
 			Handler:    _Extractor_UpdateExtractors_Handler,
+		},
+		{
+			MethodName: "DeleteExtractors",
+			Handler:    _Extractor_DeleteExtractors_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

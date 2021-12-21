@@ -195,10 +195,15 @@ service Extractor {
   // extractors management
   rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
   rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
+  rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
 }
 
 message GetExtractorsRequest {
 
+}
+
+message DeleteExtractorsRequest {
+  repeated uint64 ids = 1;
 }
 
 message UpdateExtractorsRequest {
