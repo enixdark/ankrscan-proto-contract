@@ -29,7 +29,6 @@ type ExtractorClient interface {
 	// consumer API
 	NextUncommittedBlocks(ctx context.Context, in *NextUncommittedBlocksRequest, opts ...grpc.CallOption) (*NextUncommittedBlocksReply, error)
 	CommitBlock(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error)
-	NewConsumer(ctx context.Context, in *NewConsumerRequest, opts ...grpc.CallOption) (*NewConsumerReply, error)
 }
 
 type extractorClient struct {
@@ -130,15 +129,6 @@ func (c *extractorClient) CommitBlock(ctx context.Context, in *CommitRequest, op
 	return out, nil
 }
 
-func (c *extractorClient) NewConsumer(ctx context.Context, in *NewConsumerRequest, opts ...grpc.CallOption) (*NewConsumerReply, error) {
-	out := new(NewConsumerReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/NewConsumer", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ExtractorServer is the server API for Extractor service.
 // All implementations must embed UnimplementedExtractorServer
 // for forward compatibility
@@ -155,7 +145,6 @@ type ExtractorServer interface {
 	// consumer API
 	NextUncommittedBlocks(context.Context, *NextUncommittedBlocksRequest) (*NextUncommittedBlocksReply, error)
 	CommitBlock(context.Context, *CommitRequest) (*CommitReply, error)
-	NewConsumer(context.Context, *NewConsumerRequest) (*NewConsumerReply, error)
 	mustEmbedUnimplementedExtractorServer()
 }
 
@@ -192,9 +181,6 @@ func (UnimplementedExtractorServer) NextUncommittedBlocks(context.Context, *Next
 }
 func (UnimplementedExtractorServer) CommitBlock(context.Context, *CommitRequest) (*CommitReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CommitBlock not implemented")
-}
-func (UnimplementedExtractorServer) NewConsumer(context.Context, *NewConsumerRequest) (*NewConsumerReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method NewConsumer not implemented")
 }
 func (UnimplementedExtractorServer) mustEmbedUnimplementedExtractorServer() {}
 
@@ -389,24 +375,6 @@ func _Extractor_CommitBlock_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Extractor_NewConsumer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NewConsumerRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ExtractorServer).NewConsumer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.extractor.Extractor/NewConsumer",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).NewConsumer(ctx, req.(*NewConsumerRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Extractor_ServiceDesc is the grpc.ServiceDesc for Extractor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -453,10 +421,6 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CommitBlock",
 			Handler:    _Extractor_CommitBlock_Handler,
-		},
-		{
-			MethodName: "NewConsumer",
-			Handler:    _Extractor_NewConsumer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

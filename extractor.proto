@@ -200,7 +200,6 @@ service Extractor {
   // consumer API
   rpc NextUncommittedBlocks (NextUncommittedBlocksRequest) returns (NextUncommittedBlocksReply);
   rpc CommitBlock (CommitRequest) returns (CommitReply);
-  rpc NewConsumer (NewConsumerRequest) returns (NewConsumerReply);
 }
 
 message GetExtractorsRequest {
@@ -264,18 +263,14 @@ message BlocksRangeRequest {
   uint64 to_block_height = 3;
 }
 
-message NewConsumerRequest {
-  string consumer_name = 1;
-}
-
-message NewConsumerReply {
-  string consumer_id = 1;
-}
-
-message NextUncommittedBlocksRequest {
+message BlockConsumer {
   string consumer_name = 1;
   string user_id = 2;
   string blockchain_name = 3;
+}
+
+message NextUncommittedBlocksRequest {
+  BlockConsumer consumer = 1;
 }
 
 message NextUncommittedBlocksReply {
@@ -283,10 +278,8 @@ message NextUncommittedBlocksReply {
 }
 
 message CommitRequest {
-  string consumer_name = 1;
-  string user_id = 2;
-  string blockchain_name = 3;
-  uint64 block_height = 4;
+  BlockConsumer consumer = 1;
+  uint64 block_height = 2;
 }
 
 message CommitReply {
