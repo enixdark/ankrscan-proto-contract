@@ -1967,6 +1967,100 @@ func (x *BlocksRangeRequest) GetToBlockHeight() uint64 {
 	return 0
 }
 
+type NewConsumerRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConsumerName string `protobuf:"bytes,1,opt,name=consumer_name,json=consumerName,proto3" json:"consumer_name,omitempty"`
+}
+
+func (x *NewConsumerRequest) Reset() {
+	*x = NewConsumerRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_extractor_proto_msgTypes[27]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewConsumerRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewConsumerRequest) ProtoMessage() {}
+
+func (x *NewConsumerRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_extractor_proto_msgTypes[27]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewConsumerRequest.ProtoReflect.Descriptor instead.
+func (*NewConsumerRequest) Descriptor() ([]byte, []int) {
+	return file_extractor_proto_rawDescGZIP(), []int{27}
+}
+
+func (x *NewConsumerRequest) GetConsumerName() string {
+	if x != nil {
+		return x.ConsumerName
+	}
+	return ""
+}
+
+type NewConsumerReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConsumerId string `protobuf:"bytes,1,opt,name=consumer_id,json=consumerId,proto3" json:"consumer_id,omitempty"`
+}
+
+func (x *NewConsumerReply) Reset() {
+	*x = NewConsumerReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_extractor_proto_msgTypes[28]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *NewConsumerReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*NewConsumerReply) ProtoMessage() {}
+
+func (x *NewConsumerReply) ProtoReflect() protoreflect.Message {
+	mi := &file_extractor_proto_msgTypes[28]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use NewConsumerReply.ProtoReflect.Descriptor instead.
+func (*NewConsumerReply) Descriptor() ([]byte, []int) {
+	return file_extractor_proto_rawDescGZIP(), []int{28}
+}
+
+func (x *NewConsumerReply) GetConsumerId() string {
+	if x != nil {
+		return x.ConsumerId
+	}
+	return ""
+}
+
 type NextBlocksRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1979,7 +2073,7 @@ type NextBlocksRequest struct {
 func (x *NextBlocksRequest) Reset() {
 	*x = NextBlocksRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_extractor_proto_msgTypes[27]
+		mi := &file_extractor_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1992,7 +2086,7 @@ func (x *NextBlocksRequest) String() string {
 func (*NextBlocksRequest) ProtoMessage() {}
 
 func (x *NextBlocksRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_extractor_proto_msgTypes[27]
+	mi := &file_extractor_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2005,7 +2099,7 @@ func (x *NextBlocksRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NextBlocksRequest.ProtoReflect.Descriptor instead.
 func (*NextBlocksRequest) Descriptor() ([]byte, []int) {
-	return file_extractor_proto_rawDescGZIP(), []int{27}
+	return file_extractor_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *NextBlocksRequest) GetConsumerId() string {
@@ -2031,7 +2125,7 @@ type NextBlocksReply struct {
 func (x *NextBlocksReply) Reset() {
 	*x = NextBlocksReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_extractor_proto_msgTypes[28]
+		mi := &file_extractor_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2044,7 +2138,7 @@ func (x *NextBlocksReply) String() string {
 func (*NextBlocksReply) ProtoMessage() {}
 
 func (x *NextBlocksReply) ProtoReflect() protoreflect.Message {
-	mi := &file_extractor_proto_msgTypes[28]
+	mi := &file_extractor_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2057,7 +2151,7 @@ func (x *NextBlocksReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NextBlocksReply.ProtoReflect.Descriptor instead.
 func (*NextBlocksReply) Descriptor() ([]byte, []int) {
-	return file_extractor_proto_rawDescGZIP(), []int{28}
+	return file_extractor_proto_rawDescGZIP(), []int{30}
 }
 
 type CommitRequest struct {
@@ -2072,7 +2166,7 @@ type CommitRequest struct {
 func (x *CommitRequest) Reset() {
 	*x = CommitRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_extractor_proto_msgTypes[29]
+		mi := &file_extractor_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2085,7 +2179,7 @@ func (x *CommitRequest) String() string {
 func (*CommitRequest) ProtoMessage() {}
 
 func (x *CommitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_extractor_proto_msgTypes[29]
+	mi := &file_extractor_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2098,7 +2192,7 @@ func (x *CommitRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CommitRequest.ProtoReflect.Descriptor instead.
 func (*CommitRequest) Descriptor() ([]byte, []int) {
-	return file_extractor_proto_rawDescGZIP(), []int{29}
+	return file_extractor_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *CommitRequest) GetBlockchainName() string {
@@ -2124,7 +2218,7 @@ type CommitReply struct {
 func (x *CommitReply) Reset() {
 	*x = CommitReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_extractor_proto_msgTypes[30]
+		mi := &file_extractor_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2137,7 +2231,7 @@ func (x *CommitReply) String() string {
 func (*CommitReply) ProtoMessage() {}
 
 func (x *CommitReply) ProtoReflect() protoreflect.Message {
-	mi := &file_extractor_proto_msgTypes[30]
+	mi := &file_extractor_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2150,7 +2244,7 @@ func (x *CommitReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CommitReply.ProtoReflect.Descriptor instead.
 func (*CommitReply) Descriptor() ([]byte, []int) {
-	return file_extractor_proto_rawDescGZIP(), []int{30}
+	return file_extractor_proto_rawDescGZIP(), []int{32}
 }
 
 var File_extractor_proto protoreflect.FileDescriptor
@@ -2436,7 +2530,14 @@ var file_extractor_proto_rawDesc = []byte{
 	0x52, 0x0f, 0x66, 0x72, 0x6f, 0x6d, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x65, 0x69, 0x67, 0x68,
 	0x74, 0x12, 0x26, 0x0a, 0x0f, 0x74, 0x6f, 0x5f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x5f, 0x68, 0x65,
 	0x69, 0x67, 0x68, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0d, 0x74, 0x6f, 0x42, 0x6c,
-	0x6f, 0x63, 0x6b, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x22, 0x5d, 0x0a, 0x11, 0x4e, 0x65, 0x78,
+	0x6f, 0x63, 0x6b, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x22, 0x39, 0x0a, 0x12, 0x4e, 0x65, 0x77,
+	0x43, 0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x23, 0x0a, 0x0d, 0x63, 0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72, 0x5f, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x63, 0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72,
+	0x4e, 0x61, 0x6d, 0x65, 0x22, 0x33, 0x0a, 0x10, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x73, 0x75,
+	0x6d, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x1f, 0x0a, 0x0b, 0x63, 0x6f, 0x6e, 0x73,
+	0x75, 0x6d, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x63,
+	0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72, 0x49, 0x64, 0x22, 0x5d, 0x0a, 0x11, 0x4e, 0x65, 0x78,
 	0x74, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1f,
 	0x0a, 0x0b, 0x63, 0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x0a, 0x63, 0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72, 0x49, 0x64, 0x12,
@@ -2450,7 +2551,7 @@ var file_extractor_proto_rawDesc = []byte{
 	0x6e, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x5f, 0x68,
 	0x65, 0x69, 0x67, 0x68, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0b, 0x62, 0x6c, 0x6f,
 	0x63, 0x6b, 0x48, 0x65, 0x69, 0x67, 0x68, 0x74, 0x22, 0x0d, 0x0a, 0x0b, 0x43, 0x6f, 0x6d, 0x6d,
-	0x69, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0xf6, 0x08, 0x0a, 0x09, 0x45, 0x78, 0x74, 0x72,
+	0x69, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0xdb, 0x09, 0x0a, 0x09, 0x45, 0x78, 0x74, 0x72,
 	0x61, 0x63, 0x74, 0x6f, 0x72, 0x12, 0x72, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x4c, 0x61, 0x74, 0x65,
 	0x73, 0x74, 0x42, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x12, 0x2f, 0x2e, 0x63, 0x6f, 0x6d, 0x2e,
 	0x61, 0x6e, 0x6b, 0x72, 0x73, 0x63, 0x61, 0x6e, 0x2e, 0x65, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74,
@@ -2522,10 +2623,16 @@ var file_extractor_proto_rawDesc = []byte{
 	0x6d, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x23, 0x2e, 0x63, 0x6f,
 	0x6d, 0x2e, 0x61, 0x6e, 0x6b, 0x72, 0x73, 0x63, 0x61, 0x6e, 0x2e, 0x65, 0x78, 0x74, 0x72, 0x61,
 	0x63, 0x74, 0x6f, 0x72, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x69, 0x74, 0x52, 0x65, 0x70, 0x6c, 0x79,
-	0x42, 0x2e, 0x0a, 0x12, 0x63, 0x6f, 0x6d, 0x2e, 0x61, 0x6e, 0x6b, 0x72, 0x73, 0x63, 0x61, 0x6e,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x42, 0x0e, 0x45, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x6f,
-	0x72, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x08, 0x2e, 0x2f, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x12, 0x63, 0x0a, 0x0b, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72, 0x12,
+	0x2a, 0x2e, 0x63, 0x6f, 0x6d, 0x2e, 0x61, 0x6e, 0x6b, 0x72, 0x73, 0x63, 0x61, 0x6e, 0x2e, 0x65,
+	0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x2e, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x73,
+	0x75, 0x6d, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2e, 0x61, 0x6e, 0x6b, 0x72, 0x73, 0x63, 0x61, 0x6e, 0x2e, 0x65, 0x78, 0x74, 0x72, 0x61,
+	0x63, 0x74, 0x6f, 0x72, 0x2e, 0x4e, 0x65, 0x77, 0x43, 0x6f, 0x6e, 0x73, 0x75, 0x6d, 0x65, 0x72,
+	0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x2e, 0x0a, 0x12, 0x63, 0x6f, 0x6d, 0x2e, 0x61, 0x6e, 0x6b,
+	0x72, 0x73, 0x63, 0x61, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x42, 0x0e, 0x45, 0x78, 0x74,
+	0x72, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x08, 0x2e, 0x2f, 0x3b,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2540,7 +2647,7 @@ func file_extractor_proto_rawDescGZIP() []byte {
 	return file_extractor_proto_rawDescData
 }
 
-var file_extractor_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
+var file_extractor_proto_msgTypes = make([]protoimpl.MessageInfo, 33)
 var file_extractor_proto_goTypes = []interface{}{
 	(*EthLog)(nil),                      // 0: com.ankrscan.extractor.EthLog
 	(*EthTransaction)(nil),              // 1: com.ankrscan.extractor.EthTransaction
@@ -2569,10 +2676,12 @@ var file_extractor_proto_goTypes = []interface{}{
 	(*BlockByNumberAndHashRequest)(nil), // 24: com.ankrscan.extractor.BlockByNumberAndHashRequest
 	(*BlockByNumberRequest)(nil),        // 25: com.ankrscan.extractor.BlockByNumberRequest
 	(*BlocksRangeRequest)(nil),          // 26: com.ankrscan.extractor.BlocksRangeRequest
-	(*NextBlocksRequest)(nil),           // 27: com.ankrscan.extractor.NextBlocksRequest
-	(*NextBlocksReply)(nil),             // 28: com.ankrscan.extractor.NextBlocksReply
-	(*CommitRequest)(nil),               // 29: com.ankrscan.extractor.CommitRequest
-	(*CommitReply)(nil),                 // 30: com.ankrscan.extractor.CommitReply
+	(*NewConsumerRequest)(nil),          // 27: com.ankrscan.extractor.NewConsumerRequest
+	(*NewConsumerReply)(nil),            // 28: com.ankrscan.extractor.NewConsumerReply
+	(*NextBlocksRequest)(nil),           // 29: com.ankrscan.extractor.NextBlocksRequest
+	(*NextBlocksReply)(nil),             // 30: com.ankrscan.extractor.NextBlocksReply
+	(*CommitRequest)(nil),               // 31: com.ankrscan.extractor.CommitRequest
+	(*CommitReply)(nil),                 // 32: com.ankrscan.extractor.CommitReply
 }
 var file_extractor_proto_depIdxs = []int32{
 	0,  // 0: com.ankrscan.extractor.EthTransaction.logs:type_name -> com.ankrscan.extractor.EthLog
@@ -2598,20 +2707,22 @@ var file_extractor_proto_depIdxs = []int32{
 	14, // 20: com.ankrscan.extractor.Extractor.GetExtractors:input_type -> com.ankrscan.extractor.GetExtractorsRequest
 	16, // 21: com.ankrscan.extractor.Extractor.UpdateExtractors:input_type -> com.ankrscan.extractor.UpdateExtractorsRequest
 	15, // 22: com.ankrscan.extractor.Extractor.DeleteExtractors:input_type -> com.ankrscan.extractor.DeleteExtractorsRequest
-	27, // 23: com.ankrscan.extractor.Extractor.NextBlocks:input_type -> com.ankrscan.extractor.NextBlocksRequest
-	29, // 24: com.ankrscan.extractor.Extractor.CommitBlock:input_type -> com.ankrscan.extractor.CommitRequest
-	19, // 25: com.ankrscan.extractor.Extractor.GetLatestBalance:output_type -> com.ankrscan.extractor.GetLatestBalanceReply
-	21, // 26: com.ankrscan.extractor.Extractor.GetTransactionByHash:output_type -> com.ankrscan.extractor.GetTransactionByHashReply
-	21, // 27: com.ankrscan.extractor.Extractor.GetTransactionByHashFast:output_type -> com.ankrscan.extractor.GetTransactionByHashReply
-	23, // 28: com.ankrscan.extractor.Extractor.GetBlockByHeight:output_type -> com.ankrscan.extractor.GetBlockByHeightReply
-	23, // 29: com.ankrscan.extractor.Extractor.GetBlockHeaderByHeight:output_type -> com.ankrscan.extractor.GetBlockByHeightReply
-	17, // 30: com.ankrscan.extractor.Extractor.GetExtractors:output_type -> com.ankrscan.extractor.ExtractorConfigs
-	17, // 31: com.ankrscan.extractor.Extractor.UpdateExtractors:output_type -> com.ankrscan.extractor.ExtractorConfigs
-	17, // 32: com.ankrscan.extractor.Extractor.DeleteExtractors:output_type -> com.ankrscan.extractor.ExtractorConfigs
-	28, // 33: com.ankrscan.extractor.Extractor.NextBlocks:output_type -> com.ankrscan.extractor.NextBlocksReply
-	30, // 34: com.ankrscan.extractor.Extractor.CommitBlock:output_type -> com.ankrscan.extractor.CommitReply
-	25, // [25:35] is the sub-list for method output_type
-	15, // [15:25] is the sub-list for method input_type
+	29, // 23: com.ankrscan.extractor.Extractor.NextBlocks:input_type -> com.ankrscan.extractor.NextBlocksRequest
+	31, // 24: com.ankrscan.extractor.Extractor.CommitBlock:input_type -> com.ankrscan.extractor.CommitRequest
+	27, // 25: com.ankrscan.extractor.Extractor.NewConsumer:input_type -> com.ankrscan.extractor.NewConsumerRequest
+	19, // 26: com.ankrscan.extractor.Extractor.GetLatestBalance:output_type -> com.ankrscan.extractor.GetLatestBalanceReply
+	21, // 27: com.ankrscan.extractor.Extractor.GetTransactionByHash:output_type -> com.ankrscan.extractor.GetTransactionByHashReply
+	21, // 28: com.ankrscan.extractor.Extractor.GetTransactionByHashFast:output_type -> com.ankrscan.extractor.GetTransactionByHashReply
+	23, // 29: com.ankrscan.extractor.Extractor.GetBlockByHeight:output_type -> com.ankrscan.extractor.GetBlockByHeightReply
+	23, // 30: com.ankrscan.extractor.Extractor.GetBlockHeaderByHeight:output_type -> com.ankrscan.extractor.GetBlockByHeightReply
+	17, // 31: com.ankrscan.extractor.Extractor.GetExtractors:output_type -> com.ankrscan.extractor.ExtractorConfigs
+	17, // 32: com.ankrscan.extractor.Extractor.UpdateExtractors:output_type -> com.ankrscan.extractor.ExtractorConfigs
+	17, // 33: com.ankrscan.extractor.Extractor.DeleteExtractors:output_type -> com.ankrscan.extractor.ExtractorConfigs
+	30, // 34: com.ankrscan.extractor.Extractor.NextBlocks:output_type -> com.ankrscan.extractor.NextBlocksReply
+	32, // 35: com.ankrscan.extractor.Extractor.CommitBlock:output_type -> com.ankrscan.extractor.CommitReply
+	28, // 36: com.ankrscan.extractor.Extractor.NewConsumer:output_type -> com.ankrscan.extractor.NewConsumerReply
+	26, // [26:37] is the sub-list for method output_type
+	15, // [15:26] is the sub-list for method input_type
 	15, // [15:15] is the sub-list for extension type_name
 	15, // [15:15] is the sub-list for extension extendee
 	0,  // [0:15] is the sub-list for field type_name
@@ -2948,7 +3059,7 @@ func file_extractor_proto_init() {
 			}
 		}
 		file_extractor_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NextBlocksRequest); i {
+			switch v := v.(*NewConsumerRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2960,7 +3071,7 @@ func file_extractor_proto_init() {
 			}
 		}
 		file_extractor_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NextBlocksReply); i {
+			switch v := v.(*NewConsumerReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2972,7 +3083,7 @@ func file_extractor_proto_init() {
 			}
 		}
 		file_extractor_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CommitRequest); i {
+			switch v := v.(*NextBlocksRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -2984,6 +3095,30 @@ func file_extractor_proto_init() {
 			}
 		}
 		file_extractor_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*NextBlocksReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_extractor_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CommitRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_extractor_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CommitReply); i {
 			case 0:
 				return &v.state
@@ -3010,7 +3145,7 @@ func file_extractor_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_extractor_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   31,
+			NumMessages:   33,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
