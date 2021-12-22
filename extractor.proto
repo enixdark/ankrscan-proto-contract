@@ -279,6 +279,7 @@ message NextBlocksRequest {
 }
 
 message NextBlocksReply {
+  repeated BlockChanged blocks = 1;
 }
 
 message CommitRequest {
