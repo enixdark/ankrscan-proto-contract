@@ -271,7 +271,7 @@ message BlockConsumer {
 
 message NextUncommittedBlocksRequest {
   BlockConsumer consumer = 1;
-  uint64 blocks_count = 2;
+  uint64 count = 2;
 }
 
 message NextUncommittedBlocksReply {
