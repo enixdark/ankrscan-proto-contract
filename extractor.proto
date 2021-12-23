@@ -280,7 +280,7 @@ message NextUncommittedBlocksReply {
 
 message CommitRequest {
   BlockConsumer consumer = 1;
-  uint64 block_height = 2;
+  BlockHeader block = 2;
 }
 
 message CommitReply {
