@@ -198,7 +198,7 @@ service Extractor {
   rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
 
   // consumer API
-  rpc NextUncommittedBlocks (NextUncommittedBlocksRequest) returns (NextUncommittedBlocksReply);
+  rpc NextUncommitted (NextUncommittedRequest) returns (NextUncommittedReply);
   rpc CommitBlock (CommitRequest) returns (CommitReply);
 }
 
@@ -269,14 +269,15 @@ message BlockConsumer {
   string blockchain_name = 3;
 }
 
-message NextUncommittedBlocksRequest {
+message NextUncommittedRequest {
   BlockConsumer consumer = 1;
   uint64 batch_size = 2;
 }
 
-message NextUncommittedBlocksReply {
+message NextUncommittedReply {
   repeated BlockChanged blocks = 1;
   bool is_reorg = 2;
+  BlockHeader commit = 3;
 }
 
 message CommitRequest {

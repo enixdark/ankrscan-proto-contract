@@ -27,7 +27,7 @@ type ExtractorClient interface {
 	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	// consumer API
-	NextUncommittedBlocks(ctx context.Context, in *NextUncommittedBlocksRequest, opts ...grpc.CallOption) (*NextUncommittedBlocksReply, error)
+	NextUncommitted(ctx context.Context, in *NextUncommittedRequest, opts ...grpc.CallOption) (*NextUncommittedReply, error)
 	CommitBlock(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error)
 }
 
@@ -111,9 +111,9 @@ func (c *extractorClient) DeleteExtractors(ctx context.Context, in *DeleteExtrac
 	return out, nil
 }
 
-func (c *extractorClient) NextUncommittedBlocks(ctx context.Context, in *NextUncommittedBlocksRequest, opts ...grpc.CallOption) (*NextUncommittedBlocksReply, error) {
-	out := new(NextUncommittedBlocksReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/NextUncommittedBlocks", in, out, opts...)
+func (c *extractorClient) NextUncommitted(ctx context.Context, in *NextUncommittedRequest, opts ...grpc.CallOption) (*NextUncommittedReply, error) {
+	out := new(NextUncommittedReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/NextUncommitted", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -143,7 +143,7 @@ type ExtractorServer interface {
 	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
 	DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error)
 	// consumer API
-	NextUncommittedBlocks(context.Context, *NextUncommittedBlocksRequest) (*NextUncommittedBlocksReply, error)
+	NextUncommitted(context.Context, *NextUncommittedRequest) (*NextUncommittedReply, error)
 	CommitBlock(context.Context, *CommitRequest) (*CommitReply, error)
 	mustEmbedUnimplementedExtractorServer()
 }
@@ -176,8 +176,8 @@ func (UnimplementedExtractorServer) UpdateExtractors(context.Context, *UpdateExt
 func (UnimplementedExtractorServer) DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteExtractors not implemented")
 }
-func (UnimplementedExtractorServer) NextUncommittedBlocks(context.Context, *NextUncommittedBlocksRequest) (*NextUncommittedBlocksReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method NextUncommittedBlocks not implemented")
+func (UnimplementedExtractorServer) NextUncommitted(context.Context, *NextUncommittedRequest) (*NextUncommittedReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NextUncommitted not implemented")
 }
 func (UnimplementedExtractorServer) CommitBlock(context.Context, *CommitRequest) (*CommitReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CommitBlock not implemented")
@@ -339,20 +339,20 @@ func _Extractor_DeleteExtractors_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Extractor_NextUncommittedBlocks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NextUncommittedBlocksRequest)
+func _Extractor_NextUncommitted_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NextUncommittedRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ExtractorServer).NextUncommittedBlocks(ctx, in)
+		return srv.(ExtractorServer).NextUncommitted(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.extractor.Extractor/NextUncommittedBlocks",
+		FullMethod: "/com.ankrscan.extractor.Extractor/NextUncommitted",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).NextUncommittedBlocks(ctx, req.(*NextUncommittedBlocksRequest))
+		return srv.(ExtractorServer).NextUncommitted(ctx, req.(*NextUncommittedRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -415,8 +415,8 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Extractor_DeleteExtractors_Handler,
 		},
 		{
-			MethodName: "NextUncommittedBlocks",
-			Handler:    _Extractor_NextUncommittedBlocks_Handler,
+			MethodName: "NextUncommitted",
+			Handler:    _Extractor_NextUncommitted_Handler,
 		},
 		{
 			MethodName: "CommitBlock",
