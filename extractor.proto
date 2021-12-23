@@ -275,6 +275,7 @@ message NextUncommittedBlocksRequest {
 
 message NextUncommittedBlocksReply {
   repeated BlockChanged blocks = 1;
+  bool is_reorg = 2;
 }
 
 message CommitRequest {
