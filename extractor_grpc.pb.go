@@ -27,7 +27,7 @@ type ExtractorClient interface {
 	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	// consumer API
-	Next(ctx context.Context, in *NextUncommittedRequest, opts ...grpc.CallOption) (*NextUncommittedReply, error)
+	Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error)
 	Commit(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error)
 	Seek(ctx context.Context, in *SeekRequest, opts ...grpc.CallOption) (*SeekReply, error)
 }
@@ -112,8 +112,8 @@ func (c *extractorClient) DeleteExtractors(ctx context.Context, in *DeleteExtrac
 	return out, nil
 }
 
-func (c *extractorClient) Next(ctx context.Context, in *NextUncommittedRequest, opts ...grpc.CallOption) (*NextUncommittedReply, error) {
-	out := new(NextUncommittedReply)
+func (c *extractorClient) Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error) {
+	out := new(NextReply)
 	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/Next", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -153,7 +153,7 @@ type ExtractorServer interface {
 	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
 	DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error)
 	// consumer API
-	Next(context.Context, *NextUncommittedRequest) (*NextUncommittedReply, error)
+	Next(context.Context, *NextRequest) (*NextReply, error)
 	Commit(context.Context, *CommitRequest) (*CommitReply, error)
 	Seek(context.Context, *SeekRequest) (*SeekReply, error)
 	mustEmbedUnimplementedExtractorServer()
@@ -187,7 +187,7 @@ func (UnimplementedExtractorServer) UpdateExtractors(context.Context, *UpdateExt
 func (UnimplementedExtractorServer) DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteExtractors not implemented")
 }
-func (UnimplementedExtractorServer) Next(context.Context, *NextUncommittedRequest) (*NextUncommittedReply, error) {
+func (UnimplementedExtractorServer) Next(context.Context, *NextRequest) (*NextReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Next not implemented")
 }
 func (UnimplementedExtractorServer) Commit(context.Context, *CommitRequest) (*CommitReply, error) {
@@ -354,7 +354,7 @@ func _Extractor_DeleteExtractors_Handler(srv interface{}, ctx context.Context, d
 }
 
 func _Extractor_Next_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NextUncommittedRequest)
+	in := new(NextRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -366,7 +366,7 @@ func _Extractor_Next_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/com.ankrscan.extractor.Extractor/Next",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).Next(ctx, req.(*NextUncommittedRequest))
+		return srv.(ExtractorServer).Next(ctx, req.(*NextRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
