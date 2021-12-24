@@ -295,5 +295,5 @@ message SeekRequest {
 }
 
 message SeekReply {
-  BlockChanged committed = 1;
+  BlockHeader committed = 1;
 }
