@@ -198,8 +198,9 @@ service Extractor {
   rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
 
   // consumer API
-  rpc NextUncommitted (NextUncommittedRequest) returns (NextUncommittedReply);
-  rpc CommitBlock (CommitRequest) returns (CommitReply);
+  rpc Next (NextUncommittedRequest) returns (NextUncommittedReply);
+  rpc Commit (CommitRequest) returns (CommitReply);
+  rpc Seek (SeekRequest) returns (SeekReply);
 }
 
 message GetExtractorsRequest {
@@ -286,4 +287,13 @@ message CommitRequest {
 }
 
 message CommitReply {
+}
+
+message SeekRequest {
+  BlockConsumer consumer = 1;
+  uint64 block_height = 2;
+}
+
+message SeekReply {
+  BlockChanged committed = 1;
 }
