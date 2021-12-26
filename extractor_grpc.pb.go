@@ -22,6 +22,8 @@ type ExtractorClient interface {
 	GetTransactionByHashFast(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error)
 	GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
 	GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
+	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
+	BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
 	// extractors configurations API
 	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
@@ -79,6 +81,24 @@ func (c *extractorClient) GetBlockByHeight(ctx context.Context, in *GetBlockByHe
 func (c *extractorClient) GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error) {
 	out := new(GetBlockByHeightReply)
 	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetBlockHeaderByHeight", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *extractorClient) BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
+	out := new(BlockRangeReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/BlockRange", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *extractorClient) BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
+	out := new(BlockRangeReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/BlockRangeContinuous", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -148,6 +168,8 @@ type ExtractorServer interface {
 	GetTransactionByHashFast(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error)
 	GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
 	GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
+	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
+	BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
 	// extractors configurations API
 	GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error)
 	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
@@ -177,6 +199,12 @@ func (UnimplementedExtractorServer) GetBlockByHeight(context.Context, *GetBlockB
 }
 func (UnimplementedExtractorServer) GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlockHeaderByHeight not implemented")
+}
+func (UnimplementedExtractorServer) BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlockRange not implemented")
+}
+func (UnimplementedExtractorServer) BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlockRangeContinuous not implemented")
 }
 func (UnimplementedExtractorServer) GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetExtractors not implemented")
@@ -295,6 +323,42 @@ func _Extractor_GetBlockHeaderByHeight_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExtractorServer).GetBlockHeaderByHeight(ctx, req.(*GetBlockByHeightRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Extractor_BlockRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).BlockRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.extractor.Extractor/BlockRange",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).BlockRange(ctx, req.(*BlockRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Extractor_BlockRangeContinuous_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).BlockRangeContinuous(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.extractor.Extractor/BlockRangeContinuous",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).BlockRangeContinuous(ctx, req.(*BlockRangeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -433,6 +497,14 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetBlockHeaderByHeight",
 			Handler:    _Extractor_GetBlockHeaderByHeight_Handler,
+		},
+		{
+			MethodName: "BlockRange",
+			Handler:    _Extractor_BlockRange_Handler,
+		},
+		{
+			MethodName: "BlockRangeContinuous",
+			Handler:    _Extractor_BlockRangeContinuous_Handler,
 		},
 		{
 			MethodName: "GetExtractors",

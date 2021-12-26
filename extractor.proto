@@ -192,6 +192,9 @@ service Extractor {
   rpc GetBlockByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
   rpc GetBlockHeaderByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
 
+  rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
+  rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
+
   // extractors configurations API
   rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
   rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
@@ -201,6 +204,10 @@ service Extractor {
   rpc Next (NextRequest) returns (NextReply);
   rpc Commit (CommitRequest) returns (CommitReply);
   rpc Seek (SeekRequest) returns (SeekReply);
+}
+
+message BlockRangeReply {
+  repeated BlockChanged blocks = 1;
 }
 
 message GetExtractorsRequest {
@@ -258,7 +265,7 @@ message BlockByNumberRequest {
   uint64 block_height = 2;
 }
 
-message BlocksRangeRequest {
+message BlockRangeRequest {
   string blockchain_name = 1;
   uint64 from_block_height = 2;
   uint64 to_block_height = 3;
