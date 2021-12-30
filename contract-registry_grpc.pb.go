@@ -13,194 +13,86 @@ import (
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion7
 
-// ContractRegistryClient is the client API for ContractRegistry service.
+// NftIndexerClient is the client API for NftIndexer service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ContractRegistryClient interface {
-	GetContract(ctx context.Context, in *GetContractRequest, opts ...grpc.CallOption) (*GetContractReply, error)
-	GetCmcAssetBySymbol(ctx context.Context, in *GetCmcAssetBySymbolRequest, opts ...grpc.CallOption) (*GetCmcAssetReply, error)
-	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error)
-	GetChainInteractions(ctx context.Context, in *GetChainInteractionsRequest, opts ...grpc.CallOption) (*GetChainInteractionsReply, error)
+type NftIndexerClient interface {
+	NftBalanceByAddress(ctx context.Context, in *NftBalanceByAddressRequest, opts ...grpc.CallOption) (*NftBalanceByAddressReply, error)
 }
 
-type contractRegistryClient struct {
+type nftIndexerClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewContractRegistryClient(cc grpc.ClientConnInterface) ContractRegistryClient {
-	return &contractRegistryClient{cc}
+func NewNftIndexerClient(cc grpc.ClientConnInterface) NftIndexerClient {
+	return &nftIndexerClient{cc}
 }
 
-func (c *contractRegistryClient) GetContract(ctx context.Context, in *GetContractRequest, opts ...grpc.CallOption) (*GetContractReply, error) {
-	out := new(GetContractReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetContract", in, out, opts...)
+func (c *nftIndexerClient) NftBalanceByAddress(ctx context.Context, in *NftBalanceByAddressRequest, opts ...grpc.CallOption) (*NftBalanceByAddressReply, error) {
+	out := new(NftBalanceByAddressReply)
+	err := c.cc.Invoke(ctx, "/com.clover.extractor.NftIndexer/NftBalanceByAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *contractRegistryClient) GetCmcAssetBySymbol(ctx context.Context, in *GetCmcAssetBySymbolRequest, opts ...grpc.CallOption) (*GetCmcAssetReply, error) {
-	out := new(GetCmcAssetReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetCmcAssetBySymbol", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *contractRegistryClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error) {
-	out := new(GetBalanceReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetBalance", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *contractRegistryClient) GetChainInteractions(ctx context.Context, in *GetChainInteractionsRequest, opts ...grpc.CallOption) (*GetChainInteractionsReply, error) {
-	out := new(GetChainInteractionsReply)
-	err := c.cc.Invoke(ctx, "/com.clover.extractor.ContractRegistry/GetChainInteractions", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// ContractRegistryServer is the server API for ContractRegistry service.
-// All implementations must embed UnimplementedContractRegistryServer
+// NftIndexerServer is the server API for NftIndexer service.
+// All implementations must embed UnimplementedNftIndexerServer
 // for forward compatibility
-type ContractRegistryServer interface {
-	GetContract(context.Context, *GetContractRequest) (*GetContractReply, error)
-	GetCmcAssetBySymbol(context.Context, *GetCmcAssetBySymbolRequest) (*GetCmcAssetReply, error)
-	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error)
-	GetChainInteractions(context.Context, *GetChainInteractionsRequest) (*GetChainInteractionsReply, error)
-	mustEmbedUnimplementedContractRegistryServer()
+type NftIndexerServer interface {
+	NftBalanceByAddress(context.Context, *NftBalanceByAddressRequest) (*NftBalanceByAddressReply, error)
+	mustEmbedUnimplementedNftIndexerServer()
 }
 
-// UnimplementedContractRegistryServer must be embedded to have forward compatible implementations.
-type UnimplementedContractRegistryServer struct {
+// UnimplementedNftIndexerServer must be embedded to have forward compatible implementations.
+type UnimplementedNftIndexerServer struct {
 }
 
-func (UnimplementedContractRegistryServer) GetContract(context.Context, *GetContractRequest) (*GetContractReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetContract not implemented")
+func (UnimplementedNftIndexerServer) NftBalanceByAddress(context.Context, *NftBalanceByAddressRequest) (*NftBalanceByAddressReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NftBalanceByAddress not implemented")
 }
-func (UnimplementedContractRegistryServer) GetCmcAssetBySymbol(context.Context, *GetCmcAssetBySymbolRequest) (*GetCmcAssetReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCmcAssetBySymbol not implemented")
-}
-func (UnimplementedContractRegistryServer) GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
-}
-func (UnimplementedContractRegistryServer) GetChainInteractions(context.Context, *GetChainInteractionsRequest) (*GetChainInteractionsReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetChainInteractions not implemented")
-}
-func (UnimplementedContractRegistryServer) mustEmbedUnimplementedContractRegistryServer() {}
+func (UnimplementedNftIndexerServer) mustEmbedUnimplementedNftIndexerServer() {}
 
-// UnsafeContractRegistryServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ContractRegistryServer will
+// UnsafeNftIndexerServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to NftIndexerServer will
 // result in compilation errors.
-type UnsafeContractRegistryServer interface {
-	mustEmbedUnimplementedContractRegistryServer()
+type UnsafeNftIndexerServer interface {
+	mustEmbedUnimplementedNftIndexerServer()
 }
 
-func RegisterContractRegistryServer(s grpc.ServiceRegistrar, srv ContractRegistryServer) {
-	s.RegisterService(&ContractRegistry_ServiceDesc, srv)
+func RegisterNftIndexerServer(s grpc.ServiceRegistrar, srv NftIndexerServer) {
+	s.RegisterService(&NftIndexer_ServiceDesc, srv)
 }
 
-func _ContractRegistry_GetContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetContractRequest)
+func _NftIndexer_NftBalanceByAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NftBalanceByAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ContractRegistryServer).GetContract(ctx, in)
+		return srv.(NftIndexerServer).NftBalanceByAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.clover.extractor.ContractRegistry/GetContract",
+		FullMethod: "/com.clover.extractor.NftIndexer/NftBalanceByAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContractRegistryServer).GetContract(ctx, req.(*GetContractRequest))
+		return srv.(NftIndexerServer).NftBalanceByAddress(ctx, req.(*NftBalanceByAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ContractRegistry_GetCmcAssetBySymbol_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCmcAssetBySymbolRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ContractRegistryServer).GetCmcAssetBySymbol(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.clover.extractor.ContractRegistry/GetCmcAssetBySymbol",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContractRegistryServer).GetCmcAssetBySymbol(ctx, req.(*GetCmcAssetBySymbolRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ContractRegistry_GetBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBalanceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ContractRegistryServer).GetBalance(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.clover.extractor.ContractRegistry/GetBalance",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContractRegistryServer).GetBalance(ctx, req.(*GetBalanceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ContractRegistry_GetChainInteractions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetChainInteractionsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ContractRegistryServer).GetChainInteractions(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.clover.extractor.ContractRegistry/GetChainInteractions",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ContractRegistryServer).GetChainInteractions(ctx, req.(*GetChainInteractionsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-// ContractRegistry_ServiceDesc is the grpc.ServiceDesc for ContractRegistry service.
+// NftIndexer_ServiceDesc is the grpc.ServiceDesc for NftIndexer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ContractRegistry_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "com.clover.extractor.ContractRegistry",
-	HandlerType: (*ContractRegistryServer)(nil),
+var NftIndexer_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "com.clover.extractor.NftIndexer",
+	HandlerType: (*NftIndexerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetContract",
-			Handler:    _ContractRegistry_GetContract_Handler,
-		},
-		{
-			MethodName: "GetCmcAssetBySymbol",
-			Handler:    _ContractRegistry_GetCmcAssetBySymbol_Handler,
-		},
-		{
-			MethodName: "GetBalance",
-			Handler:    _ContractRegistry_GetBalance_Handler,
-		},
-		{
-			MethodName: "GetChainInteractions",
-			Handler:    _ContractRegistry_GetChainInteractions_Handler,
+			MethodName: "NftBalanceByAddress",
+			Handler:    _NftIndexer_NftBalanceByAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
