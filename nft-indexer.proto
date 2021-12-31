@@ -29,7 +29,7 @@ message NftMetadata {
 
 message Nft {
   bytes nft_metadata = 1;
-  bytes content = 2;
+  bytes content = 3;
   // attributes, etc...
 }
 
