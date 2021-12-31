@@ -1,6 +1,9 @@
 syntax = "proto3";
 
 package com.ankrscan.nftindexer;
+option java_package = "com.ankrscan.proto";
+option java_outer_classname = "NftIndexerProto";
+
 option go_package = "./;proto";
 
 message NftMetadata {
@@ -23,7 +26,7 @@ message NftTransfer {
 }
 
 message NftBalance {
-  NftMetadata nft = 1;
+  NftMetadata nft_metadata = 1;
   bytes wallet = 2;
   bytes value = 3;
 }
