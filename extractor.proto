@@ -101,6 +101,7 @@ message DotBlock {
 }
 
 message TransactionDetails {
+  bytes transaction_id = 9;
   string blockchain_name = 1;
   bytes block_hash = 2;
   uint64 block_height = 3;
@@ -114,6 +115,7 @@ message TransactionDetails {
 }
 
 message BlockHeader {
+  bytes block_id = 9;
   string blockchain_name = 1;
   bytes block_hash = 2;
   bytes parent_hash = 3;
