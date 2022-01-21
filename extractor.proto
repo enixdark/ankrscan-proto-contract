@@ -294,6 +294,7 @@ message CommitRequest {
 }
 
 message CommitReply {
+  BlockHeader committed = 1;
 }
 
 message SeekRequest {
