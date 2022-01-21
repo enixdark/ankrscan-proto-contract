@@ -285,12 +285,12 @@ message NextRequest {
 message NextReply {
   repeated BlockChanged blocks = 1;
   bool is_reorg = 2;
-  BlockHeader commit = 3;
+  string commit = 3;
 }
 
 message CommitRequest {
   BlockConsumer consumer = 1;
-  BlockHeader block = 2;
+  string commit = 2;
 }
 
 message CommitReply {
