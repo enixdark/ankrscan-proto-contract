@@ -38,6 +38,10 @@ message EthTransaction {
   uint64 gas_used = 10;
   uint64 status = 11;
   repeated EthLog logs = 12;
+  bytes v = 13;
+  bytes r = 14;
+  bytes s = 15;
+  bytes type = 16;
 }
 
 message EthBlock {
@@ -53,6 +57,8 @@ message EthBlock {
   uint64 gas_limit = 13;
   uint64 gas_used = 14;
   repeated bytes uncles = 16;
+  bytes receipts_root = 17;
+  bytes mix_hash = 18;
 }
 
 //  _____   ____ _______
@@ -101,6 +107,7 @@ message DotBlock {
 }
 
 message TransactionDetails {
+  bytes transaction_id = 15;
   string blockchain_name = 1;
   bytes block_hash = 2;
   uint64 block_height = 3;
@@ -114,6 +121,7 @@ message TransactionDetails {
 }
 
 message BlockHeader {
+  bytes block_id = 15;
   string blockchain_name = 1;
   bytes block_hash = 2;
   bytes parent_hash = 3;
@@ -150,7 +158,7 @@ message ExtractorConfig {
 /**
  * Topic: v1.blockchainextractor.blockchanged
  */
-message BlockChanged {
+message Block {
   BlockHeader header = 1;
   repeated TransactionDetails transactions = 2;
 }
@@ -207,7 +215,7 @@ service Extractor {
 }
 
 message BlockRangeReply {
-  repeated BlockChanged blocks = 1;
+  repeated Block blocks = 1;
 }
 
 message GetExtractorsRequest {
@@ -251,7 +259,7 @@ message GetBlockByHeightRequest {
 }
 
 message GetBlockByHeightReply {
-  BlockChanged details = 1;
+  Block details = 1;
 }
 
 message BlockByNumberAndHashRequest {
@@ -283,7 +291,7 @@ message NextRequest {
 }
 
 message NextReply {
-  repeated BlockChanged blocks = 1;
+  repeated Block blocks = 1;
   bool is_reorg = 2;
   BlockHeader commit = 3;
 }
