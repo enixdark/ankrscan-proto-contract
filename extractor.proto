@@ -32,16 +32,16 @@ message EthTransaction {
   uint64 gas = 5;
   bytes gas_price = 6;
   bytes input = 7;
+  bytes v = 13;
+  bytes r = 14;
+  bytes s = 15;
+  uint64 type = 16;
   // eth_getTransactionReceipt
   bytes contract_address = 8;
   uint64 cumulative_gas_used = 9;
   uint64 gas_used = 10;
   uint64 status = 11;
   repeated EthLog logs = 12;
-  bytes v = 13;
-  bytes r = 14;
-  bytes s = 15;
-  bytes type = 16;
 }
 
 message EthBlock {
@@ -59,6 +59,7 @@ message EthBlock {
   repeated bytes uncles = 16;
   bytes receipts_root = 17;
   bytes mix_hash = 18;
+  bytes logs_bloom = 19;
 }
 
 //  _____   ____ _______
