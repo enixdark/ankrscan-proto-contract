@@ -1,10 +1,6 @@
 syntax = "proto3";
 
-package com.ankrscan.blockchainsettings;
-
-option java_package = "com.clover.proto";
-option java_outer_classname = "BlockchainSettingsProto";
-
+package com.ankrscan.blockchain;
 option go_package = "./;proto";
 
 /**
