@@ -32,6 +32,7 @@ type ExtractorClient interface {
 	Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error)
 	Commit(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error)
 	Seek(ctx context.Context, in *SeekRequest, opts ...grpc.CallOption) (*SeekReply, error)
+	BlocksByNumber(ctx context.Context, in *BlocksByNumberRequest, opts ...grpc.CallOption) (*BlocksByNumberReply, error)
 }
 
 type extractorClient struct {
@@ -159,6 +160,15 @@ func (c *extractorClient) Seek(ctx context.Context, in *SeekRequest, opts ...grp
 	return out, nil
 }
 
+func (c *extractorClient) BlocksByNumber(ctx context.Context, in *BlocksByNumberRequest, opts ...grpc.CallOption) (*BlocksByNumberReply, error) {
+	out := new(BlocksByNumberReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/BlocksByNumber", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExtractorServer is the server API for Extractor service.
 // All implementations must embed UnimplementedExtractorServer
 // for forward compatibility
@@ -178,6 +188,7 @@ type ExtractorServer interface {
 	Next(context.Context, *NextRequest) (*NextReply, error)
 	Commit(context.Context, *CommitRequest) (*CommitReply, error)
 	Seek(context.Context, *SeekRequest) (*SeekReply, error)
+	BlocksByNumber(context.Context, *BlocksByNumberRequest) (*BlocksByNumberReply, error)
 	mustEmbedUnimplementedExtractorServer()
 }
 
@@ -223,6 +234,9 @@ func (UnimplementedExtractorServer) Commit(context.Context, *CommitRequest) (*Co
 }
 func (UnimplementedExtractorServer) Seek(context.Context, *SeekRequest) (*SeekReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Seek not implemented")
+}
+func (UnimplementedExtractorServer) BlocksByNumber(context.Context, *BlocksByNumberRequest) (*BlocksByNumberReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlocksByNumber not implemented")
 }
 func (UnimplementedExtractorServer) mustEmbedUnimplementedExtractorServer() {}
 
@@ -471,6 +485,24 @@ func _Extractor_Seek_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Extractor_BlocksByNumber_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlocksByNumberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExtractorServer).BlocksByNumber(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.extractor.Extractor/BlocksByNumber",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExtractorServer).BlocksByNumber(ctx, req.(*BlocksByNumberRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Extractor_ServiceDesc is the grpc.ServiceDesc for Extractor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -529,6 +561,10 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Seek",
 			Handler:    _Extractor_Seek_Handler,
+		},
+		{
+			MethodName: "BlocksByNumber",
+			Handler:    _Extractor_BlocksByNumber_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

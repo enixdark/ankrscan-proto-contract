@@ -213,6 +213,7 @@ service Extractor {
   rpc Next (NextRequest) returns (NextReply);
   rpc Commit (CommitRequest) returns (CommitReply);
   rpc Seek (SeekRequest) returns (SeekReply);
+  rpc BlocksByNumber(BlocksByNumberRequest) returns (BlocksByNumberReply);
 }
 
 message BlockRangeReply {
@@ -272,6 +273,14 @@ message BlockByNumberAndHashRequest {
 message BlockByNumberRequest {
   string blockchain_name = 1;
   uint64 block_height = 2;
+}
+
+message BlocksByNumberRequest {
+  repeated BlockByNumberRequest requests = 1;
+}
+
+message BlocksByNumberReply {
+  repeated Block blocks = 1;
 }
 
 message BlockRangeRequest {
