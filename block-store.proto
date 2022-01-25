@@ -299,6 +299,7 @@ message NextReply {
   repeated Block blocks = 1;
   bool is_reorg = 2;
   BlockHeader commit = 3;
+  BlockHeader latest = 4;
 }
 
 message CommitRequest {
