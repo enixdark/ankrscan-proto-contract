@@ -17,17 +17,19 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BlockStoreClient interface {
-	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
-	BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
 	// internal API for configuring blockchain extractors
 	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
-	// public API
+	// consumer public APIs
 	Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error)
 	Commit(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error)
 	Seek(ctx context.Context, in *SeekRequest, opts ...grpc.CallOption) (*SeekReply, error)
+	LastCommit(ctx context.Context, in *LastCommitRequest, opts ...grpc.CallOption) (*LastCommitReply, error)
+	// public APIs
 	BlocksByNumber(ctx context.Context, in *BlocksByNumberRequest, opts ...grpc.CallOption) (*BlocksByNumberReply, error)
+	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
+	BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
 }
 
 type blockStoreClient struct {
@@ -36,24 +38,6 @@ type blockStoreClient struct {
 
 func NewBlockStoreClient(cc grpc.ClientConnInterface) BlockStoreClient {
 	return &blockStoreClient{cc}
-}
-
-func (c *blockStoreClient) BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
-	out := new(BlockRangeReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlockRange", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *blockStoreClient) BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
-	out := new(BlockRangeReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *blockStoreClient) GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
@@ -110,9 +94,36 @@ func (c *blockStoreClient) Seek(ctx context.Context, in *SeekRequest, opts ...gr
 	return out, nil
 }
 
+func (c *blockStoreClient) LastCommit(ctx context.Context, in *LastCommitRequest, opts ...grpc.CallOption) (*LastCommitReply, error) {
+	out := new(LastCommitReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/LastCommit", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *blockStoreClient) BlocksByNumber(ctx context.Context, in *BlocksByNumberRequest, opts ...grpc.CallOption) (*BlocksByNumberReply, error) {
 	out := new(BlocksByNumberReply)
 	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlocksByNumber", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blockStoreClient) BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
+	out := new(BlockRangeReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlockRange", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blockStoreClient) BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
+	out := new(BlockRangeReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -123,17 +134,19 @@ func (c *blockStoreClient) BlocksByNumber(ctx context.Context, in *BlocksByNumbe
 // All implementations must embed UnimplementedBlockStoreServer
 // for forward compatibility
 type BlockStoreServer interface {
-	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
-	BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
 	// internal API for configuring blockchain extractors
 	GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error)
 	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
 	DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error)
-	// public API
+	// consumer public APIs
 	Next(context.Context, *NextRequest) (*NextReply, error)
 	Commit(context.Context, *CommitRequest) (*CommitReply, error)
 	Seek(context.Context, *SeekRequest) (*SeekReply, error)
+	LastCommit(context.Context, *LastCommitRequest) (*LastCommitReply, error)
+	// public APIs
 	BlocksByNumber(context.Context, *BlocksByNumberRequest) (*BlocksByNumberReply, error)
+	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
+	BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
 	mustEmbedUnimplementedBlockStoreServer()
 }
 
@@ -141,12 +154,6 @@ type BlockStoreServer interface {
 type UnimplementedBlockStoreServer struct {
 }
 
-func (UnimplementedBlockStoreServer) BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BlockRange not implemented")
-}
-func (UnimplementedBlockStoreServer) BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BlockRangeContinuous not implemented")
-}
 func (UnimplementedBlockStoreServer) GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetExtractors not implemented")
 }
@@ -165,8 +172,17 @@ func (UnimplementedBlockStoreServer) Commit(context.Context, *CommitRequest) (*C
 func (UnimplementedBlockStoreServer) Seek(context.Context, *SeekRequest) (*SeekReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Seek not implemented")
 }
+func (UnimplementedBlockStoreServer) LastCommit(context.Context, *LastCommitRequest) (*LastCommitReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LastCommit not implemented")
+}
 func (UnimplementedBlockStoreServer) BlocksByNumber(context.Context, *BlocksByNumberRequest) (*BlocksByNumberReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlocksByNumber not implemented")
+}
+func (UnimplementedBlockStoreServer) BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlockRange not implemented")
+}
+func (UnimplementedBlockStoreServer) BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BlockRangeContinuous not implemented")
 }
 func (UnimplementedBlockStoreServer) mustEmbedUnimplementedBlockStoreServer() {}
 
@@ -179,42 +195,6 @@ type UnsafeBlockStoreServer interface {
 
 func RegisterBlockStoreServer(s grpc.ServiceRegistrar, srv BlockStoreServer) {
 	s.RegisterService(&BlockStore_ServiceDesc, srv)
-}
-
-func _BlockStore_BlockRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BlockRangeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BlockStoreServer).BlockRange(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/BlockRange",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BlockStoreServer).BlockRange(ctx, req.(*BlockRangeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _BlockStore_BlockRangeContinuous_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BlockRangeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BlockStoreServer).BlockRangeContinuous(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BlockStoreServer).BlockRangeContinuous(ctx, req.(*BlockRangeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _BlockStore_GetExtractors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -325,6 +305,24 @@ func _BlockStore_Seek_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BlockStore_LastCommit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LastCommitRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).LastCommit(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.blockstore.BlockStore/LastCommit",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).LastCommit(ctx, req.(*LastCommitRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _BlockStore_BlocksByNumber_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(BlocksByNumberRequest)
 	if err := dec(in); err != nil {
@@ -343,6 +341,42 @@ func _BlockStore_BlocksByNumber_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BlockStore_BlockRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).BlockRange(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.blockstore.BlockStore/BlockRange",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).BlockRange(ctx, req.(*BlockRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlockStore_BlockRangeContinuous_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockRangeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).BlockRangeContinuous(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).BlockRangeContinuous(ctx, req.(*BlockRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BlockStore_ServiceDesc is the grpc.ServiceDesc for BlockStore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,14 +384,6 @@ var BlockStore_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "com.ankrscan.blockstore.BlockStore",
 	HandlerType: (*BlockStoreServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "BlockRange",
-			Handler:    _BlockStore_BlockRange_Handler,
-		},
-		{
-			MethodName: "BlockRangeContinuous",
-			Handler:    _BlockStore_BlockRangeContinuous_Handler,
-		},
 		{
 			MethodName: "GetExtractors",
 			Handler:    _BlockStore_GetExtractors_Handler,
@@ -383,8 +409,20 @@ var BlockStore_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _BlockStore_Seek_Handler,
 		},
 		{
+			MethodName: "LastCommit",
+			Handler:    _BlockStore_LastCommit_Handler,
+		},
+		{
 			MethodName: "BlocksByNumber",
 			Handler:    _BlockStore_BlocksByNumber_Handler,
+		},
+		{
+			MethodName: "BlockRange",
+			Handler:    _BlockStore_BlockRange_Handler,
+		},
+		{
+			MethodName: "BlockRangeContinuous",
+			Handler:    _BlockStore_BlockRangeContinuous_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

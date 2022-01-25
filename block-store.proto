@@ -192,19 +192,22 @@ message LatestBlockChanged {
  **/
 
 service BlockStore {
-  rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
-  rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
-
   // internal API for configuring blockchain extractors
   rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
   rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
   rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
 
-  // public API
+  // consumer public APIs
   rpc Next (NextRequest) returns (NextReply);
   rpc Commit (CommitRequest) returns (CommitReply);
   rpc Seek (SeekRequest) returns (SeekReply);
+  rpc LastCommit (LastCommitRequest) returns (LastCommitReply);
+
+  // public APIs
   rpc BlocksByNumber(BlocksByNumberRequest) returns (BlocksByNumberReply);
+  rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
+  rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
+
 }
 
 message BlockRangeReply {
@@ -313,4 +316,13 @@ message SeekRequest {
 
 message SeekReply {
   BlockHeader committed = 1;
+}
+
+message LastCommitRequest {
+  BlockConsumer consumer = 1;
+}
+
+message LastCommitReply {
+  BlockHeader committed = 1;
+  bool exists = 2;
 }
