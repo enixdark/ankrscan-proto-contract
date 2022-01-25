@@ -1,9 +1,6 @@
 syntax = "proto3";
 
-package com.ankrscan.extractor;
-
-option java_package = "com.ankrscan.proto";
-option java_outer_classname = "ExtractorProto";
+package com.ankrscan.blockstore;
 
 option go_package = "./;proto";
 
@@ -194,7 +191,7 @@ message LatestBlockChanged {
  *
  **/
 
-service Extractor {
+service BlockStore {
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
   rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
 
