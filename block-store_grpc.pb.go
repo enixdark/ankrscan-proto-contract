@@ -568,5 +568,5 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "extractor.proto",
+	Metadata: "block-store.proto",
 }
