@@ -195,21 +195,15 @@ message LatestBlockChanged {
  **/
 
 service Extractor {
-  rpc GetLatestBalance (GetLatestBalanceRequest) returns (GetLatestBalanceReply);
-  rpc GetTransactionByHash (GetTransactionByHashRequest) returns (GetTransactionByHashReply);
-  rpc GetTransactionByHashFast (GetTransactionByHashRequest) returns (GetTransactionByHashReply);
-  rpc GetBlockByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
-  rpc GetBlockHeaderByHeight (GetBlockByHeightRequest) returns (GetBlockByHeightReply);
-
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
   rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
 
-  // extractors configurations API
+  // internal API for configuring blockchain extractors
   rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
   rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
   rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
 
-  // consumer API
+  // public API
   rpc Next (NextRequest) returns (NextReply);
   rpc Commit (CommitRequest) returns (CommitReply);
   rpc Seek (SeekRequest) returns (SeekReply);

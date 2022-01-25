@@ -17,18 +17,13 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ExtractorClient interface {
-	GetLatestBalance(ctx context.Context, in *GetLatestBalanceRequest, opts ...grpc.CallOption) (*GetLatestBalanceReply, error)
-	GetTransactionByHash(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error)
-	GetTransactionByHashFast(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error)
-	GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
-	GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error)
 	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
 	BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
-	// extractors configurations API
+	// internal API for configuring blockchain extractors
 	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
 	DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
-	// consumer API
+	// public API
 	Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error)
 	Commit(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error)
 	Seek(ctx context.Context, in *SeekRequest, opts ...grpc.CallOption) (*SeekReply, error)
@@ -41,51 +36,6 @@ type extractorClient struct {
 
 func NewExtractorClient(cc grpc.ClientConnInterface) ExtractorClient {
 	return &extractorClient{cc}
-}
-
-func (c *extractorClient) GetLatestBalance(ctx context.Context, in *GetLatestBalanceRequest, opts ...grpc.CallOption) (*GetLatestBalanceReply, error) {
-	out := new(GetLatestBalanceReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetLatestBalance", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *extractorClient) GetTransactionByHash(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error) {
-	out := new(GetTransactionByHashReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetTransactionByHash", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *extractorClient) GetTransactionByHashFast(ctx context.Context, in *GetTransactionByHashRequest, opts ...grpc.CallOption) (*GetTransactionByHashReply, error) {
-	out := new(GetTransactionByHashReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetTransactionByHashFast", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *extractorClient) GetBlockByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error) {
-	out := new(GetBlockByHeightReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetBlockByHeight", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *extractorClient) GetBlockHeaderByHeight(ctx context.Context, in *GetBlockByHeightRequest, opts ...grpc.CallOption) (*GetBlockByHeightReply, error) {
-	out := new(GetBlockByHeightReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.extractor.Extractor/GetBlockHeaderByHeight", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *extractorClient) BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
@@ -173,18 +123,13 @@ func (c *extractorClient) BlocksByNumber(ctx context.Context, in *BlocksByNumber
 // All implementations must embed UnimplementedExtractorServer
 // for forward compatibility
 type ExtractorServer interface {
-	GetLatestBalance(context.Context, *GetLatestBalanceRequest) (*GetLatestBalanceReply, error)
-	GetTransactionByHash(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error)
-	GetTransactionByHashFast(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error)
-	GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
-	GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error)
 	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
 	BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
-	// extractors configurations API
+	// internal API for configuring blockchain extractors
 	GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error)
 	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
 	DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error)
-	// consumer API
+	// public API
 	Next(context.Context, *NextRequest) (*NextReply, error)
 	Commit(context.Context, *CommitRequest) (*CommitReply, error)
 	Seek(context.Context, *SeekRequest) (*SeekReply, error)
@@ -196,21 +141,6 @@ type ExtractorServer interface {
 type UnimplementedExtractorServer struct {
 }
 
-func (UnimplementedExtractorServer) GetLatestBalance(context.Context, *GetLatestBalanceRequest) (*GetLatestBalanceReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLatestBalance not implemented")
-}
-func (UnimplementedExtractorServer) GetTransactionByHash(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByHash not implemented")
-}
-func (UnimplementedExtractorServer) GetTransactionByHashFast(context.Context, *GetTransactionByHashRequest) (*GetTransactionByHashReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTransactionByHashFast not implemented")
-}
-func (UnimplementedExtractorServer) GetBlockByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBlockByHeight not implemented")
-}
-func (UnimplementedExtractorServer) GetBlockHeaderByHeight(context.Context, *GetBlockByHeightRequest) (*GetBlockByHeightReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBlockHeaderByHeight not implemented")
-}
 func (UnimplementedExtractorServer) BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockRange not implemented")
 }
@@ -249,96 +179,6 @@ type UnsafeExtractorServer interface {
 
 func RegisterExtractorServer(s grpc.ServiceRegistrar, srv ExtractorServer) {
 	s.RegisterService(&Extractor_ServiceDesc, srv)
-}
-
-func _Extractor_GetLatestBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetLatestBalanceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ExtractorServer).GetLatestBalance(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.extractor.Extractor/GetLatestBalance",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).GetLatestBalance(ctx, req.(*GetLatestBalanceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Extractor_GetTransactionByHash_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTransactionByHashRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ExtractorServer).GetTransactionByHash(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.extractor.Extractor/GetTransactionByHash",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).GetTransactionByHash(ctx, req.(*GetTransactionByHashRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Extractor_GetTransactionByHashFast_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTransactionByHashRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ExtractorServer).GetTransactionByHashFast(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.extractor.Extractor/GetTransactionByHashFast",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).GetTransactionByHashFast(ctx, req.(*GetTransactionByHashRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Extractor_GetBlockByHeight_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBlockByHeightRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ExtractorServer).GetBlockByHeight(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.extractor.Extractor/GetBlockByHeight",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).GetBlockByHeight(ctx, req.(*GetBlockByHeightRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Extractor_GetBlockHeaderByHeight_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBlockByHeightRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ExtractorServer).GetBlockHeaderByHeight(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/com.ankrscan.extractor.Extractor/GetBlockHeaderByHeight",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ExtractorServer).GetBlockHeaderByHeight(ctx, req.(*GetBlockByHeightRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Extractor_BlockRange_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -510,26 +350,6 @@ var Extractor_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "com.ankrscan.extractor.Extractor",
 	HandlerType: (*ExtractorServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GetLatestBalance",
-			Handler:    _Extractor_GetLatestBalance_Handler,
-		},
-		{
-			MethodName: "GetTransactionByHash",
-			Handler:    _Extractor_GetTransactionByHash_Handler,
-		},
-		{
-			MethodName: "GetTransactionByHashFast",
-			Handler:    _Extractor_GetTransactionByHashFast_Handler,
-		},
-		{
-			MethodName: "GetBlockByHeight",
-			Handler:    _Extractor_GetBlockByHeight_Handler,
-		},
-		{
-			MethodName: "GetBlockHeaderByHeight",
-			Handler:    _Extractor_GetBlockHeaderByHeight_Handler,
-		},
 		{
 			MethodName: "BlockRange",
 			Handler:    _Extractor_BlockRange_Handler,
