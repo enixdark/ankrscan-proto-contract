@@ -207,7 +207,7 @@ service BlockStore {
   rpc BlocksByNumber(BlocksByNumberRequest) returns (BlocksByNumberReply);
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
   rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
-  rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply);
+  rpc LatestBlockHeaders (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply);
 
 }
 
@@ -329,9 +329,9 @@ message LastCommitReply {
 }
 
 message LatestBlockHeaderRequest {
-  string blockchain_name = 1;
+  repeated string blockchain_name = 1;
 }
 
 message LatestBlockHeaderReply {
-  BlockHeader block = 1;
+  repeated BlockHeader block = 1;
 }
