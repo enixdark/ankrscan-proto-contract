@@ -30,6 +30,7 @@ type BlockStoreClient interface {
 	BlocksByNumber(ctx context.Context, in *BlocksByNumberRequest, opts ...grpc.CallOption) (*BlocksByNumberReply, error)
 	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
 	BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
+	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
 }
 
 type blockStoreClient struct {
@@ -130,6 +131,15 @@ func (c *blockStoreClient) BlockRangeContinuous(ctx context.Context, in *BlockRa
 	return out, nil
 }
 
+func (c *blockStoreClient) LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error) {
+	out := new(LatestBlockHeaderReply)
+	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/LatestBlockHeader", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BlockStoreServer is the server API for BlockStore service.
 // All implementations must embed UnimplementedBlockStoreServer
 // for forward compatibility
@@ -147,6 +157,7 @@ type BlockStoreServer interface {
 	BlocksByNumber(context.Context, *BlocksByNumberRequest) (*BlocksByNumberReply, error)
 	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
 	BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
+	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
 	mustEmbedUnimplementedBlockStoreServer()
 }
 
@@ -183,6 +194,9 @@ func (UnimplementedBlockStoreServer) BlockRange(context.Context, *BlockRangeRequ
 }
 func (UnimplementedBlockStoreServer) BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockRangeContinuous not implemented")
+}
+func (UnimplementedBlockStoreServer) LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LatestBlockHeader not implemented")
 }
 func (UnimplementedBlockStoreServer) mustEmbedUnimplementedBlockStoreServer() {}
 
@@ -377,6 +391,24 @@ func _BlockStore_BlockRangeContinuous_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BlockStore_LatestBlockHeader_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LatestBlockHeaderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).LatestBlockHeader(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/com.ankrscan.blockstore.BlockStore/LatestBlockHeader",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).LatestBlockHeader(ctx, req.(*LatestBlockHeaderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BlockStore_ServiceDesc is the grpc.ServiceDesc for BlockStore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -423,6 +455,10 @@ var BlockStore_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BlockRangeContinuous",
 			Handler:    _BlockStore_BlockRangeContinuous_Handler,
+		},
+		{
+			MethodName: "LatestBlockHeader",
+			Handler:    _BlockStore_LatestBlockHeader_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
