@@ -46,6 +46,7 @@ message NftMetadata {
 message Nft {
   NftMetadata nft_metadata = 1;
   NftAttributes attributes = 2;
+  NftContractDetails contract_details = 3;
 }
 
 message NftTransfer {
