@@ -61,3 +61,10 @@ message NftBalance {
   bytes wallet = 2;
   bytes value = 3;
 }
+
+message NftIndexerConfig {
+  uint64 id = 1;
+  string blockchain_name = 2;
+  int64 latest_processed_block = 3; // set to -1 to start from origin
+  string node_url = 8;
+}
