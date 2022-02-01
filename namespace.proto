@@ -15,45 +15,45 @@ enum FoundationDbNamespace {
   keys: Blockchain-TransactionHash
   values: keys of transactions in StorageNamespace
   */
-  TxByHashIndexNamespace = 1;
+  TxByHash = 1;
 
   /*
     keys: Blockchain-BlockHash
     values: keys of blocks in StorageNamespace
   */
-  BlockByHashIndexNamespace = 2;
+  BlockByHash = 2;
 
   /*
     keys: Blockchain-BlockHeight
     values: keys of blocks in StorageNamespace
   */
-  BlockByNumberIndexNamespace = 3;
+  BlockByNumber = 3;
 
   /*
     stores blocks of canonical chain
     keys: Blockchain-BlockHeight
     values: keys of blocks in StorageNamespace
   */
-  CanonicalIndexNamespace = 4;
+  CanonicalChain = 4;
 
   /*
     stores extractors configs
     keys: extractor ID
     values: proto.ExtractorConfig
   */
-  ExtractorConfigNamespace = 5;
+  ExtractorConfig = 5;
 
   /*
     stores consumers offsets
     keys: consumer ID
     values: committed block height
   */
-  ConsumerOffsetNamespace = 6;
+  ConsumerOffset = 6;
 
   /*
     stores the latest block header of canonical chain
     keys: Blockchain
     values: proto.BlockHeader
   */
-  LatestBlockNamespace = 7;
+  LatestBlock = 7;
 }
