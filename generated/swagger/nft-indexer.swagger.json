@@ -1,0 +1,127 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "nft-indexer.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "NftIndexer"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "nftindexerNft": {
+      "type": "object",
+      "properties": {
+        "nftMetadata": {
+          "$ref": "#/definitions/nftindexerNftMetadata"
+        },
+        "attributes": {
+          "$ref": "#/definitions/nftindexerNftAttributes"
+        },
+        "contractDetails": {
+          "$ref": "#/definitions/nftindexerNftContractDetails"
+        }
+      }
+    },
+    "nftindexerNftAttributes": {
+      "type": "object",
+      "properties": {
+        "tokenUri": {
+          "type": "string"
+        }
+      }
+    },
+    "nftindexerNftBalanceByAddressReply": {
+      "type": "object",
+      "properties": {
+        "nfts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nftindexerNft"
+          }
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "nftindexerNftContractDetails": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "nftType": {
+          "$ref": "#/definitions/nftindexerNftType"
+        }
+      }
+    },
+    "nftindexerNftMetadata": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "tokenId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "nftType": {
+          "$ref": "#/definitions/nftindexerNftType"
+        }
+      }
+    },
+    "nftindexerNftType": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "ERC721",
+        "ERC1155"
+      ],
+      "default": "UNDEFINED"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

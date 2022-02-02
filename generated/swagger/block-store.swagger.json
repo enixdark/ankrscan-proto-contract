@@ -1,0 +1,606 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "block-store.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "BlockStore"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/block/next": {
+      "post": {
+        "summary": "consumer public APIs",
+        "operationId": "BlockStore_Next",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreNextReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreNextRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "blockstoreBlock": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreTransactionDetails"
+          }
+        }
+      },
+      "title": "*\nTopic: v1.blockchainextractor.blockchanged"
+    },
+    "blockstoreBlockByNumberRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "blockstoreBlockConsumer": {
+      "type": "object",
+      "properties": {
+        "consumerName": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "blockchainName": {
+          "type": "string"
+        }
+      }
+    },
+    "blockstoreBlockHeader": {
+      "type": "object",
+      "properties": {
+        "blockId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockchainName": {
+          "type": "string"
+        },
+        "blockHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "parentHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionsCount": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "ethBlock": {
+          "$ref": "#/definitions/blockstoreEthBlock"
+        },
+        "dotBlock": {
+          "$ref": "#/definitions/blockstoreDotBlock"
+        }
+      }
+    },
+    "blockstoreBlockRangeReply": {
+      "type": "object",
+      "properties": {
+        "blocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreBlock"
+          }
+        }
+      }
+    },
+    "blockstoreBlocksByNumberReply": {
+      "type": "object",
+      "properties": {
+        "blocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreBlock"
+          }
+        }
+      }
+    },
+    "blockstoreCommitReply": {
+      "type": "object",
+      "properties": {
+        "committed": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreDotBlock": {
+      "type": "object",
+      "properties": {
+        "txs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreDotTransaction"
+          }
+        },
+        "header": {
+          "$ref": "#/definitions/blockstoreDotBlockHeader"
+        }
+      }
+    },
+    "blockstoreDotBlockHeader": {
+      "type": "object",
+      "properties": {
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "authorId": {
+          "type": "string"
+        },
+        "blockHash": {
+          "type": "string"
+        },
+        "parentHash": {
+          "type": "string"
+        },
+        "stateRoot": {
+          "type": "string"
+        },
+        "extrinsicRoot": {
+          "type": "string"
+        },
+        "transactionsCount": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "blockstoreDotEvent": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blockstoreDotTransaction": {
+      "type": "object",
+      "properties": {
+        "transactionHash": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "from": {
+          "type": "string",
+          "format": "byte"
+        },
+        "partialFee": {
+          "type": "string",
+          "format": "byte"
+        },
+        "tipFee": {
+          "type": "string",
+          "format": "byte"
+        },
+        "transactionFee": {
+          "type": "string",
+          "format": "byte"
+        },
+        "nonce": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "argsJson": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreDotEvent"
+          }
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "blockstoreEthBlock": {
+      "type": "object",
+      "properties": {
+        "nonce": {
+          "type": "string",
+          "format": "byte"
+        },
+        "sha3Uncles": {
+          "type": "string",
+          "format": "byte"
+        },
+        "transactionsRoot": {
+          "type": "string",
+          "format": "byte"
+        },
+        "stateRoot": {
+          "type": "string",
+          "format": "byte"
+        },
+        "miner": {
+          "type": "string",
+          "format": "byte"
+        },
+        "difficulty": {
+          "type": "string",
+          "format": "byte"
+        },
+        "totalDifficulty": {
+          "type": "string",
+          "format": "byte"
+        },
+        "extraData": {
+          "type": "string",
+          "format": "byte"
+        },
+        "size": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "gasLimit": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "gasUsed": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "uncles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "receiptsRoot": {
+          "type": "string",
+          "format": "byte"
+        },
+        "mixHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "logsBloom": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "blockstoreEthLog": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "format": "byte"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "data": {
+          "type": "string",
+          "format": "byte"
+        },
+        "removed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "blockstoreEthTransaction": {
+      "type": "object",
+      "properties": {
+        "nonce": {
+          "type": "string",
+          "format": "uint64",
+          "title": "eth_getTransactionByHash"
+        },
+        "from": {
+          "type": "string",
+          "format": "byte"
+        },
+        "to": {
+          "type": "string",
+          "format": "byte"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        },
+        "gas": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "gasPrice": {
+          "type": "string",
+          "format": "byte"
+        },
+        "input": {
+          "type": "string",
+          "format": "byte"
+        },
+        "v": {
+          "type": "string",
+          "format": "byte"
+        },
+        "r": {
+          "type": "string",
+          "format": "byte"
+        },
+        "s": {
+          "type": "string",
+          "format": "byte"
+        },
+        "type": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte",
+          "title": "eth_getTransactionReceipt"
+        },
+        "cumulativeGasUsed": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "gasUsed": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "status": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreEthLog"
+          }
+        }
+      }
+    },
+    "blockstoreExtractorConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockchainName": {
+          "type": "string"
+        },
+        "latestProcessedBlock": {
+          "type": "string",
+          "format": "int64"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "parallelBlocks": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "parallelTxsBatch": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "parallelTxsWorkers": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "nodeUrl": {
+          "type": "string"
+        },
+        "backward": {
+          "type": "boolean"
+        }
+      }
+    },
+    "blockstoreExtractorConfigs": {
+      "type": "object",
+      "properties": {
+        "configs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreExtractorConfig"
+          }
+        }
+      }
+    },
+    "blockstoreLastCommitReply": {
+      "type": "object",
+      "properties": {
+        "committed": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        },
+        "exists": {
+          "type": "boolean"
+        }
+      }
+    },
+    "blockstoreLatestBlockHeaderReply": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreNextReply": {
+      "type": "object",
+      "properties": {
+        "blocks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreBlock"
+          }
+        },
+        "isReorg": {
+          "type": "boolean"
+        },
+        "commit": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        },
+        "latest": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreNextRequest": {
+      "type": "object",
+      "properties": {
+        "consumer": {
+          "$ref": "#/definitions/blockstoreBlockConsumer"
+        },
+        "batchSize": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "blockstoreSeekReply": {
+      "type": "object",
+      "properties": {
+        "committed": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreTransactionDetails": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockchainName": {
+          "type": "string"
+        },
+        "blockHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "transactionIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "ethTx": {
+          "$ref": "#/definitions/blockstoreEthTransaction"
+        },
+        "dotTx": {
+          "$ref": "#/definitions/blockstoreDotTransaction"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
