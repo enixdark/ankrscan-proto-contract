@@ -16,6 +16,38 @@
     "application/json"
   ],
   "paths": {
+    "/v1/block/latest": {
+      "post": {
+        "operationId": "BlockStore_LatestBlockHeader",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreLatestBlockHeaderReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreLatestBlockHeaderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    },
     "/v1/block/next": {
       "post": {
         "summary": "consumer public APIs",
@@ -494,6 +526,14 @@
       "properties": {
         "block": {
           "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreLatestBlockHeaderRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
         }
       }
     },

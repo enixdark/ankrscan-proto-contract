@@ -214,7 +214,12 @@ service BlockStore {
   rpc BlocksByNumber(BlocksByNumberRequest) returns (BlocksByNumberReply);
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
   rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
-  rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply);
+  rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply) {
+    option (google.api.http) = {
+      post: "/v1/block/latest"
+      body: "*"
+    };
+  };;
 
 }
 
