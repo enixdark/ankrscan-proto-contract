@@ -16,6 +16,38 @@
     "application/json"
   ],
   "paths": {
+    "/v1/block/byNumber": {
+      "post": {
+        "operationId": "BlockStore_BlocksByNumber",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreBlocksByNumberReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreBlocksByNumberRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    },
     "/v1/block/latest": {
       "post": {
         "operationId": "BlockStore_LatestBlockHeader",
@@ -48,9 +80,105 @@
         ]
       }
     },
-    "/v1/block/next": {
+    "/v1/block/range": {
       "post": {
-        "summary": "consumer public APIs",
+        "operationId": "BlockStore_BlockRangeContinuous",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreBlockRangeReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreBlockRangeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    },
+    "/v1/consumer/commit": {
+      "post": {
+        "operationId": "BlockStore_Commit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreCommitReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreCommitRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    },
+    "/v1/consumer/latest": {
+      "post": {
+        "operationId": "BlockStore_LastCommit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreLastCommitReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreLastCommitRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    },
+    "/v1/consumer/next": {
+      "post": {
+        "summary": "public APIs",
         "operationId": "BlockStore_Next",
         "responses": {
           "200": {
@@ -73,6 +201,38 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/blockstoreNextRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    },
+    "/v1/consumer/seek": {
+      "post": {
+        "operationId": "BlockStore_Seek",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreSeekReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreSeekRequest"
             }
           }
         ],
@@ -173,6 +333,22 @@
         }
       }
     },
+    "blockstoreBlockRangeRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "fromBlockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "toBlockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "blockstoreBlocksByNumberReply": {
       "type": "object",
       "properties": {
@@ -184,10 +360,32 @@
         }
       }
     },
+    "blockstoreBlocksByNumberRequest": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreBlockByNumberRequest"
+          }
+        }
+      }
+    },
     "blockstoreCommitReply": {
       "type": "object",
       "properties": {
         "committed": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreCommitRequest": {
+      "type": "object",
+      "properties": {
+        "consumer": {
+          "$ref": "#/definitions/blockstoreBlockConsumer"
+        },
+        "block": {
           "$ref": "#/definitions/blockstoreBlockHeader"
         }
       }
@@ -521,6 +719,14 @@
         }
       }
     },
+    "blockstoreLastCommitRequest": {
+      "type": "object",
+      "properties": {
+        "consumer": {
+          "$ref": "#/definitions/blockstoreBlockConsumer"
+        }
+      }
+    },
     "blockstoreLatestBlockHeaderReply": {
       "type": "object",
       "properties": {
@@ -574,6 +780,18 @@
       "properties": {
         "committed": {
           "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreSeekRequest": {
+      "type": "object",
+      "properties": {
+        "consumer": {
+          "$ref": "#/definitions/blockstoreBlockConsumer"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

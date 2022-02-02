@@ -194,32 +194,56 @@ message LatestBlockChanged {
  **/
 
 service BlockStore {
-  // internal API for configuring blockchain extractors
+  // internal APIs
   rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
   rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
   rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
+  rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
 
-  // consumer public APIs
+  // public APIs
   rpc Next (NextRequest) returns (NextReply) {
     option (google.api.http) = {
-      post: "/v1/block/next"
+      post: "/v1/consumer/next"
       body: "*"
     };
   };
-  rpc Commit (CommitRequest) returns (CommitReply);
-  rpc Seek (SeekRequest) returns (SeekReply);
-  rpc LastCommit (LastCommitRequest) returns (LastCommitReply);
-
-  // public APIs
-  rpc BlocksByNumber(BlocksByNumberRequest) returns (BlocksByNumberReply);
-  rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
-  rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply);
+  rpc Commit (CommitRequest) returns (CommitReply) {
+    option (google.api.http) = {
+      post: "/v1/consumer/commit"
+      body: "*"
+    };
+  };
+  rpc Seek (SeekRequest) returns (SeekReply){
+    option (google.api.http) = {
+      post: "/v1/consumer/seek"
+      body: "*"
+    };
+  };
+  rpc LastCommit (LastCommitRequest) returns (LastCommitReply){
+    option (google.api.http) = {
+      post: "/v1/consumer/latest"
+      body: "*"
+    };
+  };
+  rpc BlocksByNumber(BlocksByNumberRequest) returns (BlocksByNumberReply) {
+    option (google.api.http) = {
+      post: "/v1/block/byNumber"
+      body: "*"
+    };
+  };
   rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply) {
     option (google.api.http) = {
       post: "/v1/block/latest"
       body: "*"
     };
-  };;
+  };
+
+  rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply) {
+    option (google.api.http) = {
+      post: "/v1/block/range"
+      body: "*"
+    };
+  };
 
 }
 
