@@ -3,11 +3,10 @@ module github.com/Ankr-network/ankrscan-proto-contract
 go 1.15
 
 require (
-	github.com/golang/protobuf v1.4.3
-	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
-	golang.org/x/sys v0.0.0-20210305034016-7844c3c200c3 // indirect
+	github.com/golang/protobuf v1.5.2
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.3
 	golang.org/x/text v0.3.5 // indirect
-	google.golang.org/genproto v0.0.0-20210303154014-9728d6b83eeb
-	google.golang.org/grpc v1.36.0
-	google.golang.org/protobuf v1.25.0
+	google.golang.org/genproto v0.0.0-20220118154757-00ab72f36ad5
+	google.golang.org/grpc v1.43.0
+	google.golang.org/protobuf v1.27.1
 )

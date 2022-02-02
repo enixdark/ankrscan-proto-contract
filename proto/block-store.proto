@@ -4,6 +4,8 @@ package com.ankrscan.blockstore;
 
 option go_package = "./;proto";
 
+import "google/api/annotations.proto";
+
 //  ______ _______ _    _
 // |  ____|__   __| |  | |
 // | |__     | |  | |__| |
@@ -198,7 +200,12 @@ service BlockStore {
   rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
 
   // consumer public APIs
-  rpc Next (NextRequest) returns (NextReply);
+  rpc Next (NextRequest) returns (NextReply) {
+    option (google.api.http) = {
+      post: "/v1/block/next"
+      body: "*"
+    };
+  };
   rpc Commit (CommitRequest) returns (CommitReply);
   rpc Seek (SeekRequest) returns (SeekReply);
   rpc LastCommit (LastCommitRequest) returns (LastCommitReply);
