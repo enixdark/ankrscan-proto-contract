@@ -106,7 +106,7 @@ message DotBlock {
   DotBlockHeader header = 2;
 }
 
-message TransactionDetails {
+message Transaction {
   bytes transaction_id = 15;
   string blockchain_name = 1;
   bytes block_hash = 2;
@@ -160,7 +160,7 @@ message ExtractorConfig {
  */
 message Block {
   BlockHeader header = 1;
-  repeated TransactionDetails transactions = 2;
+  repeated Transaction transactions = 2;
 }
 
 message NodeConfig {
@@ -283,7 +283,7 @@ message GetTransactionByHashRequest {
 }
 
 message GetTransactionByHashReply {
-  TransactionDetails details = 1;
+  Transaction details = 1;
 }
 
 message GetBlockByHeightRequest {

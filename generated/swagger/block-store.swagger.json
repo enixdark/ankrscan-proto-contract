@@ -252,7 +252,7 @@
         "transactions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/blockstoreTransactionDetails"
+            "$ref": "#/definitions/blockstoreTransaction"
           }
         }
       },
@@ -795,7 +795,7 @@
         }
       }
     },
-    "blockstoreTransactionDetails": {
+    "blockstoreTransaction": {
       "type": "object",
       "properties": {
         "transactionId": {

@@ -3,6 +3,7 @@ package proto
 import (
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
+	"time"
 )
 
 func (x *EthBlock) MixHashAsHash() common.Hash {
@@ -57,11 +58,19 @@ func (x *BlockHeader) ParentHashAsHash() common.Hash {
 	return common.BytesToHash(x.ParentHash)
 }
 
-func (x *TransactionDetails) BlockHashAsHash() common.Hash {
+func (x *BlockHeader) TimestampAsDuration() time.Duration {
+	return time.Second * time.Duration(x.Timestamp)
+}
+
+func (x *Transaction) BlockHashAsHash() common.Hash {
 	return common.BytesToHash(x.BlockHash)
 }
 
-func (x *TransactionDetails) TransactionHashAsHash() common.Hash {
+func (x *Transaction) TimestampAsDuration() time.Duration {
+	return time.Second * time.Duration(x.Timestamp)
+}
+
+func (x *Transaction) TransactionHashAsHash() common.Hash {
 	return common.BytesToHash(x.TransactionHash)
 }
 
