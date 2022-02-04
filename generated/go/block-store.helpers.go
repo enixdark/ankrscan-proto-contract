@@ -48,9 +48,55 @@ func (x *EthBlock) TotalDifficultyAsInt() big.Int {
 	z.SetBytes(x.TotalDifficulty)
 	return *z
 }
+
 func (x *BlockHeader) BlockHashAsHash() common.Hash {
 	return common.BytesToHash(x.BlockHash)
 }
+
 func (x *BlockHeader) ParentHashAsHash() common.Hash {
 	return common.BytesToHash(x.ParentHash)
+}
+
+func (x *TransactionDetails) BlockHashAsHash() common.Hash {
+	return common.BytesToHash(x.BlockHash)
+}
+
+func (x *TransactionDetails) TransactionHashAsHash() common.Hash {
+	return common.BytesToHash(x.TransactionHash)
+}
+
+func (x *EthTransaction) FromAsAddress() common.Address {
+	return common.BytesToAddress(x.From)
+}
+
+func (x *EthTransaction) ToAsAddress() (address common.Address, exists bool) {
+	return common.BytesToAddress(x.To), len(x.To) > 0
+}
+
+func (x *EthTransaction) ValueAsInt() big.Int {
+	z := new(big.Int)
+	z.SetBytes(x.Value)
+	return *z
+}
+
+func (x *EthTransaction) GasPriceAsInt() big.Int {
+	z := new(big.Int)
+	z.SetBytes(x.GasPrice)
+	return *z
+}
+
+func (x *EthTransaction) ContractAddressAsAddress() (address common.Address, exists bool) {
+	return common.BytesToAddress(x.ContractAddress), len(x.ContractAddress) > 0
+}
+
+func (x *EthLog) TopicsAsHash() []common.Hash {
+	topics := make([]common.Hash, 0)
+	for _, topic := range x.Topics {
+		topics = append(topics, common.BytesToHash(topic))
+	}
+	return topics
+}
+
+func (x *EthLog) AddressAsAddress() common.Address {
+	return common.BytesToAddress(x.Address)
 }
