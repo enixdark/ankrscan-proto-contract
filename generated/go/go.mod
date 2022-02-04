@@ -1,4 +1,4 @@
-module github.com/Ankr-network/ankrscan-proto-contract
+module github.com/Ankr-network/ankrscan-proto-contract/generated/go/
 
 go 1.17
 
