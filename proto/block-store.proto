@@ -109,6 +109,7 @@ message DotBlock {
 message Transaction {
   bytes transaction_id = 15;
   string blockchain_name = 1;
+  ChainType
   bytes block_hash = 2;
   uint64 block_height = 3;
   bytes transaction_hash = 4;
