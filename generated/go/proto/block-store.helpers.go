@@ -38,16 +38,16 @@ func (x *EthBlock) MinerAsAddress() common.Address {
 	return common.BytesToAddress(x.Miner)
 }
 
-func (x *EthBlock) DifficultyAsInt() big.Int {
+func (x *EthBlock) DifficultyAsInt() *big.Int {
 	z := new(big.Int)
 	z.SetBytes(x.Difficulty)
-	return *z
+	return z
 }
 
-func (x *EthBlock) TotalDifficultyAsInt() big.Int {
+func (x *EthBlock) TotalDifficultyAsInt() *big.Int {
 	z := new(big.Int)
 	z.SetBytes(x.TotalDifficulty)
-	return *z
+	return z
 }
 
 func (x *BlockHeader) BlockHashAsHash() common.Hash {
@@ -82,16 +82,16 @@ func (x *EthTransaction) ToAsAddress() (address common.Address, exists bool) {
 	return common.BytesToAddress(x.To), len(x.To) > 0
 }
 
-func (x *EthTransaction) ValueAsInt() big.Int {
+func (x *EthTransaction) ValueAsInt() *big.Int {
 	z := new(big.Int)
 	z.SetBytes(x.Value)
-	return *z
+	return z
 }
 
-func (x *EthTransaction) GasPriceAsInt() big.Int {
+func (x *EthTransaction) GasPriceAsInt() *big.Int {
 	z := new(big.Int)
 	z.SetBytes(x.GasPrice)
-	return *z
+	return z
 }
 
 func (x *EthTransaction) ContractAddressAsAddress() (address common.Address, exists bool) {
