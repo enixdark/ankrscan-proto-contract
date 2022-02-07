@@ -42,7 +42,7 @@ func NewBlockStoreClient(cc grpc.ClientConnInterface) BlockStoreClient {
 
 func (c *blockStoreClient) GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
 	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/GetExtractors", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/GetExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *blockStoreClient) GetExtractors(ctx context.Context, in *GetExtractorsR
 
 func (c *blockStoreClient) UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
 	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/UpdateExtractors", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/UpdateExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func (c *blockStoreClient) UpdateExtractors(ctx context.Context, in *UpdateExtra
 
 func (c *blockStoreClient) DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
 	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/DeleteExtractors", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/DeleteExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +69,7 @@ func (c *blockStoreClient) DeleteExtractors(ctx context.Context, in *DeleteExtra
 
 func (c *blockStoreClient) BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
 	out := new(BlockRangeReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlockRange", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/BlockRange", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *blockStoreClient) BlockRange(ctx context.Context, in *BlockRangeRequest
 
 func (c *blockStoreClient) Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error) {
 	out := new(NextReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/Next", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/Next", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *blockStoreClient) Next(ctx context.Context, in *NextRequest, opts ...gr
 
 func (c *blockStoreClient) Commit(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error) {
 	out := new(CommitReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/Commit", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/Commit", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +96,7 @@ func (c *blockStoreClient) Commit(ctx context.Context, in *CommitRequest, opts .
 
 func (c *blockStoreClient) Seek(ctx context.Context, in *SeekRequest, opts ...grpc.CallOption) (*SeekReply, error) {
 	out := new(SeekReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/Seek", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/Seek", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func (c *blockStoreClient) Seek(ctx context.Context, in *SeekRequest, opts ...gr
 
 func (c *blockStoreClient) LastCommit(ctx context.Context, in *LastCommitRequest, opts ...grpc.CallOption) (*LastCommitReply, error) {
 	out := new(LastCommitReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/LastCommit", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/LastCommit", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +114,7 @@ func (c *blockStoreClient) LastCommit(ctx context.Context, in *LastCommitRequest
 
 func (c *blockStoreClient) BlocksByNumber(ctx context.Context, in *BlocksByNumberRequest, opts ...grpc.CallOption) (*BlocksByNumberReply, error) {
 	out := new(BlocksByNumberReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlocksByNumber", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/BlocksByNumber", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func (c *blockStoreClient) BlocksByNumber(ctx context.Context, in *BlocksByNumbe
 
 func (c *blockStoreClient) LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error) {
 	out := new(LatestBlockHeaderReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/LatestBlockHeader", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/LatestBlockHeader", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -132,7 +132,7 @@ func (c *blockStoreClient) LatestBlockHeader(ctx context.Context, in *LatestBloc
 
 func (c *blockStoreClient) BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
 	out := new(BlockRangeReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/BlockRangeContinuous", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +219,7 @@ func _BlockStore_GetExtractors_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/GetExtractors",
+		FullMethod: "/ankrscan.blockstore.BlockStore/GetExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).GetExtractors(ctx, req.(*GetExtractorsRequest))
@@ -237,7 +237,7 @@ func _BlockStore_UpdateExtractors_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/UpdateExtractors",
+		FullMethod: "/ankrscan.blockstore.BlockStore/UpdateExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).UpdateExtractors(ctx, req.(*UpdateExtractorsRequest))
@@ -255,7 +255,7 @@ func _BlockStore_DeleteExtractors_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/DeleteExtractors",
+		FullMethod: "/ankrscan.blockstore.BlockStore/DeleteExtractors",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).DeleteExtractors(ctx, req.(*DeleteExtractorsRequest))
@@ -273,7 +273,7 @@ func _BlockStore_BlockRange_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/BlockRange",
+		FullMethod: "/ankrscan.blockstore.BlockStore/BlockRange",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).BlockRange(ctx, req.(*BlockRangeRequest))
@@ -291,7 +291,7 @@ func _BlockStore_Next_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/Next",
+		FullMethod: "/ankrscan.blockstore.BlockStore/Next",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).Next(ctx, req.(*NextRequest))
@@ -309,7 +309,7 @@ func _BlockStore_Commit_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/Commit",
+		FullMethod: "/ankrscan.blockstore.BlockStore/Commit",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).Commit(ctx, req.(*CommitRequest))
@@ -327,7 +327,7 @@ func _BlockStore_Seek_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/Seek",
+		FullMethod: "/ankrscan.blockstore.BlockStore/Seek",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).Seek(ctx, req.(*SeekRequest))
@@ -345,7 +345,7 @@ func _BlockStore_LastCommit_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/LastCommit",
+		FullMethod: "/ankrscan.blockstore.BlockStore/LastCommit",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).LastCommit(ctx, req.(*LastCommitRequest))
@@ -363,7 +363,7 @@ func _BlockStore_BlocksByNumber_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/BlocksByNumber",
+		FullMethod: "/ankrscan.blockstore.BlockStore/BlocksByNumber",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).BlocksByNumber(ctx, req.(*BlocksByNumberRequest))
@@ -381,7 +381,7 @@ func _BlockStore_LatestBlockHeader_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/LatestBlockHeader",
+		FullMethod: "/ankrscan.blockstore.BlockStore/LatestBlockHeader",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).LatestBlockHeader(ctx, req.(*LatestBlockHeaderRequest))
@@ -399,7 +399,7 @@ func _BlockStore_BlockRangeContinuous_Handler(srv interface{}, ctx context.Conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous",
+		FullMethod: "/ankrscan.blockstore.BlockStore/BlockRangeContinuous",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).BlockRangeContinuous(ctx, req.(*BlockRangeRequest))
@@ -411,7 +411,7 @@ func _BlockStore_BlockRangeContinuous_Handler(srv interface{}, ctx context.Conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BlockStore_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "com.ankrscan.blockstore.BlockStore",
+	ServiceName: "ankrscan.blockstore.BlockStore",
 	HandlerType: (*BlockStoreServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

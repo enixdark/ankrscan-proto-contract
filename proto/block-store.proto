@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.ankrscan.blockstore;
+package ankrscan.blockstore;
 
 option go_package = "./;proto";
 
@@ -203,44 +203,44 @@ service BlockStore {
   // public APIs
   rpc Next (NextRequest) returns (NextReply) {
     option (google.api.http) = {
-      post: "/v1/consumer/next"
+      post: "/v1/multichain/consumer/next"
       body: "*"
     };
   };
   rpc Commit (CommitRequest) returns (CommitReply) {
     option (google.api.http) = {
-      post: "/v1/consumer/commit"
+      post: "/v1/multichain/consumer/commit"
       body: "*"
     };
   };
   rpc Seek (SeekRequest) returns (SeekReply){
     option (google.api.http) = {
-      post: "/v1/consumer/seek"
+      post: "/v1/multichain/consumer/seek"
       body: "*"
     };
   };
   rpc LastCommit (LastCommitRequest) returns (LastCommitReply){
     option (google.api.http) = {
-      post: "/v1/consumer/latest"
+      post: "/v1/multichain/consumer/latest"
       body: "*"
     };
   };
   rpc BlocksByNumber(BlocksByNumberRequest) returns (BlocksByNumberReply) {
     option (google.api.http) = {
-      post: "/v1/block/byNumber"
+      post: "/v1/multichain/block/byNumber"
       body: "*"
     };
   };
   rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply) {
     option (google.api.http) = {
-      post: "/v1/block/latest"
+      post: "/v1/multichain/block/latest"
       body: "*"
     };
   };
 
   rpc BlockRangeContinuous (BlockRangeRequest) returns (BlockRangeReply) {
     option (google.api.http) = {
-      post: "/v1/block/range"
+      post: "/v1/multichain/block/range"
       body: "*"
     };
   };

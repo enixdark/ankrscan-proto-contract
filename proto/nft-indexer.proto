@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.ankrscan.nftindexer;
+package ankrscan.nftindexer;
 
 option go_package = "./;proto";
 

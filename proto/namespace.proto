@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.ankrscan.namespace;
+package ankrscan.namespace;
 option go_package = "./;proto";
 
 enum FoundationDbNamespace {

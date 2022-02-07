@@ -281,7 +281,7 @@ func RegisterBlockStoreHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/Next", runtime.WithHTTPPathPattern("/v1/consumer/next"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/Next", runtime.WithHTTPPathPattern("/v1/multichain/consumer/next"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -304,7 +304,7 @@ func RegisterBlockStoreHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/Commit", runtime.WithHTTPPathPattern("/v1/consumer/commit"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/Commit", runtime.WithHTTPPathPattern("/v1/multichain/consumer/commit"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -327,7 +327,7 @@ func RegisterBlockStoreHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/Seek", runtime.WithHTTPPathPattern("/v1/consumer/seek"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/Seek", runtime.WithHTTPPathPattern("/v1/multichain/consumer/seek"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -350,7 +350,7 @@ func RegisterBlockStoreHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/LastCommit", runtime.WithHTTPPathPattern("/v1/consumer/latest"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/LastCommit", runtime.WithHTTPPathPattern("/v1/multichain/consumer/latest"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -373,7 +373,7 @@ func RegisterBlockStoreHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/BlocksByNumber", runtime.WithHTTPPathPattern("/v1/block/byNumber"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/BlocksByNumber", runtime.WithHTTPPathPattern("/v1/multichain/block/byNumber"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -396,7 +396,7 @@ func RegisterBlockStoreHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/LatestBlockHeader", runtime.WithHTTPPathPattern("/v1/block/latest"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/LatestBlockHeader", runtime.WithHTTPPathPattern("/v1/multichain/block/latest"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -419,7 +419,7 @@ func RegisterBlockStoreHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous", runtime.WithHTTPPathPattern("/v1/block/range"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/BlockRangeContinuous", runtime.WithHTTPPathPattern("/v1/multichain/block/range"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -481,7 +481,7 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/Next", runtime.WithHTTPPathPattern("/v1/consumer/next"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/Next", runtime.WithHTTPPathPattern("/v1/multichain/consumer/next"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -501,7 +501,7 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/Commit", runtime.WithHTTPPathPattern("/v1/consumer/commit"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/Commit", runtime.WithHTTPPathPattern("/v1/multichain/consumer/commit"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -521,7 +521,7 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/Seek", runtime.WithHTTPPathPattern("/v1/consumer/seek"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/Seek", runtime.WithHTTPPathPattern("/v1/multichain/consumer/seek"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -541,7 +541,7 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/LastCommit", runtime.WithHTTPPathPattern("/v1/consumer/latest"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/LastCommit", runtime.WithHTTPPathPattern("/v1/multichain/consumer/latest"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -561,7 +561,7 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/BlocksByNumber", runtime.WithHTTPPathPattern("/v1/block/byNumber"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/BlocksByNumber", runtime.WithHTTPPathPattern("/v1/multichain/block/byNumber"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -581,7 +581,7 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/LatestBlockHeader", runtime.WithHTTPPathPattern("/v1/block/latest"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/LatestBlockHeader", runtime.WithHTTPPathPattern("/v1/multichain/block/latest"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -601,7 +601,7 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/com.ankrscan.blockstore.BlockStore/BlockRangeContinuous", runtime.WithHTTPPathPattern("/v1/block/range"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.blockstore.BlockStore/BlockRangeContinuous", runtime.WithHTTPPathPattern("/v1/multichain/block/range"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -621,19 +621,19 @@ func RegisterBlockStoreHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 }
 
 var (
-	pattern_BlockStore_Next_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "consumer", "next"}, ""))
+	pattern_BlockStore_Next_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "multichain", "consumer", "next"}, ""))
 
-	pattern_BlockStore_Commit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "consumer", "commit"}, ""))
+	pattern_BlockStore_Commit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "multichain", "consumer", "commit"}, ""))
 
-	pattern_BlockStore_Seek_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "consumer", "seek"}, ""))
+	pattern_BlockStore_Seek_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "multichain", "consumer", "seek"}, ""))
 
-	pattern_BlockStore_LastCommit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "consumer", "latest"}, ""))
+	pattern_BlockStore_LastCommit_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "multichain", "consumer", "latest"}, ""))
 
-	pattern_BlockStore_BlocksByNumber_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "block", "byNumber"}, ""))
+	pattern_BlockStore_BlocksByNumber_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "multichain", "block", "byNumber"}, ""))
 
-	pattern_BlockStore_LatestBlockHeader_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "block", "latest"}, ""))
+	pattern_BlockStore_LatestBlockHeader_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "multichain", "block", "latest"}, ""))
 
-	pattern_BlockStore_BlockRangeContinuous_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "block", "range"}, ""))
+	pattern_BlockStore_BlockRangeContinuous_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "multichain", "block", "range"}, ""))
 )
 
 var (

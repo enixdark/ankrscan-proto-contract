@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/v1/block/byNumber": {
+    "/v1/multichain/block/byNumber": {
       "post": {
         "operationId": "BlockStore_BlocksByNumber",
         "responses": {
@@ -48,7 +48,7 @@
         ]
       }
     },
-    "/v1/block/latest": {
+    "/v1/multichain/block/latest": {
       "post": {
         "operationId": "BlockStore_LatestBlockHeader",
         "responses": {
@@ -80,7 +80,7 @@
         ]
       }
     },
-    "/v1/block/range": {
+    "/v1/multichain/block/range": {
       "post": {
         "operationId": "BlockStore_BlockRangeContinuous",
         "responses": {
@@ -112,7 +112,7 @@
         ]
       }
     },
-    "/v1/consumer/commit": {
+    "/v1/multichain/consumer/commit": {
       "post": {
         "operationId": "BlockStore_Commit",
         "responses": {
@@ -144,7 +144,7 @@
         ]
       }
     },
-    "/v1/consumer/latest": {
+    "/v1/multichain/consumer/latest": {
       "post": {
         "operationId": "BlockStore_LastCommit",
         "responses": {
@@ -176,7 +176,7 @@
         ]
       }
     },
-    "/v1/consumer/next": {
+    "/v1/multichain/consumer/next": {
       "post": {
         "summary": "public APIs",
         "operationId": "BlockStore_Next",
@@ -209,7 +209,7 @@
         ]
       }
     },
-    "/v1/consumer/seek": {
+    "/v1/multichain/consumer/seek": {
       "post": {
         "operationId": "BlockStore_Seek",
         "responses": {

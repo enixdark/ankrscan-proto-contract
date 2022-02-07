@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package com.ankrscan.blockchain;
+package ankrscan.blockchain;
 option go_package = "./;proto";
 
 /**

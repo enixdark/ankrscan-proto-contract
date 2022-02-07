@@ -30,7 +30,7 @@ func NewNftIndexerClient(cc grpc.ClientConnInterface) NftIndexerClient {
 
 func (c *nftIndexerClient) NftBalanceByAddress(ctx context.Context, in *NftBalanceByAddressRequest, opts ...grpc.CallOption) (*NftBalanceByAddressReply, error) {
 	out := new(NftBalanceByAddressReply)
-	err := c.cc.Invoke(ctx, "/com.ankrscan.nftindexer.NftIndexer/NftBalanceByAddress", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/ankrscan.nftindexer.NftIndexer/NftBalanceByAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func _NftIndexer_NftBalanceByAddress_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/com.ankrscan.nftindexer.NftIndexer/NftBalanceByAddress",
+		FullMethod: "/ankrscan.nftindexer.NftIndexer/NftBalanceByAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(NftIndexerServer).NftBalanceByAddress(ctx, req.(*NftBalanceByAddressRequest))
@@ -87,7 +87,7 @@ func _NftIndexer_NftBalanceByAddress_Handler(srv interface{}, ctx context.Contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var NftIndexer_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "com.ankrscan.nftindexer.NftIndexer",
+	ServiceName: "ankrscan.nftindexer.NftIndexer",
 	HandlerType: (*NftIndexerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
