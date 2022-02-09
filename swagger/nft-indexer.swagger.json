@@ -24,7 +24,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/nftindexerNftBalanceByAddressReply"
+              "$ref": "#/definitions/nftindexerGetBalanceReply"
             }
           },
           "default": {
@@ -40,7 +40,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/nftindexerNftBalanceByAddressRequest"
+              "$ref": "#/definitions/nftindexerGetBalanceRequest"
             }
           }
         ],
@@ -51,6 +51,38 @@
     }
   },
   "definitions": {
+    "nftindexerGetBalanceReply": {
+      "type": "object",
+      "properties": {
+        "nfts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nftindexerNft"
+          }
+        },
+        "nextPageToken": {
+          "type": "string"
+        }
+      }
+    },
+    "nftindexerGetBalanceRequest": {
+      "type": "object",
+      "properties": {
+        "wallet": {
+          "type": "string"
+        },
+        "blockchainName": {
+          "type": "string"
+        },
+        "pageToken": {
+          "type": "string"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "nftindexerNft": {
       "type": "object",
       "properties": {
@@ -85,26 +117,6 @@
         "nextPageToken": {
           "type": "string",
           "format": "byte"
-        }
-      }
-    },
-    "nftindexerNftBalanceByAddressRequest": {
-      "type": "object",
-      "properties": {
-        "wallet": {
-          "type": "string",
-          "format": "byte"
-        },
-        "blockchainName": {
-          "type": "string"
-        },
-        "pageToken": {
-          "type": "string",
-          "format": "byte"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },

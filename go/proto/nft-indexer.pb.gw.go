@@ -32,7 +32,7 @@ var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
 func request_NftIndexer_GetBalance_0(ctx context.Context, marshaler runtime.Marshaler, client NftIndexerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq NftBalanceByAddressRequest
+	var protoReq GetBalanceRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -49,7 +49,7 @@ func request_NftIndexer_GetBalance_0(ctx context.Context, marshaler runtime.Mars
 }
 
 func local_request_NftIndexer_GetBalance_0(ctx context.Context, marshaler runtime.Marshaler, server NftIndexerServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq NftBalanceByAddressRequest
+	var protoReq GetBalanceRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
