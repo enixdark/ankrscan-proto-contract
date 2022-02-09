@@ -4,8 +4,19 @@ package ankrscan.nftindexer;
 
 option go_package = "./;proto";
 
+import "google/api/annotations.proto";
+
 service NftIndexer {
+  // internal APIs
   rpc NftBalanceByAddress (NftBalanceByAddressRequest) returns (NftBalanceByAddressReply);
+
+  // public APIs
+  rpc GetBalance (NftBalanceByAddressRequest) returns (NftBalanceByAddressReply) {
+    option (google.api.http) = {
+      post: "/v1/nft/getbalance"
+      body: "*"
+    };
+  };
 }
 
 message NftBalanceByAddressRequest {

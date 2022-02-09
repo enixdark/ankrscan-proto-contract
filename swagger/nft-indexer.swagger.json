@@ -15,7 +15,41 @@
   "produces": [
     "application/json"
   ],
-  "paths": {},
+  "paths": {
+    "/v1/nft/getbalance": {
+      "post": {
+        "summary": "public APIs",
+        "operationId": "NftIndexer_GetBalance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nftindexerNftBalanceByAddressReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nftindexerNftBalanceByAddressRequest"
+            }
+          }
+        ],
+        "tags": [
+          "NftIndexer"
+        ]
+      }
+    }
+  },
   "definitions": {
     "nftindexerNft": {
       "type": "object",
@@ -51,6 +85,26 @@
         "nextPageToken": {
           "type": "string",
           "format": "byte"
+        }
+      }
+    },
+    "nftindexerNftBalanceByAddressRequest": {
+      "type": "object",
+      "properties": {
+        "wallet": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockchainName": {
+          "type": "string"
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "byte"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
