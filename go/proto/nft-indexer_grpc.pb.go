@@ -25,7 +25,7 @@ type NftIndexerClient interface {
 	// internal APIs
 	NftBalanceByAddress(ctx context.Context, in *NftBalanceByAddressRequest, opts ...grpc.CallOption) (*NftBalanceByAddressReply, error)
 	// public APIs
-	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error)
+	GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*NftBalanceByAddressReply, error)
 }
 
 type nftIndexerClient struct {
@@ -45,8 +45,8 @@ func (c *nftIndexerClient) NftBalanceByAddress(ctx context.Context, in *NftBalan
 	return out, nil
 }
 
-func (c *nftIndexerClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*GetBalanceReply, error) {
-	out := new(GetBalanceReply)
+func (c *nftIndexerClient) GetBalance(ctx context.Context, in *GetBalanceRequest, opts ...grpc.CallOption) (*NftBalanceByAddressReply, error) {
+	out := new(NftBalanceByAddressReply)
 	err := c.cc.Invoke(ctx, "/ankrscan.nftindexer.NftIndexer/GetBalance", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -61,7 +61,7 @@ type NftIndexerServer interface {
 	// internal APIs
 	NftBalanceByAddress(context.Context, *NftBalanceByAddressRequest) (*NftBalanceByAddressReply, error)
 	// public APIs
-	GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error)
+	GetBalance(context.Context, *GetBalanceRequest) (*NftBalanceByAddressReply, error)
 	mustEmbedUnimplementedNftIndexerServer()
 }
 
@@ -72,7 +72,7 @@ type UnimplementedNftIndexerServer struct {
 func (UnimplementedNftIndexerServer) NftBalanceByAddress(context.Context, *NftBalanceByAddressRequest) (*NftBalanceByAddressReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NftBalanceByAddress not implemented")
 }
-func (UnimplementedNftIndexerServer) GetBalance(context.Context, *GetBalanceRequest) (*GetBalanceReply, error) {
+func (UnimplementedNftIndexerServer) GetBalance(context.Context, *GetBalanceRequest) (*NftBalanceByAddressReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBalance not implemented")
 }
 func (UnimplementedNftIndexerServer) mustEmbedUnimplementedNftIndexerServer() {}

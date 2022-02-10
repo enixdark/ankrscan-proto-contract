@@ -11,7 +11,7 @@ service NftIndexer {
   rpc NftBalanceByAddress (NftBalanceByAddressRequest) returns (NftBalanceByAddressReply);
 
   // public APIs
-  rpc GetBalance (GetBalanceRequest) returns (GetBalanceReply) {
+  rpc GetBalance (GetBalanceRequest) returns (NftBalanceByAddressReply) {
     option (google.api.http) = {
       post: "/v1/nft/getbalance"
       body: "*"
@@ -24,11 +24,6 @@ message GetBalanceRequest {
   string blockchain_name = 2; // check https://github.com/Ankr-network/ankrscan-constants
   string page_token = 3; // field to support pagination
   int32 page_size = 4;
-}
-
-message GetBalanceReply {
-  repeated Nft nfts = 1;
-  string next_page_token = 2; // field to support pagination
 }
 
 message NftBalanceByAddressRequest {
