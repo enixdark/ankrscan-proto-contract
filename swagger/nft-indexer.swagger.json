@@ -72,22 +72,31 @@
     "nftindexerNft": {
       "type": "object",
       "properties": {
-        "nftMetadata": {
-          "$ref": "#/definitions/nftindexerNftMetadata"
+        "blockchainName": {
+          "type": "string"
         },
-        "attributes": {
-          "$ref": "#/definitions/nftindexerNftAttributes"
+        "name": {
+          "type": "string"
         },
-        "contractDetails": {
-          "$ref": "#/definitions/nftindexerNftContractDetails"
-        }
-      }
-    },
-    "nftindexerNftAttributes": {
-      "type": "object",
-      "properties": {
+        "tokenId": {
+          "type": "string",
+          "format": "byte"
+        },
         "tokenUri": {
           "type": "string"
+        },
+        "collectionName": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "nftType": {
+          "$ref": "#/definitions/nftindexerNftType"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },
@@ -103,39 +112,6 @@
         "nextPageToken": {
           "type": "string",
           "format": "byte"
-        }
-      }
-    },
-    "nftindexerNftContractDetails": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "symbol": {
-          "type": "string"
-        },
-        "nftType": {
-          "$ref": "#/definitions/nftindexerNftType"
-        }
-      }
-    },
-    "nftindexerNftMetadata": {
-      "type": "object",
-      "properties": {
-        "blockchainName": {
-          "type": "string"
-        },
-        "contractAddress": {
-          "type": "string",
-          "format": "byte"
-        },
-        "tokenId": {
-          "type": "string",
-          "format": "byte"
-        },
-        "nftType": {
-          "$ref": "#/definitions/nftindexerNftType"
         }
       }
     },
