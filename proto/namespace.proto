@@ -3,57 +3,14 @@ syntax = "proto3";
 package ankrscan.namespace;
 option go_package = "./;proto";
 
-enum FoundationDbNamespace {
-  /*
-  stores blocks and transactions bodies.
-  keys: Blockchain-BlockHeight-BlockHash for blocks and Blockchain-BlockHeight-BlockHash-TransactionIndex for transactions
-  values: proto.Block (contains block headers with transactions)
-  */
-  BlocksNamespace = 0;
+enum NamespaceFoundationDb {
+  NamespaceUnknown = 0;
 
-  /*
-  keys: Blockchain-TransactionHash
-  values: keys of transactions in StorageNamespace
-  */
-  TxByHash = 1;
-
-  /*
-    keys: Blockchain-BlockHash
-    values: keys of blocks in StorageNamespace
-  */
-  BlockByHash = 2;
-
-  /*
-    keys: Blockchain-BlockHeight
-    values: keys of blocks in StorageNamespace
-  */
-  BlockByNumber = 3;
-
-  /*
-    stores blocks of canonical chain
-    keys: Blockchain-BlockHeight
-    values: keys of blocks in StorageNamespace
-  */
-  CanonicalChain = 4;
-
-  /*
-    stores extractors configs
-    keys: extractor ID
-    values: proto.ExtractorConfig
-  */
-  ExtractorConfig = 5;
-
-  /*
-    stores consumers offsets
-    keys: consumer ID
-    values: committed block height
-  */
-  ConsumerOffset = 6;
-
-  /*
-    stores the latest block header of canonical chain
-    keys: Blockchain
-    values: proto.BlockHeader
-  */
-  LatestBlock = 7;
+  // ankrscan-extractor
+  NamespaceBlockById = 1;
+  NamespaceTransactionById = 2;
+  NamespaceTransactionByHash = 3;
+  NamespaceCanonicalBlockByNumber = 4;
+  NamespaceExtractorConfig = 5;
+  NamespaceConsumerOffset = 6;
 }
