@@ -17,7 +17,7 @@ enum ChainType {
   CHAIN_TYPE_POLKADOT = 2;
 }
 
-enum Blockchain {
+enum BlockchainNumber {
   BLOCKCHAIN_UNKNOWN = 0;
   BLOCKCHAIN_ETH = 1;
   BLOCKCHAIN_BSC = 2;
@@ -33,4 +33,5 @@ message BlockchainProperties {
   ChainType chain_type = 4;
   string symbol = 6;
   int64 decimals = 7;
+  BlockchainNumber blockchain_number = 8;
 }
