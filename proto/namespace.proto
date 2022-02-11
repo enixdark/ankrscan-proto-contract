@@ -7,9 +7,9 @@ enum NamespaceFoundationDb {
   NamespaceUnknown = 0;
 
   // ankrscan-extractor
-  NamespaceBlockHeaderById = 1;
-  NamespaceCanonicalBlockHeaderByNumber = 2;
-  NamespaceBlockHeaderByNumberAndHash = 3;
+  NamespaceBlockById = 1;
+  NamespaceCanonicalBlockByNumber = 2;
+  NamespaceBlockByNumberAndHash = 3;
   NamespaceTransactionById = 4;
   NamespaceTransactionByHash = 5;
   NamespaceExtractorConfig = 6;
