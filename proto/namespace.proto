@@ -3,14 +3,14 @@ syntax = "proto3";
 package ankrscan.namespace;
 option go_package = "./;proto";
 
-enum NamespaceFoundationDb {
+enum Namespace {
   NamespaceUnknown = 0;
 
   // ankrscan-extractor
-  NamespaceBlockByNumberAndHash = 1;
-  NamespaceBlockByNumber = 2;
-  NamespaceTransactionByBlockAndIndex = 3;
-  NamespaceTransactionByHash = 4;
-  NamespaceExtractorConfig = 5;
-  NamespaceConsumerOffset = 6;
+  BlockByNumberAndHash = 1;
+  BlockByNumber = 2;
+  TransactionByBlockAndIndex = 3;
+  TransactionByHash = 4;
+  ExtractorConfig = 5;
+  ConsumerOffset = 6;
 }
