@@ -4,7 +4,7 @@ package ankrscan.namespace;
 option go_package = "./;proto";
 
 enum NamespaceFdb {
-  UnknownNamespace = 0;
+  NamespaceFdbUnknown = 0;
 
   // ankrscan-extractor
   BlockByNumberAndHash = 1;
