@@ -4,7 +4,7 @@ package ankrscan.namespace;
 option go_package = "./;proto";
 
 enum Namespace {
-  NamespaceUnknown = 0;
+  UnknownNamespace = 0;
 
   // ankrscan-extractor
   BlockByNumberAndHash = 1;
