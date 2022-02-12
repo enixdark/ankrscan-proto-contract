@@ -306,6 +306,17 @@ message BlockByNumberRequest {
   uint64 block_height = 2;
 }
 
+message TransactionByBlockAndIndexRequest {
+  string blockchain_name = 1;
+  uint64 block_height = 2;
+  bytes block_hash = 3;
+  uint64 transaction_index = 4;
+}
+
+message TransactionsByBlockAndIndexRequest {
+  repeated TransactionByBlockAndIndexRequest requests = 1;
+}
+
 message BlocksByNumberRequest {
   repeated BlockByNumberRequest requests = 1;
 }
