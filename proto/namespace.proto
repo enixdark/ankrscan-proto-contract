@@ -7,11 +7,10 @@ enum NamespaceFoundationDb {
   NamespaceUnknown = 0;
 
   // ankrscan-extractor
-  NamespaceBlockById = 1;
-  NamespaceCanonicalBlockByNumber = 2;
-  NamespaceBlockByNumberAndHash = 3;
-  NamespaceTransactionById = 4;
-  NamespaceTransactionByHash = 5;
-  NamespaceExtractorConfig = 6;
-  NamespaceConsumerOffset = 7;
+  NamespaceBlockByNumberAndHash = 1;
+  NamespaceBlockByNumber = 2;
+  NamespaceTransactionByBlockAndIndex = 3;
+  NamespaceTransactionByHash = 4;
+  NamespaceExtractorConfig = 5;
+  NamespaceConsumerOffset = 6;
 }
