@@ -3,7 +3,7 @@ syntax = "proto3";
 package ankrscan.namespace;
 option go_package = "./;proto";
 
-enum Namespace {
+enum NamespaceFdb {
   UnknownNamespace = 0;
 
   // ankrscan-extractor
