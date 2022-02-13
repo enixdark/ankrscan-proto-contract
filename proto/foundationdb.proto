@@ -16,6 +16,6 @@ enum NamespaceFdb {
 }
 
 message LargeValueFdb {
-  bytes entity = 1;
+  bytes value = 1;
   repeated bytes keys = 2; // if entity is too large then it split and written to several independent foundation db keys
 }
