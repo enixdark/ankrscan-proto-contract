@@ -14,3 +14,8 @@ enum NamespaceFdb {
   ExtractorConfig = 5;
   ConsumerOffset = 6;
 }
+
+message EntityFdb {
+  bytes entity = 1;
+  repeated bytes keys = 2; // if entity is too large then it split and written to several independent foundation db keys
+}
