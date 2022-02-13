@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package ankrscan.namespace;
 option go_package = "./;proto";
+import "google/protobuf/any.proto";
 
 enum NamespaceFdb {
   UnknownFoundationDdNamespace = 0;
@@ -15,7 +16,7 @@ enum NamespaceFdb {
   ConsumerOffset = 6;
 }
 
-message LargeValueFdb {
-  bytes value = 1;
+message ValueFdb {
+  repeated google.protobuf.Any value = 1;
   uint32 parts = 2; // if entity is too large then it split and written to several independent foundation db keys
 }
