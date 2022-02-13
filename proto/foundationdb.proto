@@ -15,7 +15,7 @@ enum NamespaceFdb {
   ConsumerOffset = 6;
 }
 
-message EntityFdb {
+message LargeValueFdb {
   bytes entity = 1;
   repeated bytes keys = 2; // if entity is too large then it split and written to several independent foundation db keys
 }
