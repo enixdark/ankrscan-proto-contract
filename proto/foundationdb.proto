@@ -22,7 +22,7 @@ message TransactionLookupHint {
   uint32 parts_count = 2;
 }
 
-message HeaderWithLookupHints {
+message BlockHeaderWithFdbMetadata {
   blockstore.BlockHeader header = 1;
   repeated TransactionLookupHint transaction_lookup_hints = 2;
 }
