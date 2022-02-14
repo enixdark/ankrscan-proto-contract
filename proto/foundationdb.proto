@@ -18,5 +18,5 @@ enum NamespaceFdb {
 
 message ValueFdb {
   bytes value = 1;
-  uint32 extraParts = 2; // if entity is too large then it split and written to several independent foundation db keys
+  uint32 extra_parts = 2; // if entity is too large then it split and written to several independent foundation db keys
 }
