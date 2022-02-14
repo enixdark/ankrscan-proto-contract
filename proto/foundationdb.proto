@@ -19,7 +19,7 @@ enum NamespaceFdb {
 
 message TransactionLookupHint {
   uint64 transaction_index = 1;
-  uint32 parts_count = 2;
+  uint64 parts_count = 2;
 }
 
 message BlockHeaderWithFdbMetadata {
