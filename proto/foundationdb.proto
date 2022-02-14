@@ -1,8 +1,10 @@
 syntax = "proto3";
 
 package ankrscan.namespace;
+import "block-store.proto";
 option go_package = "./;proto";
 import "google/protobuf/any.proto";
+
 
 enum NamespaceFdb {
   UnknownFoundationDdNamespace = 0;
@@ -16,7 +18,12 @@ enum NamespaceFdb {
   ConsumerOffset = 6;
 }
 
-message ValueFdb {
-  bytes value = 1;
-  uint32 extra_parts = 2; // if entity is too large then it split and written to several independent foundation db keys
+message TransactionLookupHint {
+  uint32 transaction_index = 1;
+  uint32 parts_count = 2;
+}
+
+message HeaderWithLookupHints {
+  blockstore.BlockHeader header = 1;
+  repeated TransactionLookupHint transaction_lookup_hints = 2;
 }
