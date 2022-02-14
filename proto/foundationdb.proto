@@ -17,6 +17,6 @@ enum NamespaceFdb {
 }
 
 message ValueFdb {
-  repeated google.protobuf.Any value = 1;
-  uint32 parts = 2; // if entity is too large then it split and written to several independent foundation db keys
+  bytes value = 1;
+  uint32 extraParts = 2; // if entity is too large then it split and written to several independent foundation db keys
 }
