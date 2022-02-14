@@ -3,7 +3,6 @@ syntax = "proto3";
 package ankrscan.namespace;
 import "block-store.proto";
 option go_package = "./;proto";
-import "google/protobuf/any.proto";
 
 
 enum NamespaceFdb {
