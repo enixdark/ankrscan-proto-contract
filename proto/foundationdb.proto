@@ -18,7 +18,7 @@ enum NamespaceFdb {
 }
 
 message TransactionLookupHint {
-  uint32 transaction_index = 1;
+  uint64 transaction_index = 1;
   uint32 parts_count = 2;
 }
 
