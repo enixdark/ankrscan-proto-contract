@@ -119,6 +119,14 @@
         }
       }
     },
+    "nftindexerNftGetMetadataReply": {
+      "type": "object",
+      "properties": {
+        "nft": {
+          "$ref": "#/definitions/nftindexerNft"
+        }
+      }
+    },
     "nftindexerNftType": {
       "type": "string",
       "enum": [

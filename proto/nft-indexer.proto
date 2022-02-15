@@ -9,6 +9,7 @@ import "google/api/annotations.proto";
 service NftIndexer {
   // internal APIs
   rpc NftBalanceByAddress (NftBalanceByAddressRequest) returns (NftBalanceByAddressReply);
+  rpc NftGetMetadata (NftGetMetadataRequest) returns (NftGetMetadataReply);
 
   // public APIs
   rpc GetBalance (GetBalanceRequest) returns (NftBalanceByAddressReply) {
@@ -21,14 +22,14 @@ service NftIndexer {
 
 message GetBalanceRequest {
   string wallet = 1; // wallet address e.g. 0x134acfa283884ae586f96e24d40dd6c894a620bb
-  string blockchain_name = 2; // check https://github.com/Ankr-network/ankrscan-constants
+  string blockchain_name = 2; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
   string page_token = 3; // field to support pagination
   int32 page_size = 4;
 }
 
 message NftBalanceByAddressRequest {
   bytes wallet = 1; // wallet address e.g. 0x134acfa283884ae586f96e24d40dd6c894a620bb
-  string blockchain_name = 2; // check https://github.com/Ankr-network/ankrscan-constants
+  string blockchain_name = 2; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
   bytes page_token = 3; // field to support pagination
   int32 page_size = 4;
 }
@@ -37,6 +38,16 @@ message NftBalanceByAddressReply {
   repeated Nft nfts = 1;
   bytes next_page_token = 2; // field to support pagination
   bytes owner = 3;
+}
+
+message NftGetMetadataRequest {
+  string blockchain_name = 1; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
+  bytes contract_address = 2;
+  bytes token_id = 3;
+}
+
+message NftGetMetadataReply {
+  Nft nft = 1;
 }
 
 enum NftType {
