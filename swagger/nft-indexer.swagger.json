@@ -132,6 +132,9 @@
             "$ref": "#/definitions/nftindexerAttribute"
           }
         },
+        "nftType": {
+          "$ref": "#/definitions/nftindexerNftType"
+        },
         "fetched": {
           "type": "boolean"
         }
