@@ -73,6 +73,7 @@ message NftAttributes {
   string name = 3;
   string description = 4;
   repeated Attribute attributes = 5;
+  bool fetched = 6;
 }
 
 message NftMetadata {
