@@ -112,6 +112,10 @@
         "nextPageToken": {
           "type": "string",
           "format": "byte"
+        },
+        "owner": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },

@@ -36,6 +36,7 @@ message NftBalanceByAddressRequest {
 message NftBalanceByAddressReply {
   repeated Nft nfts = 1;
   bytes next_page_token = 2; // field to support pagination
+  bytes owner = 3;
 }
 
 enum NftType {
