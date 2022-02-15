@@ -82,7 +82,7 @@
           "type": "string",
           "format": "byte"
         },
-        "tokenUri": {
+        "imageUri": {
           "type": "string"
         },
         "collectionName": {
