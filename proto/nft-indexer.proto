@@ -47,7 +47,8 @@ message NftGetMetadataRequest {
 }
 
 message NftGetMetadataReply {
-  Nft nft = 1;
+  NftMetadata metadata = 1;
+  NftAttributes attributes = 2;
 }
 
 enum NftType {
