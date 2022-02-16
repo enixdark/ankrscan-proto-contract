@@ -346,6 +346,7 @@ message BlockConsumer {
 message NextRequest {
   BlockConsumer consumer = 1;
   uint64 batch_size = 2;
+  BlockHeader from = 3;
 }
 
 message NextReply {

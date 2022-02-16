@@ -17,12 +17,17 @@ enum NamespaceFdb {
   ConsumerOffset = 6;
 }
 
-message TransactionLookupHint {
-  uint64 transaction_index = 1;
-  uint64 parts_count = 2;
-}
-
-message BlockHeaderWithFdbMetadata {
-  blockstore.BlockHeader header = 1;
-  repeated TransactionLookupHint transaction_lookup_hints = 2;
-}
+//message TransactionPointer {
+//  string blockchain_name = 1;
+//  uint64 block_height = 2;
+//}
+//
+//message TransactionLookupHint {
+//  uint64 transaction_index = 1;
+//  uint64 parts_count = 2;
+//}
+//
+//message BlockHeaderWithFdbMetadata {
+//  blockstore.BlockHeader header = 1;
+//  repeated TransactionLookupHint transaction_lookup_hints = 2;
+//}

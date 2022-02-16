@@ -772,6 +772,9 @@
         "batchSize": {
           "type": "string",
           "format": "uint64"
+        },
+        "from": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
         }
       }
     },
