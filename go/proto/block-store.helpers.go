@@ -1,6 +1,8 @@
 package proto
 
 import (
+	"crypto/md5"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
 	"time"
@@ -108,4 +110,10 @@ func (x *EthLog) TopicsAsHash() []common.Hash {
 
 func (x *EthLog) AddressAsAddress() common.Address {
 	return common.BytesToAddress(x.Address)
+}
+
+func (x *BlockConsumer) ConsumerId() string {
+	hasher := md5.New()
+	hasher.Write([]byte(x.UserId))
+	return fmt.Sprintf("%s-%s-%x", x.BlockchainName, x.ConsumerName, hasher.Sum(nil))
 }
