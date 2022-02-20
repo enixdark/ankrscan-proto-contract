@@ -195,6 +195,7 @@ service BlockStore {
   // internal APIs
   rpc GetExtractors (GetExtractorsRequest) returns (GetExtractorsReply);
   rpc UpdateExtractor (UpdateExtractorRequest) returns (GetExtractorsReply);
+  rpc DeleteExtractor (DeleteExtractorRequest) returns (GetExtractorsReply);
   rpc UpdateExtractorLatest (UpdateExtractorLatestRequest) returns (GetExtractorsReply);
   rpc GetNodes (GetNodesRequest) returns (GetNodesReply);
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
@@ -265,8 +266,8 @@ message GetNodesReply {
   repeated Node nodes = 1;
 }
 
-message DeleteExtractorsRequest {
-  repeated uint64 ids = 1;
+message DeleteExtractorRequest {
+  uint64 id = 1;
 }
 
 message UpdateExtractorRequest {

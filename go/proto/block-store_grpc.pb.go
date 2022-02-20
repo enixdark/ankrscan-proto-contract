@@ -20,6 +20,7 @@ type BlockStoreClient interface {
 	// internal APIs
 	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
 	UpdateExtractor(ctx context.Context, in *UpdateExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
+	DeleteExtractor(ctx context.Context, in *DeleteExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
 	UpdateExtractorLatest(ctx context.Context, in *UpdateExtractorLatestRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
 	GetNodes(ctx context.Context, in *GetNodesRequest, opts ...grpc.CallOption) (*GetNodesReply, error)
 	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
@@ -53,6 +54,15 @@ func (c *blockStoreClient) GetExtractors(ctx context.Context, in *GetExtractorsR
 func (c *blockStoreClient) UpdateExtractor(ctx context.Context, in *UpdateExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error) {
 	out := new(GetExtractorsReply)
 	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/UpdateExtractor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blockStoreClient) DeleteExtractor(ctx context.Context, in *DeleteExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error) {
+	out := new(GetExtractorsReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/DeleteExtractor", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -156,6 +166,7 @@ type BlockStoreServer interface {
 	// internal APIs
 	GetExtractors(context.Context, *GetExtractorsRequest) (*GetExtractorsReply, error)
 	UpdateExtractor(context.Context, *UpdateExtractorRequest) (*GetExtractorsReply, error)
+	DeleteExtractor(context.Context, *DeleteExtractorRequest) (*GetExtractorsReply, error)
 	UpdateExtractorLatest(context.Context, *UpdateExtractorLatestRequest) (*GetExtractorsReply, error)
 	GetNodes(context.Context, *GetNodesRequest) (*GetNodesReply, error)
 	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
@@ -179,6 +190,9 @@ func (UnimplementedBlockStoreServer) GetExtractors(context.Context, *GetExtracto
 }
 func (UnimplementedBlockStoreServer) UpdateExtractor(context.Context, *UpdateExtractorRequest) (*GetExtractorsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractor not implemented")
+}
+func (UnimplementedBlockStoreServer) DeleteExtractor(context.Context, *DeleteExtractorRequest) (*GetExtractorsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteExtractor not implemented")
 }
 func (UnimplementedBlockStoreServer) UpdateExtractorLatest(context.Context, *UpdateExtractorLatestRequest) (*GetExtractorsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractorLatest not implemented")
@@ -255,6 +269,24 @@ func _BlockStore_UpdateExtractor_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).UpdateExtractor(ctx, req.(*UpdateExtractorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlockStore_DeleteExtractor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteExtractorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).DeleteExtractor(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.blockstore.BlockStore/DeleteExtractor",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).DeleteExtractor(ctx, req.(*DeleteExtractorRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -453,6 +485,10 @@ var BlockStore_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateExtractor",
 			Handler:    _BlockStore_UpdateExtractor_Handler,
+		},
+		{
+			MethodName: "DeleteExtractor",
+			Handler:    _BlockStore_DeleteExtractor_Handler,
 		},
 		{
 			MethodName: "UpdateExtractorLatest",
