@@ -14,6 +14,7 @@ enum NamespaceFdb {
   TransactionByHash = 4;
   ExtractorConfig = 5;
   ConsumerOffset = 6;
+  ExtractorLatest = 7;
 }
 
 //message TransactionPointer {
