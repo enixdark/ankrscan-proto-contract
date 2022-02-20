@@ -137,13 +137,11 @@ message BlockHeader {
 message ExtractorConfig {
   uint64 id = 1;
   string blockchain_name = 2;
-  int64 latest_processed_block = 3; // set to -1 to start from origin
-  bool enabled = 4;
-  uint64 parallel_blocks = 5;
-  uint64 parallel_txs_batch = 6;
-  uint64 parallel_txs_workers = 7;
-  string node_url = 8;
-  bool backward = 9;
+  bool enabled = 3;
+  uint64 parallel_blocks = 4;
+  uint64 parallel_txs_batch = 5;
+  uint64 parallel_txs_workers = 6;
+  string node_url = 7;
 }
 
 /**
@@ -195,9 +193,10 @@ message LatestBlockChanged {
 
 service BlockStore {
   // internal APIs
-  rpc GetExtractors (GetExtractorsRequest) returns (ExtractorConfigs);
-  rpc UpdateExtractors (UpdateExtractorsRequest) returns (ExtractorConfigs);
-  rpc DeleteExtractors (DeleteExtractorsRequest) returns (ExtractorConfigs);
+  rpc GetExtractors (GetExtractorsRequest) returns (GetExtractorsReply);
+  rpc UpdateExtractor (UpdateExtractorRequest) returns (GetExtractorsReply);
+  rpc UpdateExtractorLatest (UpdateExtractorLatestRequest) returns (GetExtractorsReply);
+  rpc GetNodes (GetNodesRequest) returns (GetNodesReply);
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
 
   // public APIs
@@ -254,14 +253,39 @@ message BlockRangeReply {
 message GetExtractorsRequest {
 
 }
+message GetNodesRequest {
+
+}
+
+message GetNodesReply {
+  message Node {
+    string blockchain_name = 1;
+    string url = 2;
+  }
+  repeated Node nodes = 1;
+}
 
 message DeleteExtractorsRequest {
   repeated uint64 ids = 1;
 }
 
-message UpdateExtractorsRequest {
-  repeated ExtractorConfig configs = 1;
-  bool update_latest = 2;
+message UpdateExtractorRequest {
+  ExtractorConfig config = 1;
+}
+
+message UpdateExtractorLatestRequest {
+  uint64 id = 1;
+  uint64 latest = 2;
+}
+
+message GetExtractorsReply {
+  repeated ExtractorDescription extractors = 1;
+}
+
+message ExtractorDescription {
+  ExtractorConfig config = 1;
+  uint64 latest = 2;
+  uint64 latest_onchain = 3;
 }
 
 message ExtractorConfigs {
