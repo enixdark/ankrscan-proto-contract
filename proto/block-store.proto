@@ -292,6 +292,11 @@ message ExtractorConfigs {
   repeated ExtractorConfig configs = 1;
 }
 
+message ExtractorLatest {
+  uint64 id = 1;
+  uint64 latest = 2;
+}
+
 message GetLatestBalanceRequest {
   string blockchain_name = 1;
   string address = 2;
