@@ -710,10 +710,6 @@
         "latest": {
           "type": "string",
           "format": "uint64"
-        },
-        "latestOnchain": {
-          "type": "string",
-          "format": "uint64"
         }
       }
     },

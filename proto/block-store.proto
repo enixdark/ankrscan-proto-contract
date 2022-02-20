@@ -286,7 +286,6 @@ message GetExtractorsReply {
 message ExtractorDescription {
   ExtractorConfig config = 1;
   uint64 latest = 2;
-  uint64 latest_onchain = 3;
 }
 
 message ExtractorConfigs {
