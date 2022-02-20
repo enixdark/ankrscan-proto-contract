@@ -5,12 +5,10 @@ option go_package = "./;proto";
 
 
 enum NamespaceFdb {
-  UnknownFoundationDdNamespace = 0;
-
   // ankrscan-extractor
+  TransactionByBlockAndIndex = 0;
   BlockByNumberAndHash = 1;
   BlockByNumber = 2;
-  TransactionByBlockAndIndex = 3;
   TransactionByHash = 4;
   ExtractorConfig = 5;
   ConsumerOffset = 6;
