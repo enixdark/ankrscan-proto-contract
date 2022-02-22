@@ -56,4 +56,38 @@ enum FoundationDbNamespace {
     values: proto.BlockHeader
   */
   LatestBlock = 7;
+
+
+  /*
+    stores balances of exact NFT by the wallet
+    key structure:
+      * 4 bytes - length of the encoded blockchain name
+      * x bytes - encoded blockchain name
+      * 20 bytes - wallet address
+      * 20 bytes - contract address
+      * n bytes - tokenID as encoded as big.Int
+    values: big.Int in bytes - amount of NFTs (0 or 1 for ERC721, and any number from zero up to Solidity uint256 for ERC1155)
+  */
+  BalancesNamespace = 8;
+
+  /*
+    stores details about the contract
+    key structure:
+      * 4 bytes - length of the encoded blockchain name
+      * x bytes - encoded blockchain name
+      * 20 bytes - contract address
+    values: proto.NftType
+  */
+  ContractDetailsNamespace = 9;
+
+  /*
+    stores details about the contract
+    key structure:
+       * 4 bytes - length of the encoded blockchain name
+       * x bytes - encoded blockchain name
+       * 20 bytes - contract address
+       * n bytes - tokenID as encoded as big.Int
+    values: proto.NftAttributes
+  */
+  AttributesNamespace = 10;
 }
