@@ -13,22 +13,10 @@ enum NamespaceFdb {
   ExtractorConfig = 5;
   ConsumerOffset = 6;
   ExtractorLatest = 7;
+
+  // ankrscan-nft-indexer
   NftBalances = 8;
   NftContractDetails = 9;
   NftAttributes = 10;
 }
 
-//message TransactionPointer {
-//  string blockchain_name = 1;
-//  uint64 block_height = 2;
-//}
-//
-//message TransactionLookupHint {
-//  uint64 transaction_index = 1;
-//  uint64 parts_count = 2;
-//}
-//
-//message BlockHeaderWithFdbMetadata {
-//  blockstore.BlockHeader header = 1;
-//  repeated TransactionLookupHint transaction_lookup_hints = 2;
-//}
