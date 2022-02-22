@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package ankrscan.namespace;
+option go_package = "./;proto";
+
+
+enum NamespaceFdb {
+  // ankrscan-extractor
+  TransactionByBlockAndIndex = 0;
+  BlockByNumberAndHash = 1;
+  BlockByNumber = 2;
+  TransactionByHash = 4;
+  ExtractorConfig = 5;
+  ConsumerOffset = 6;
+  ExtractorLatest = 7;
+}
+
+//message TransactionPointer {
+//  string blockchain_name = 1;
+//  uint64 block_height = 2;
+//}
+//
+//message TransactionLookupHint {
+//  uint64 transaction_index = 1;
+//  uint64 parts_count = 2;
+//}
+//
+//message BlockHeaderWithFdbMetadata {
+//  blockstore.BlockHeader header = 1;
+//  repeated TransactionLookupHint transaction_lookup_hints = 2;
+//}

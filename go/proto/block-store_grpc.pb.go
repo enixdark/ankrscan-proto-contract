@@ -18,9 +18,11 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BlockStoreClient interface {
 	// internal APIs
-	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
-	UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
-	DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error)
+	GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
+	UpdateExtractor(ctx context.Context, in *UpdateExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
+	DeleteExtractor(ctx context.Context, in *DeleteExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
+	UpdateExtractorLatest(ctx context.Context, in *UpdateExtractorLatestRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error)
+	GetNodes(ctx context.Context, in *GetNodesRequest, opts ...grpc.CallOption) (*GetNodesReply, error)
 	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
 	// public APIs
 	Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error)
@@ -40,8 +42,8 @@ func NewBlockStoreClient(cc grpc.ClientConnInterface) BlockStoreClient {
 	return &blockStoreClient{cc}
 }
 
-func (c *blockStoreClient) GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
-	out := new(ExtractorConfigs)
+func (c *blockStoreClient) GetExtractors(ctx context.Context, in *GetExtractorsRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error) {
+	out := new(GetExtractorsReply)
 	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/GetExtractors", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -49,18 +51,36 @@ func (c *blockStoreClient) GetExtractors(ctx context.Context, in *GetExtractorsR
 	return out, nil
 }
 
-func (c *blockStoreClient) UpdateExtractors(ctx context.Context, in *UpdateExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
-	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/UpdateExtractors", in, out, opts...)
+func (c *blockStoreClient) UpdateExtractor(ctx context.Context, in *UpdateExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error) {
+	out := new(GetExtractorsReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/UpdateExtractor", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *blockStoreClient) DeleteExtractors(ctx context.Context, in *DeleteExtractorsRequest, opts ...grpc.CallOption) (*ExtractorConfigs, error) {
-	out := new(ExtractorConfigs)
-	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/DeleteExtractors", in, out, opts...)
+func (c *blockStoreClient) DeleteExtractor(ctx context.Context, in *DeleteExtractorRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error) {
+	out := new(GetExtractorsReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/DeleteExtractor", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blockStoreClient) UpdateExtractorLatest(ctx context.Context, in *UpdateExtractorLatestRequest, opts ...grpc.CallOption) (*GetExtractorsReply, error) {
+	out := new(GetExtractorsReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/UpdateExtractorLatest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blockStoreClient) GetNodes(ctx context.Context, in *GetNodesRequest, opts ...grpc.CallOption) (*GetNodesReply, error) {
+	out := new(GetNodesReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/GetNodes", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -144,9 +164,11 @@ func (c *blockStoreClient) BlockRangeContinuous(ctx context.Context, in *BlockRa
 // for forward compatibility
 type BlockStoreServer interface {
 	// internal APIs
-	GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error)
-	UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error)
-	DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error)
+	GetExtractors(context.Context, *GetExtractorsRequest) (*GetExtractorsReply, error)
+	UpdateExtractor(context.Context, *UpdateExtractorRequest) (*GetExtractorsReply, error)
+	DeleteExtractor(context.Context, *DeleteExtractorRequest) (*GetExtractorsReply, error)
+	UpdateExtractorLatest(context.Context, *UpdateExtractorLatestRequest) (*GetExtractorsReply, error)
+	GetNodes(context.Context, *GetNodesRequest) (*GetNodesReply, error)
 	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
 	// public APIs
 	Next(context.Context, *NextRequest) (*NextReply, error)
@@ -163,14 +185,20 @@ type BlockStoreServer interface {
 type UnimplementedBlockStoreServer struct {
 }
 
-func (UnimplementedBlockStoreServer) GetExtractors(context.Context, *GetExtractorsRequest) (*ExtractorConfigs, error) {
+func (UnimplementedBlockStoreServer) GetExtractors(context.Context, *GetExtractorsRequest) (*GetExtractorsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetExtractors not implemented")
 }
-func (UnimplementedBlockStoreServer) UpdateExtractors(context.Context, *UpdateExtractorsRequest) (*ExtractorConfigs, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractors not implemented")
+func (UnimplementedBlockStoreServer) UpdateExtractor(context.Context, *UpdateExtractorRequest) (*GetExtractorsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractor not implemented")
 }
-func (UnimplementedBlockStoreServer) DeleteExtractors(context.Context, *DeleteExtractorsRequest) (*ExtractorConfigs, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteExtractors not implemented")
+func (UnimplementedBlockStoreServer) DeleteExtractor(context.Context, *DeleteExtractorRequest) (*GetExtractorsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteExtractor not implemented")
+}
+func (UnimplementedBlockStoreServer) UpdateExtractorLatest(context.Context, *UpdateExtractorLatestRequest) (*GetExtractorsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExtractorLatest not implemented")
+}
+func (UnimplementedBlockStoreServer) GetNodes(context.Context, *GetNodesRequest) (*GetNodesReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNodes not implemented")
 }
 func (UnimplementedBlockStoreServer) BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockRange not implemented")
@@ -227,38 +255,74 @@ func _BlockStore_GetExtractors_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BlockStore_UpdateExtractors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateExtractorsRequest)
+func _BlockStore_UpdateExtractor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateExtractorRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BlockStoreServer).UpdateExtractors(ctx, in)
+		return srv.(BlockStoreServer).UpdateExtractor(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ankrscan.blockstore.BlockStore/UpdateExtractors",
+		FullMethod: "/ankrscan.blockstore.BlockStore/UpdateExtractor",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BlockStoreServer).UpdateExtractors(ctx, req.(*UpdateExtractorsRequest))
+		return srv.(BlockStoreServer).UpdateExtractor(ctx, req.(*UpdateExtractorRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BlockStore_DeleteExtractors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteExtractorsRequest)
+func _BlockStore_DeleteExtractor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteExtractorRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BlockStoreServer).DeleteExtractors(ctx, in)
+		return srv.(BlockStoreServer).DeleteExtractor(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ankrscan.blockstore.BlockStore/DeleteExtractors",
+		FullMethod: "/ankrscan.blockstore.BlockStore/DeleteExtractor",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BlockStoreServer).DeleteExtractors(ctx, req.(*DeleteExtractorsRequest))
+		return srv.(BlockStoreServer).DeleteExtractor(ctx, req.(*DeleteExtractorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlockStore_UpdateExtractorLatest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateExtractorLatestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).UpdateExtractorLatest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.blockstore.BlockStore/UpdateExtractorLatest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).UpdateExtractorLatest(ctx, req.(*UpdateExtractorLatestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlockStore_GetNodes_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNodesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).GetNodes(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.blockstore.BlockStore/GetNodes",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).GetNodes(ctx, req.(*GetNodesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -419,12 +483,20 @@ var BlockStore_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _BlockStore_GetExtractors_Handler,
 		},
 		{
-			MethodName: "UpdateExtractors",
-			Handler:    _BlockStore_UpdateExtractors_Handler,
+			MethodName: "UpdateExtractor",
+			Handler:    _BlockStore_UpdateExtractor_Handler,
 		},
 		{
-			MethodName: "DeleteExtractors",
-			Handler:    _BlockStore_DeleteExtractors_Handler,
+			MethodName: "DeleteExtractor",
+			Handler:    _BlockStore_DeleteExtractor_Handler,
+		},
+		{
+			MethodName: "UpdateExtractorLatest",
+			Handler:    _BlockStore_UpdateExtractorLatest_Handler,
+		},
+		{
+			MethodName: "GetNodes",
+			Handler:    _BlockStore_GetNodes_Handler,
 		},
 		{
 			MethodName: "BlockRange",

@@ -17,10 +17,21 @@ enum ChainType {
   CHAIN_TYPE_POLKADOT = 2;
 }
 
+enum BlockchainNumber {
+  BLOCKCHAIN_UNKNOWN = 0;
+  BLOCKCHAIN_ETH = 1;
+  BLOCKCHAIN_BSC = 2;
+  BLOCKCHAIN_POLYGON = 3;
+  BLOCKCHAIN_FANTOM = 4;
+  BLOCKCHAIN_AVALANCHE = 5;
+  BLOCKCHAIN_ARBITRUM = 6;
+}
+
 message BlockchainProperties {
   string blockchain_name = 1;
   string verbose_name = 2;
   ChainType chain_type = 4;
   string symbol = 6;
   int64 decimals = 7;
+  BlockchainNumber blockchain_number = 8;
 }

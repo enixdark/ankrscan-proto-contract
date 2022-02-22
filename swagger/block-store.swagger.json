@@ -243,6 +243,17 @@
     }
   },
   "definitions": {
+    "GetNodesReplyNode": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
     "blockstoreBlock": {
       "type": "object",
       "properties": {
@@ -670,10 +681,6 @@
         "blockchainName": {
           "type": "string"
         },
-        "latestProcessedBlock": {
-          "type": "string",
-          "format": "int64"
-        },
         "enabled": {
           "type": "boolean"
         },
@@ -691,19 +698,39 @@
         },
         "nodeUrl": {
           "type": "string"
-        },
-        "backward": {
-          "type": "boolean"
         }
       }
     },
-    "blockstoreExtractorConfigs": {
+    "blockstoreExtractorDescription": {
       "type": "object",
       "properties": {
-        "configs": {
+        "config": {
+          "$ref": "#/definitions/blockstoreExtractorConfig"
+        },
+        "latest": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "blockstoreGetExtractorsReply": {
+      "type": "object",
+      "properties": {
+        "extractors": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/blockstoreExtractorConfig"
+            "$ref": "#/definitions/blockstoreExtractorDescription"
+          }
+        }
+      }
+    },
+    "blockstoreGetNodesReply": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetNodesReplyNode"
           }
         }
       }
@@ -772,6 +799,9 @@
         "batchSize": {
           "type": "string",
           "format": "uint64"
+        },
+        "from": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
         }
       }
     },
