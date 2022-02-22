@@ -13,6 +13,8 @@ enum NamespaceFdb {
   ExtractorConfig = 5;
   ConsumerOffset = 6;
   ExtractorLatest = 7;
+
+  // ankrscan-nft-indexer
   NftBalances = 8;
   NftContractDetails = 9;
   NftAttributes = 10;
