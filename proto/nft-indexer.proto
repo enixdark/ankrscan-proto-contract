@@ -127,6 +127,6 @@ message NftIndexerConfig {
   string blockchain_name = 2;
   int64 latest_processed_block = 3; // set to -1 to start from origin
   string node_url = 4;
-  int32 batch_size = 5;
-  int32 parallel_fetch_count = 6;
+  uint64 batch_size = 5;
+  uint64 parallel_fetch_count = 6;
 }
