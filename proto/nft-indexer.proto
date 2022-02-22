@@ -4,13 +4,39 @@ package ankrscan.nftindexer;
 
 option go_package = "./;proto";
 
+import "google/api/annotations.proto";
+
 service NftIndexer {
+  // internal APIs
   rpc NftBalanceByAddress (NftBalanceByAddressRequest) returns (NftBalanceByAddressReply);
+  rpc NftGetMetadata (NftGetMetadataRequest) returns (NftGetMetadataReply);
+
+  // public APIs
+  rpc GetBalance (GetBalanceRequest) returns (NftBalanceByAddressReply) {
+    option (google.api.http) = {
+      post: "/v1/nft/getbalance"
+      body: "*"
+    };
+  };
+
+  rpc GetMetadata (GetMetadataRequest) returns (NftGetMetadataReply) {
+    option (google.api.http) = {
+      post: "/v1/nft/getmetadata"
+      body: "*"
+    };
+  };
+}
+
+message GetBalanceRequest {
+  string wallet = 1; // wallet address e.g. 0x134acfa283884ae586f96e24d40dd6c894a620bb
+  string blockchain_name = 2; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
+  string page_token = 3; // field to support pagination
+  int32 page_size = 4;
 }
 
 message NftBalanceByAddressRequest {
   bytes wallet = 1; // wallet address e.g. 0x134acfa283884ae586f96e24d40dd6c894a620bb
-  string blockchain_name = 2; // check https://github.com/Ankr-network/ankrscan-constants
+  string blockchain_name = 2; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
   bytes page_token = 3; // field to support pagination
   int32 page_size = 4;
 }
@@ -18,6 +44,24 @@ message NftBalanceByAddressRequest {
 message NftBalanceByAddressReply {
   repeated Nft nfts = 1;
   bytes next_page_token = 2; // field to support pagination
+  bytes owner = 3;
+}
+
+message GetMetadataRequest {
+  string blockchain_name = 1; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
+  string contract_address = 2;
+  string token_id = 3;
+}
+
+message NftGetMetadataRequest {
+  string blockchain_name = 1; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
+  bytes contract_address = 2;
+  bytes token_id = 3;
+}
+
+message NftGetMetadataReply {
+  NftMetadata metadata = 1;
+  NftAttributes attributes = 2;
 }
 
 enum NftType {
@@ -32,8 +76,19 @@ message NftContractDetails {
   NftType nft_type = 3;
 }
 
+message Attribute{
+  string trait_type = 1;
+  string value = 2;
+}
+
 message NftAttributes {
   string token_uri = 1;
+  string image_uri = 2;
+  string name = 3;
+  string description = 4;
+  repeated Attribute attributes = 5;
+  NftType nft_type = 6;
+  bool fetched = 7;
 }
 
 message NftMetadata {
@@ -44,9 +99,14 @@ message NftMetadata {
 }
 
 message Nft {
-  NftMetadata nft_metadata = 1;
-  NftAttributes attributes = 2;
-  NftContractDetails contract_details = 3;
+  string blockchain_name = 1;
+  string name = 2;
+  bytes token_id = 3;
+  string image_uri = 4;
+  string collection_name = 5;
+  string symbol = 6;
+  NftType nft_type = 7;
+  bytes contract_address = 8;
 }
 
 message NftTransfer {
