@@ -31,9 +31,10 @@ const (
 	NamespaceFdb_ExtractorConfig            NamespaceFdb = 5
 	NamespaceFdb_ConsumerOffset             NamespaceFdb = 6
 	NamespaceFdb_ExtractorLatest            NamespaceFdb = 7
-	NamespaceFdb_NftBalances                NamespaceFdb = 8
-	NamespaceFdb_NftContractDetails         NamespaceFdb = 9
-	NamespaceFdb_NftAttributes              NamespaceFdb = 10
+	// ankrscan-nft-indexer
+	NamespaceFdb_NftBalances        NamespaceFdb = 8
+	NamespaceFdb_NftContractDetails NamespaceFdb = 9
+	NamespaceFdb_NftAttributes      NamespaceFdb = 10
 )
 
 // Enum value maps for NamespaceFdb.
