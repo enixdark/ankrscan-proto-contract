@@ -13,9 +13,9 @@ enum NamespaceFdb {
   ExtractorConfig = 5;
   ConsumerOffset = 6;
   ExtractorLatest = 7;
-  BalancesNamespace = 8;
-  ContractDetailsNamespace = 9;
-  AttributesNamespace = 10;
+  NftBalances = 8;
+  NftContractDetails = 9;
+  NftAttributes = 10;
 }
 
 //message TransactionPointer {
