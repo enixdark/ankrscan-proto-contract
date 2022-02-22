@@ -16,7 +16,39 @@
     "application/json"
   ],
   "paths": {
-    "/v1/nft/getbalance": {
+    "/v1/nft/getMetadata": {
+      "post": {
+        "operationId": "NftIndexer_GetMetadata",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nftindexerNftGetMetadataReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nftindexerGetMetadataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "NftIndexer"
+        ]
+      }
+    },
+    "/v1/nft/getNfts": {
       "post": {
         "summary": "public APIs",
         "operationId": "NftIndexer_GetBalance",
@@ -41,38 +73,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/nftindexerGetBalanceRequest"
-            }
-          }
-        ],
-        "tags": [
-          "NftIndexer"
-        ]
-      }
-    },
-    "/v1/nft/getmetadata": {
-      "post": {
-        "operationId": "NftIndexer_GetMetadata",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/nftindexerNftGetMetadataReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/nftindexerGetMetadataRequest"
             }
           }
         ],

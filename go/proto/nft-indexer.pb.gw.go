@@ -111,7 +111,7 @@ func RegisterNftIndexerHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetBalance", runtime.WithHTTPPathPattern("/v1/nft/getbalance"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetBalance", runtime.WithHTTPPathPattern("/v1/nft/getNfts"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -134,7 +134,7 @@ func RegisterNftIndexerHandlerServer(ctx context.Context, mux *runtime.ServeMux,
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetMetadata", runtime.WithHTTPPathPattern("/v1/nft/getmetadata"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetMetadata", runtime.WithHTTPPathPattern("/v1/nft/getMetadata"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -196,7 +196,7 @@ func RegisterNftIndexerHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetBalance", runtime.WithHTTPPathPattern("/v1/nft/getbalance"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetBalance", runtime.WithHTTPPathPattern("/v1/nft/getNfts"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -216,7 +216,7 @@ func RegisterNftIndexerHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetMetadata", runtime.WithHTTPPathPattern("/v1/nft/getmetadata"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/ankrscan.nftindexer.NftIndexer/GetMetadata", runtime.WithHTTPPathPattern("/v1/nft/getMetadata"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -236,9 +236,9 @@ func RegisterNftIndexerHandlerClient(ctx context.Context, mux *runtime.ServeMux,
 }
 
 var (
-	pattern_NftIndexer_GetBalance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "nft", "getbalance"}, ""))
+	pattern_NftIndexer_GetBalance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "nft", "getNfts"}, ""))
 
-	pattern_NftIndexer_GetMetadata_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "nft", "getmetadata"}, ""))
+	pattern_NftIndexer_GetMetadata_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "nft", "getMetadata"}, ""))
 )
 
 var (

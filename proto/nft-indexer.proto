@@ -14,14 +14,14 @@ service NftIndexer {
   // public APIs
   rpc GetBalance (GetBalanceRequest) returns (NftBalanceByAddressReply) {
     option (google.api.http) = {
-      post: "/v1/nft/getbalance"
+      post: "/v1/nft/getNfts"
       body: "*"
     };
   };
 
   rpc GetMetadata (GetMetadataRequest) returns (NftGetMetadataReply) {
     option (google.api.http) = {
-      post: "/v1/nft/getmetadata"
+      post: "/v1/nft/getMetadata"
       body: "*"
     };
   };
