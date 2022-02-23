@@ -199,6 +199,7 @@ service BlockStore {
   rpc UpdateExtractorLatest (UpdateExtractorLatestRequest) returns (GetExtractorsReply);
   rpc GetNodes (GetNodesRequest) returns (GetNodesReply);
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
+  rpc BlocksByNumber (BlocksByNumberRequest) returns (BlocksByNumberReply);
 
   // public APIs
   rpc Next (NextRequest) returns (NextReply) {
