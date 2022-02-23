@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
+	"strings"
 	"time"
 )
 
@@ -84,6 +85,16 @@ func (x *EthTransaction) ToAsAddress() (address common.Address, exists bool) {
 	return common.BytesToAddress(x.To), len(x.To) > 0
 }
 
+func (x *EthTransaction) ToAsString() *string {
+	toAddress, exists := x.ToAsAddress()
+	if !exists {
+		return nil
+	} else {
+		asString := strings.ToLower(toAddress.String())
+		return &asString
+	}
+}
+
 func (x *EthTransaction) ValueAsInt() *big.Int {
 	z := new(big.Int)
 	z.SetBytes(x.Value)
@@ -104,6 +115,16 @@ func (x *EthTransaction) GasPriceAsInt() *big.Int {
 
 func (x *EthTransaction) ContractAddressAsAddress() (address common.Address, exists bool) {
 	return common.BytesToAddress(x.ContractAddress), len(x.ContractAddress) > 0
+}
+
+func (x *EthTransaction) ContractAddressAsString() *string {
+	toAddress, exists := x.ContractAddressAsAddress()
+	if !exists {
+		return nil
+	} else {
+		asString := strings.ToLower(toAddress.String())
+		return &asString
+	}
 }
 
 func (x *EthLog) TopicsAsHash() []common.Hash {
