@@ -90,6 +90,12 @@ func (x *EthTransaction) ValueAsInt() *big.Int {
 	return z
 }
 
+func (x *EthTransaction) VAsInt() *big.Int {
+	z := new(big.Int)
+	z.SetBytes(x.V)
+	return z
+}
+
 func (x *EthTransaction) GasPriceAsInt() *big.Int {
 	z := new(big.Int)
 	z.SetBytes(x.GasPrice)
