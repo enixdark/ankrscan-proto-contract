@@ -14,14 +14,14 @@ service NftIndexer {
   // public APIs
   rpc GetBalance (GetBalanceRequest) returns (NftBalanceByAddressReply) {
     option (google.api.http) = {
-      post: "/v1/nft/getbalance"
+      post: "/v1/nft/getNfts"
       body: "*"
     };
   };
 
   rpc GetMetadata (GetMetadataRequest) returns (NftGetMetadataReply) {
     option (google.api.http) = {
-      post: "/v1/nft/getmetadata"
+      post: "/v1/nft/getMetadata"
       body: "*"
     };
   };
@@ -126,5 +126,7 @@ message NftIndexerConfig {
   uint64 id = 1;
   string blockchain_name = 2;
   int64 latest_processed_block = 3; // set to -1 to start from origin
-  string node_url = 8;
+  string node_url = 4;
+  uint64 batch_size = 5;
+  uint64 parallel_fetch_count = 6;
 }
