@@ -2,7 +2,6 @@ package blockchains
 
 import (
 	"github.com/Ankr-network/ankrscan-proto-contract/go/proto"
-	"github.com/pkg/errors"
 )
 
 func AllBlockchainNames() []string {
@@ -17,7 +16,7 @@ func AllBlockchains() []*proto.BlockchainProperties {
 	return blockchains
 }
 
-func Blockchain(name string) (*proto.BlockchainProperties, error) {
+func Blockchain(name string) (*proto.BlockchainProperties, bool) {
 	var result *proto.BlockchainProperties
 	for _, blockchain := range blockchains {
 		if blockchain.BlockchainName == name {
@@ -25,9 +24,18 @@ func Blockchain(name string) (*proto.BlockchainProperties, error) {
 		}
 	}
 	if result == nil {
-		return nil, errors.Errorf("no blockchain with name %s", name)
+		return nil, false
 	}
-	return result, nil
+	return result, true
+}
+
+func BlockConfirmedAfter(blockchainName string) uint64 {
+	blockchainProperties, ok := Blockchain(blockchainName)
+	if ok {
+		return blockchainProperties.BlockConfirmedAfter
+	} else {
+		return 12
+	}
 }
 
 var blockchains = []*proto.BlockchainProperties{
