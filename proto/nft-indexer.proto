@@ -114,6 +114,7 @@ message NftTransfer {
   bytes from = 2;
   bytes to = 3;
   bytes value = 4;
+  uint64 block_number = 5;
 }
 
 message NftBalance {
