@@ -154,6 +154,12 @@
         "contractAddress": {
           "type": "string",
           "format": "byte"
+        },
+        "traits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nftindexerAttribute"
+          }
         }
       }
     },

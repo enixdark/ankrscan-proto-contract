@@ -107,6 +107,7 @@ message Nft {
   string symbol = 6;
   NftType nft_type = 7;
   bytes contract_address = 8;
+  repeated Attribute traits = 9;
 }
 
 message NftTransfer {
