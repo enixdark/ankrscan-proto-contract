@@ -36,7 +36,7 @@ message NodeConfigsReply {
 message CallContractRequest {
   message SingleCall {
     bytes contract_address = 2;
-    bytes arguments = 3;
+    bytes argument = 3;
     uint64 block_height = 4;
   }
 

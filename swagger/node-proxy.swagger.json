@@ -24,7 +24,7 @@
           "type": "string",
           "format": "byte"
         },
-        "arguments": {
+        "argument": {
           "type": "string",
           "format": "byte"
         },
