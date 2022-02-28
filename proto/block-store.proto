@@ -335,6 +335,10 @@ message BlockByNumberRequest {
   uint64 block_height = 2;
 }
 
+message BlockByNumberReply {
+  Block block = 1;
+}
+
 message BlockReply {
   Block block = 1;
 }

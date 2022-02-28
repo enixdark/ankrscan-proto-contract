@@ -34,11 +34,34 @@
         }
       }
     },
-    "ankrscannodeproxyLatestBlockHeaderReply": {
+    "ankrscanblockstoreBlockByNumberReply": {
       "type": "object",
       "properties": {
-        "header": {
+        "block": {
+          "$ref": "#/definitions/blockstoreBlock"
+        }
+      }
+    },
+    "ankrscanblockstoreLatestBlockHeaderReply": {
+      "type": "object",
+      "properties": {
+        "block": {
           "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "ankrscannodeproxyNodeConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockchainName": {
+          "type": "string"
+        },
+        "nodeUrl": {
+          "type": "string"
         }
       }
     },
@@ -403,14 +426,6 @@
         }
       }
     },
-    "nodeproxyBlockByNumberReply": {
-      "type": "object",
-      "properties": {
-        "block": {
-          "$ref": "#/definitions/blockstoreBlock"
-        }
-      }
-    },
     "nodeproxyCallContractBatchReply": {
       "type": "object",
       "properties": {
@@ -419,6 +434,17 @@
           "items": {
             "type": "string",
             "format": "byte"
+          }
+        }
+      }
+    },
+    "nodeproxyNodeConfigsReply": {
+      "type": "object",
+      "properties": {
+        "nodeConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ankrscannodeproxyNodeConfig"
           }
         }
       }

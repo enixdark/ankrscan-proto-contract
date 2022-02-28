@@ -6,9 +6,31 @@ option go_package = "./;proto";
 import "block-store.proto";
 
 service NodeProxy {
-  rpc BlockByNumber (BlockByNumberRequest) returns (BlockByNumberReply);
-  rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply);
+  // configuration management
+  rpc NodeConfigs (NodeConfigsRequest) returns (NodeConfigsReply);
+  rpc UpdateNodeConfig (UpdateNodeConfigRequest) returns (NodeConfigsReply);
+
+  // microservice API
+  rpc BlockByNumber (blockstore.BlockByNumberRequest) returns (blockstore.BlockByNumberReply);
+  rpc LatestBlockHeader (blockstore.LatestBlockHeaderRequest) returns (blockstore.LatestBlockHeaderReply);
   rpc CallContractBatch (CallContractBatchRequest) returns (CallContractBatchReply);
+}
+
+message NodeConfig {
+  uint64 id = 1;
+  string blockchain_name = 2;
+  string node_url = 3;
+}
+
+message NodeConfigsRequest {
+}
+
+message UpdateNodeConfigRequest {
+  NodeConfig node_config = 1;
+}
+
+message NodeConfigsReply {
+  repeated NodeConfig node_configs = 1;
 }
 
 message BlockByNumberRequest {

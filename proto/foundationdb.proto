@@ -18,5 +18,8 @@ enum NamespaceFdb {
   NftBalances = 8;
   NftContractDetails = 9;
   NftAttributes = 10;
+
+  // ankrscan-node-proxy
+  NodeProxyNodesConfig = 11;
 }
 

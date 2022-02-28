@@ -17,6 +17,10 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NodeProxyClient interface {
+	// configuration management
+	NodeConfigs(ctx context.Context, in *NodeConfigsRequest, opts ...grpc.CallOption) (*NodeConfigsReply, error)
+	UpdateNodeConfig(ctx context.Context, in *UpdateNodeConfigRequest, opts ...grpc.CallOption) (*NodeConfigsReply, error)
+	// microservice API
 	BlockByNumber(ctx context.Context, in *BlockByNumberRequest, opts ...grpc.CallOption) (*BlockByNumberReply, error)
 	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
 	CallContractBatch(ctx context.Context, in *CallContractBatchRequest, opts ...grpc.CallOption) (*CallContractBatchReply, error)
@@ -28,6 +32,24 @@ type nodeProxyClient struct {
 
 func NewNodeProxyClient(cc grpc.ClientConnInterface) NodeProxyClient {
 	return &nodeProxyClient{cc}
+}
+
+func (c *nodeProxyClient) NodeConfigs(ctx context.Context, in *NodeConfigsRequest, opts ...grpc.CallOption) (*NodeConfigsReply, error) {
+	out := new(NodeConfigsReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/NodeConfigs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *nodeProxyClient) UpdateNodeConfig(ctx context.Context, in *UpdateNodeConfigRequest, opts ...grpc.CallOption) (*NodeConfigsReply, error) {
+	out := new(NodeConfigsReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/UpdateNodeConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *nodeProxyClient) BlockByNumber(ctx context.Context, in *BlockByNumberRequest, opts ...grpc.CallOption) (*BlockByNumberReply, error) {
@@ -61,6 +83,10 @@ func (c *nodeProxyClient) CallContractBatch(ctx context.Context, in *CallContrac
 // All implementations must embed UnimplementedNodeProxyServer
 // for forward compatibility
 type NodeProxyServer interface {
+	// configuration management
+	NodeConfigs(context.Context, *NodeConfigsRequest) (*NodeConfigsReply, error)
+	UpdateNodeConfig(context.Context, *UpdateNodeConfigRequest) (*NodeConfigsReply, error)
+	// microservice API
 	BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error)
 	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
 	CallContractBatch(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error)
@@ -71,6 +97,12 @@ type NodeProxyServer interface {
 type UnimplementedNodeProxyServer struct {
 }
 
+func (UnimplementedNodeProxyServer) NodeConfigs(context.Context, *NodeConfigsRequest) (*NodeConfigsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NodeConfigs not implemented")
+}
+func (UnimplementedNodeProxyServer) UpdateNodeConfig(context.Context, *UpdateNodeConfigRequest) (*NodeConfigsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateNodeConfig not implemented")
+}
 func (UnimplementedNodeProxyServer) BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockByNumber not implemented")
 }
@@ -91,6 +123,42 @@ type UnsafeNodeProxyServer interface {
 
 func RegisterNodeProxyServer(s grpc.ServiceRegistrar, srv NodeProxyServer) {
 	s.RegisterService(&NodeProxy_ServiceDesc, srv)
+}
+
+func _NodeProxy_NodeConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NodeConfigsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NodeProxyServer).NodeConfigs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.nodeproxy.NodeProxy/NodeConfigs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NodeProxyServer).NodeConfigs(ctx, req.(*NodeConfigsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NodeProxy_UpdateNodeConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNodeConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NodeProxyServer).UpdateNodeConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.nodeproxy.NodeProxy/UpdateNodeConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NodeProxyServer).UpdateNodeConfig(ctx, req.(*UpdateNodeConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _NodeProxy_BlockByNumber_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -154,6 +222,14 @@ var NodeProxy_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "ankrscan.nodeproxy.NodeProxy",
 	HandlerType: (*NodeProxyServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "NodeConfigs",
+			Handler:    _NodeProxy_NodeConfigs_Handler,
+		},
+		{
+			MethodName: "UpdateNodeConfig",
+			Handler:    _NodeProxy_UpdateNodeConfig_Handler,
+		},
 		{
 			MethodName: "BlockByNumber",
 			Handler:    _NodeProxy_BlockByNumber_Handler,
