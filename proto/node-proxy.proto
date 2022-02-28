@@ -22,6 +22,11 @@ message NodeConfig {
   string node_url = 3;
 }
 
+message NodeConfigWithStatus {
+  NodeConfig config = 1;
+  bool healthy = 2;
+}
+
 message NodeConfigsRequest {
 }
 
