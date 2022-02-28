@@ -55,7 +55,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ankrscanblockstoreLatestBlockHeaderReply"
+              "$ref": "#/definitions/blockstoreLatestBlockHeaderReply"
             }
           },
           "default": {
@@ -71,7 +71,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ankrscanblockstoreLatestBlockHeaderRequest"
+              "$ref": "#/definitions/blockstoreLatestBlockHeaderRequest"
             }
           }
         ],
@@ -254,34 +254,6 @@
         }
       }
     },
-    "ankrscanblockstoreBlockByNumberRequest": {
-      "type": "object",
-      "properties": {
-        "blockchainName": {
-          "type": "string"
-        },
-        "blockHeight": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
-    "ankrscanblockstoreLatestBlockHeaderReply": {
-      "type": "object",
-      "properties": {
-        "block": {
-          "$ref": "#/definitions/blockstoreBlockHeader"
-        }
-      }
-    },
-    "ankrscanblockstoreLatestBlockHeaderRequest": {
-      "type": "object",
-      "properties": {
-        "blockchainName": {
-          "type": "string"
-        }
-      }
-    },
     "blockstoreBlock": {
       "type": "object",
       "properties": {
@@ -293,6 +265,18 @@
           "items": {
             "$ref": "#/definitions/blockstoreTransaction"
           }
+        }
+      }
+    },
+    "blockstoreBlockByNumberRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
@@ -392,7 +376,7 @@
         "requests": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ankrscanblockstoreBlockByNumberRequest"
+            "$ref": "#/definitions/blockstoreBlockByNumberRequest"
           }
         }
       }
@@ -766,6 +750,22 @@
       "properties": {
         "consumer": {
           "$ref": "#/definitions/blockstoreBlockConsumer"
+        }
+      }
+    },
+    "blockstoreLatestBlockHeaderReply": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "blockstoreLatestBlockHeaderRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
         }
       }
     },

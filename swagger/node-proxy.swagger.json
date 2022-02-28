@@ -34,22 +34,6 @@
         }
       }
     },
-    "ankrscanblockstoreBlockByNumberReply": {
-      "type": "object",
-      "properties": {
-        "block": {
-          "$ref": "#/definitions/blockstoreBlock"
-        }
-      }
-    },
-    "ankrscanblockstoreLatestBlockHeaderReply": {
-      "type": "object",
-      "properties": {
-        "block": {
-          "$ref": "#/definitions/blockstoreBlockHeader"
-        }
-      }
-    },
     "blockstoreBlock": {
       "type": "object",
       "properties": {
@@ -61,6 +45,14 @@
           "items": {
             "$ref": "#/definitions/blockstoreTransaction"
           }
+        }
+      }
+    },
+    "blockstoreBlockByNumberReply": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "$ref": "#/definitions/blockstoreBlock"
         }
       }
     },
@@ -369,6 +361,14 @@
           "items": {
             "$ref": "#/definitions/blockstoreEthLog"
           }
+        }
+      }
+    },
+    "blockstoreLatestBlockHeaderReply": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
         }
       }
     },
