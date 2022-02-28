@@ -50,21 +50,6 @@
         }
       }
     },
-    "ankrscannodeproxyNodeConfig": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "blockchainName": {
-          "type": "string"
-        },
-        "nodeUrl": {
-          "type": "string"
-        }
-      }
-    },
     "blockstoreBlock": {
       "type": "object",
       "properties": {
@@ -77,8 +62,7 @@
             "$ref": "#/definitions/blockstoreTransaction"
           }
         }
-      },
-      "title": "*\nTopic: v1.blockchainextractor.blockchanged"
+      }
     },
     "blockstoreBlockHeader": {
       "type": "object",
@@ -438,13 +422,28 @@
         }
       }
     },
+    "nodeproxyNodeConfig": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "blockchainName": {
+          "type": "string"
+        },
+        "nodeUrl": {
+          "type": "string"
+        }
+      }
+    },
     "nodeproxyNodeConfigsReply": {
       "type": "object",
       "properties": {
         "nodeConfigs": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ankrscannodeproxyNodeConfig"
+            "$ref": "#/definitions/nodeproxyNodeConfig"
           }
         }
       }

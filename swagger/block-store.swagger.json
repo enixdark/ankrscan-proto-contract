@@ -294,8 +294,7 @@
             "$ref": "#/definitions/blockstoreTransaction"
           }
         }
-      },
-      "title": "*\nTopic: v1.blockchainextractor.blockchanged"
+      }
     },
     "blockstoreBlockConsumer": {
       "type": "object",

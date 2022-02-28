@@ -144,6 +144,11 @@ message ExtractorConfig {
   string node_url = 7;
 }
 
+message Block {
+  BlockHeader header = 1;
+  repeated Transaction transactions = 2;
+}
+
 /**
  *        ____  ____   ____
  *   __ _|  _ \|  _ \ / ___|
