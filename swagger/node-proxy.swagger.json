@@ -448,6 +448,9 @@
         }
       }
     },
+    "nodeproxyUpdateNodeConfigReply": {
+      "type": "object"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {

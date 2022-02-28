@@ -19,7 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 type NodeProxyClient interface {
 	// configuration management
 	NodeConfigs(ctx context.Context, in *NodeConfigsRequest, opts ...grpc.CallOption) (*NodeConfigsReply, error)
-	UpdateNodeConfig(ctx context.Context, in *UpdateNodeConfigRequest, opts ...grpc.CallOption) (*NodeConfigsReply, error)
+	UpdateNodeConfig(ctx context.Context, in *UpdateNodeConfigRequest, opts ...grpc.CallOption) (*UpdateNodeConfigReply, error)
 	// microservice API
 	BlockByNumber(ctx context.Context, in *BlockByNumberRequest, opts ...grpc.CallOption) (*BlockByNumberReply, error)
 	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
@@ -43,8 +43,8 @@ func (c *nodeProxyClient) NodeConfigs(ctx context.Context, in *NodeConfigsReques
 	return out, nil
 }
 
-func (c *nodeProxyClient) UpdateNodeConfig(ctx context.Context, in *UpdateNodeConfigRequest, opts ...grpc.CallOption) (*NodeConfigsReply, error) {
-	out := new(NodeConfigsReply)
+func (c *nodeProxyClient) UpdateNodeConfig(ctx context.Context, in *UpdateNodeConfigRequest, opts ...grpc.CallOption) (*UpdateNodeConfigReply, error) {
+	out := new(UpdateNodeConfigReply)
 	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/UpdateNodeConfig", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (c *nodeProxyClient) CallContract(ctx context.Context, in *CallContractRequ
 type NodeProxyServer interface {
 	// configuration management
 	NodeConfigs(context.Context, *NodeConfigsRequest) (*NodeConfigsReply, error)
-	UpdateNodeConfig(context.Context, *UpdateNodeConfigRequest) (*NodeConfigsReply, error)
+	UpdateNodeConfig(context.Context, *UpdateNodeConfigRequest) (*UpdateNodeConfigReply, error)
 	// microservice API
 	BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error)
 	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
@@ -100,7 +100,7 @@ type UnimplementedNodeProxyServer struct {
 func (UnimplementedNodeProxyServer) NodeConfigs(context.Context, *NodeConfigsRequest) (*NodeConfigsReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NodeConfigs not implemented")
 }
-func (UnimplementedNodeProxyServer) UpdateNodeConfig(context.Context, *UpdateNodeConfigRequest) (*NodeConfigsReply, error) {
+func (UnimplementedNodeProxyServer) UpdateNodeConfig(context.Context, *UpdateNodeConfigRequest) (*UpdateNodeConfigReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateNodeConfig not implemented")
 }
 func (UnimplementedNodeProxyServer) BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error) {
