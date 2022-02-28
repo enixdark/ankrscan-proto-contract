@@ -17,7 +17,7 @@
   ],
   "paths": {},
   "definitions": {
-    "CallContractBatchRequestCallContractRequest": {
+    "CallContractBatchRequestCall": {
       "type": "object",
       "properties": {
         "contractAddress": {
