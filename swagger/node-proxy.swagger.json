@@ -17,6 +17,23 @@
   ],
   "paths": {},
   "definitions": {
+    "CallContractBatchRequestCallContractRequest": {
+      "type": "object",
+      "properties": {
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "arguments": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "ankrscannodeproxyLatestBlockHeaderReply": {
       "type": "object",
       "properties": {
@@ -391,6 +408,18 @@
       "properties": {
         "block": {
           "$ref": "#/definitions/blockstoreBlock"
+        }
+      }
+    },
+    "nodeproxyCallContractBatchReply": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
         }
       }
     },

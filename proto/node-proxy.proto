@@ -8,6 +8,7 @@ import "block-store.proto";
 service NodeProxy {
   rpc BlockByNumber (BlockByNumberRequest) returns (BlockByNumberReply);
   rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply);
+  rpc CallContractBatch (CallContractBatchRequest) returns (CallContractBatchReply);
 }
 
 message BlockByNumberRequest {
@@ -25,4 +26,19 @@ message LatestBlockHeaderRequest {
 
 message LatestBlockHeaderReply {
   blockstore.BlockHeader header = 1;
+}
+
+message CallContractBatchRequest {
+  message CallContractRequest {
+    bytes contract_address = 2;
+    bytes arguments = 3;
+    uint64 block_height = 4;
+  }
+
+  repeated CallContractRequest requests = 1;
+  string blockchain_name = 2;
+}
+
+message CallContractBatchReply {
+  repeated bytes results = 1;
 }
