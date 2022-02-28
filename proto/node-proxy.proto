@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ankrscan.nodeproxy;
+
+option go_package = "./;proto";
+import "block-store.proto";
+
+service NodeProxy {
+  rpc BlockByNumber (BlockByNumberRequest) returns (BlockByNumberReply);
+  rpc LatestBlockHeader (LatestBlockHeaderRequest) returns (LatestBlockHeaderReply);
+}
+
+message BlockByNumberRequest {
+  string blockchain_name = 1;
+  uint64 block_height = 2;
+}
+
+message BlockByNumberReply {
+  blockstore.Block block = 1;
+}
+
+message LatestBlockHeaderRequest {
+  string blockchain_name = 1;
+}
+
+message LatestBlockHeaderReply {
+  blockstore.BlockHeader header = 1;
+}

@@ -2292,6 +2292,53 @@ func (x *BlockByNumberRequest) GetBlockHeight() uint64 {
 	return 0
 }
 
+type BlockReply struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Block *Block `protobuf:"bytes,1,opt,name=block,proto3" json:"block,omitempty"`
+}
+
+func (x *BlockReply) Reset() {
+	*x = BlockReply{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_block_store_proto_msgTypes[33]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BlockReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BlockReply) ProtoMessage() {}
+
+func (x *BlockReply) ProtoReflect() protoreflect.Message {
+	mi := &file_block_store_proto_msgTypes[33]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BlockReply.ProtoReflect.Descriptor instead.
+func (*BlockReply) Descriptor() ([]byte, []int) {
+	return file_block_store_proto_rawDescGZIP(), []int{33}
+}
+
+func (x *BlockReply) GetBlock() *Block {
+	if x != nil {
+		return x.Block
+	}
+	return nil
+}
+
 type TransactionByBlockRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2305,7 +2352,7 @@ type TransactionByBlockRequest struct {
 func (x *TransactionByBlockRequest) Reset() {
 	*x = TransactionByBlockRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[33]
+		mi := &file_block_store_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2318,7 +2365,7 @@ func (x *TransactionByBlockRequest) String() string {
 func (*TransactionByBlockRequest) ProtoMessage() {}
 
 func (x *TransactionByBlockRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[33]
+	mi := &file_block_store_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2331,7 +2378,7 @@ func (x *TransactionByBlockRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TransactionByBlockRequest.ProtoReflect.Descriptor instead.
 func (*TransactionByBlockRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{33}
+	return file_block_store_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *TransactionByBlockRequest) GetBlockchainName() string {
@@ -2369,7 +2416,7 @@ type TransactionByBlockAndIndexRequest struct {
 func (x *TransactionByBlockAndIndexRequest) Reset() {
 	*x = TransactionByBlockAndIndexRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[34]
+		mi := &file_block_store_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2382,7 +2429,7 @@ func (x *TransactionByBlockAndIndexRequest) String() string {
 func (*TransactionByBlockAndIndexRequest) ProtoMessage() {}
 
 func (x *TransactionByBlockAndIndexRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[34]
+	mi := &file_block_store_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2395,7 +2442,7 @@ func (x *TransactionByBlockAndIndexRequest) ProtoReflect() protoreflect.Message 
 
 // Deprecated: Use TransactionByBlockAndIndexRequest.ProtoReflect.Descriptor instead.
 func (*TransactionByBlockAndIndexRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{34}
+	return file_block_store_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *TransactionByBlockAndIndexRequest) GetBlockchainName() string {
@@ -2437,7 +2484,7 @@ type TransactionsByBlockAndIndexRequest struct {
 func (x *TransactionsByBlockAndIndexRequest) Reset() {
 	*x = TransactionsByBlockAndIndexRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[35]
+		mi := &file_block_store_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2450,7 +2497,7 @@ func (x *TransactionsByBlockAndIndexRequest) String() string {
 func (*TransactionsByBlockAndIndexRequest) ProtoMessage() {}
 
 func (x *TransactionsByBlockAndIndexRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[35]
+	mi := &file_block_store_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2463,7 +2510,7 @@ func (x *TransactionsByBlockAndIndexRequest) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use TransactionsByBlockAndIndexRequest.ProtoReflect.Descriptor instead.
 func (*TransactionsByBlockAndIndexRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{35}
+	return file_block_store_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *TransactionsByBlockAndIndexRequest) GetRequests() []*TransactionByBlockRequest {
@@ -2484,7 +2531,7 @@ type BlocksByNumberRequest struct {
 func (x *BlocksByNumberRequest) Reset() {
 	*x = BlocksByNumberRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[36]
+		mi := &file_block_store_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2497,7 +2544,7 @@ func (x *BlocksByNumberRequest) String() string {
 func (*BlocksByNumberRequest) ProtoMessage() {}
 
 func (x *BlocksByNumberRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[36]
+	mi := &file_block_store_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2510,7 +2557,7 @@ func (x *BlocksByNumberRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BlocksByNumberRequest.ProtoReflect.Descriptor instead.
 func (*BlocksByNumberRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{36}
+	return file_block_store_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *BlocksByNumberRequest) GetRequests() []*BlockByNumberRequest {
@@ -2531,7 +2578,7 @@ type BlocksByNumberReply struct {
 func (x *BlocksByNumberReply) Reset() {
 	*x = BlocksByNumberReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[37]
+		mi := &file_block_store_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2544,7 +2591,7 @@ func (x *BlocksByNumberReply) String() string {
 func (*BlocksByNumberReply) ProtoMessage() {}
 
 func (x *BlocksByNumberReply) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[37]
+	mi := &file_block_store_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2557,7 +2604,7 @@ func (x *BlocksByNumberReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BlocksByNumberReply.ProtoReflect.Descriptor instead.
 func (*BlocksByNumberReply) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{37}
+	return file_block_store_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *BlocksByNumberReply) GetBlocks() []*Block {
@@ -2580,7 +2627,7 @@ type BlockRangeRequest struct {
 func (x *BlockRangeRequest) Reset() {
 	*x = BlockRangeRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[38]
+		mi := &file_block_store_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2593,7 +2640,7 @@ func (x *BlockRangeRequest) String() string {
 func (*BlockRangeRequest) ProtoMessage() {}
 
 func (x *BlockRangeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[38]
+	mi := &file_block_store_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2606,7 +2653,7 @@ func (x *BlockRangeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BlockRangeRequest.ProtoReflect.Descriptor instead.
 func (*BlockRangeRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{38}
+	return file_block_store_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *BlockRangeRequest) GetBlockchainName() string {
@@ -2643,7 +2690,7 @@ type BlockConsumer struct {
 func (x *BlockConsumer) Reset() {
 	*x = BlockConsumer{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[39]
+		mi := &file_block_store_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2656,7 +2703,7 @@ func (x *BlockConsumer) String() string {
 func (*BlockConsumer) ProtoMessage() {}
 
 func (x *BlockConsumer) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[39]
+	mi := &file_block_store_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2669,7 +2716,7 @@ func (x *BlockConsumer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BlockConsumer.ProtoReflect.Descriptor instead.
 func (*BlockConsumer) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{39}
+	return file_block_store_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *BlockConsumer) GetConsumerName() string {
@@ -2706,7 +2753,7 @@ type NextRequest struct {
 func (x *NextRequest) Reset() {
 	*x = NextRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[40]
+		mi := &file_block_store_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2719,7 +2766,7 @@ func (x *NextRequest) String() string {
 func (*NextRequest) ProtoMessage() {}
 
 func (x *NextRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[40]
+	mi := &file_block_store_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2732,7 +2779,7 @@ func (x *NextRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NextRequest.ProtoReflect.Descriptor instead.
 func (*NextRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{40}
+	return file_block_store_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *NextRequest) GetConsumer() *BlockConsumer {
@@ -2770,7 +2817,7 @@ type NextReply struct {
 func (x *NextReply) Reset() {
 	*x = NextReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[41]
+		mi := &file_block_store_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2783,7 +2830,7 @@ func (x *NextReply) String() string {
 func (*NextReply) ProtoMessage() {}
 
 func (x *NextReply) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[41]
+	mi := &file_block_store_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2796,7 +2843,7 @@ func (x *NextReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use NextReply.ProtoReflect.Descriptor instead.
 func (*NextReply) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{41}
+	return file_block_store_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *NextReply) GetBlocks() []*Block {
@@ -2839,7 +2886,7 @@ type CommitRequest struct {
 func (x *CommitRequest) Reset() {
 	*x = CommitRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[42]
+		mi := &file_block_store_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2852,7 +2899,7 @@ func (x *CommitRequest) String() string {
 func (*CommitRequest) ProtoMessage() {}
 
 func (x *CommitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[42]
+	mi := &file_block_store_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2865,7 +2912,7 @@ func (x *CommitRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CommitRequest.ProtoReflect.Descriptor instead.
 func (*CommitRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{42}
+	return file_block_store_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *CommitRequest) GetConsumer() *BlockConsumer {
@@ -2893,7 +2940,7 @@ type CommitReply struct {
 func (x *CommitReply) Reset() {
 	*x = CommitReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[43]
+		mi := &file_block_store_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2906,7 +2953,7 @@ func (x *CommitReply) String() string {
 func (*CommitReply) ProtoMessage() {}
 
 func (x *CommitReply) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[43]
+	mi := &file_block_store_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2919,7 +2966,7 @@ func (x *CommitReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CommitReply.ProtoReflect.Descriptor instead.
 func (*CommitReply) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{43}
+	return file_block_store_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *CommitReply) GetCommitted() *BlockHeader {
@@ -2941,7 +2988,7 @@ type SeekRequest struct {
 func (x *SeekRequest) Reset() {
 	*x = SeekRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[44]
+		mi := &file_block_store_proto_msgTypes[45]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2954,7 +3001,7 @@ func (x *SeekRequest) String() string {
 func (*SeekRequest) ProtoMessage() {}
 
 func (x *SeekRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[44]
+	mi := &file_block_store_proto_msgTypes[45]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2967,7 +3014,7 @@ func (x *SeekRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeekRequest.ProtoReflect.Descriptor instead.
 func (*SeekRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{44}
+	return file_block_store_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *SeekRequest) GetConsumer() *BlockConsumer {
@@ -2995,7 +3042,7 @@ type SeekReply struct {
 func (x *SeekReply) Reset() {
 	*x = SeekReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[45]
+		mi := &file_block_store_proto_msgTypes[46]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3008,7 +3055,7 @@ func (x *SeekReply) String() string {
 func (*SeekReply) ProtoMessage() {}
 
 func (x *SeekReply) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[45]
+	mi := &file_block_store_proto_msgTypes[46]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3021,7 +3068,7 @@ func (x *SeekReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeekReply.ProtoReflect.Descriptor instead.
 func (*SeekReply) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{45}
+	return file_block_store_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *SeekReply) GetCommitted() *BlockHeader {
@@ -3042,7 +3089,7 @@ type LastCommitRequest struct {
 func (x *LastCommitRequest) Reset() {
 	*x = LastCommitRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[46]
+		mi := &file_block_store_proto_msgTypes[47]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3055,7 +3102,7 @@ func (x *LastCommitRequest) String() string {
 func (*LastCommitRequest) ProtoMessage() {}
 
 func (x *LastCommitRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[46]
+	mi := &file_block_store_proto_msgTypes[47]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3068,7 +3115,7 @@ func (x *LastCommitRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LastCommitRequest.ProtoReflect.Descriptor instead.
 func (*LastCommitRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{46}
+	return file_block_store_proto_rawDescGZIP(), []int{47}
 }
 
 func (x *LastCommitRequest) GetConsumer() *BlockConsumer {
@@ -3090,7 +3137,7 @@ type LastCommitReply struct {
 func (x *LastCommitReply) Reset() {
 	*x = LastCommitReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[47]
+		mi := &file_block_store_proto_msgTypes[48]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3103,7 +3150,7 @@ func (x *LastCommitReply) String() string {
 func (*LastCommitReply) ProtoMessage() {}
 
 func (x *LastCommitReply) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[47]
+	mi := &file_block_store_proto_msgTypes[48]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3116,7 +3163,7 @@ func (x *LastCommitReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LastCommitReply.ProtoReflect.Descriptor instead.
 func (*LastCommitReply) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{47}
+	return file_block_store_proto_rawDescGZIP(), []int{48}
 }
 
 func (x *LastCommitReply) GetCommitted() *BlockHeader {
@@ -3144,7 +3191,7 @@ type LatestBlockHeaderRequest struct {
 func (x *LatestBlockHeaderRequest) Reset() {
 	*x = LatestBlockHeaderRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[48]
+		mi := &file_block_store_proto_msgTypes[49]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3157,7 +3204,7 @@ func (x *LatestBlockHeaderRequest) String() string {
 func (*LatestBlockHeaderRequest) ProtoMessage() {}
 
 func (x *LatestBlockHeaderRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[48]
+	mi := &file_block_store_proto_msgTypes[49]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3170,7 +3217,7 @@ func (x *LatestBlockHeaderRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LatestBlockHeaderRequest.ProtoReflect.Descriptor instead.
 func (*LatestBlockHeaderRequest) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{48}
+	return file_block_store_proto_rawDescGZIP(), []int{49}
 }
 
 func (x *LatestBlockHeaderRequest) GetBlockchainName() string {
@@ -3191,7 +3238,7 @@ type LatestBlockHeaderReply struct {
 func (x *LatestBlockHeaderReply) Reset() {
 	*x = LatestBlockHeaderReply{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[49]
+		mi := &file_block_store_proto_msgTypes[50]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3204,7 +3251,7 @@ func (x *LatestBlockHeaderReply) String() string {
 func (*LatestBlockHeaderReply) ProtoMessage() {}
 
 func (x *LatestBlockHeaderReply) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[49]
+	mi := &file_block_store_proto_msgTypes[50]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3217,7 +3264,7 @@ func (x *LatestBlockHeaderReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LatestBlockHeaderReply.ProtoReflect.Descriptor instead.
 func (*LatestBlockHeaderReply) Descriptor() ([]byte, []int) {
-	return file_block_store_proto_rawDescGZIP(), []int{49}
+	return file_block_store_proto_rawDescGZIP(), []int{50}
 }
 
 func (x *LatestBlockHeaderReply) GetBlock() *BlockHeader {
@@ -3239,7 +3286,7 @@ type GetNodesReply_Node struct {
 func (x *GetNodesReply_Node) Reset() {
 	*x = GetNodesReply_Node{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_block_store_proto_msgTypes[50]
+		mi := &file_block_store_proto_msgTypes[51]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3252,7 +3299,7 @@ func (x *GetNodesReply_Node) String() string {
 func (*GetNodesReply_Node) ProtoMessage() {}
 
 func (x *GetNodesReply_Node) ProtoReflect() protoreflect.Message {
-	mi := &file_block_store_proto_msgTypes[50]
+	mi := &file_block_store_proto_msgTypes[51]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3595,7 +3642,11 @@ var file_block_store_proto_rawDesc = []byte{
 	0x0e, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x4e, 0x61, 0x6d, 0x65, 0x12,
 	0x21, 0x0a, 0x0c, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x5f, 0x68, 0x65, 0x69, 0x67, 0x68, 0x74, 0x18,
 	0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0b, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x48, 0x65, 0x69, 0x67,
-	0x68, 0x74, 0x22, 0x86, 0x01, 0x0a, 0x19, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69,
+	0x68, 0x74, 0x22, 0x3e, 0x0a, 0x0a, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x12, 0x30, 0x0a, 0x05, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1a, 0x2e, 0x61, 0x6e, 0x6b, 0x72, 0x73, 0x63, 0x61, 0x6e, 0x2e, 0x62, 0x6c, 0x6f, 0x63, 0x6b,
+	0x73, 0x74, 0x6f, 0x72, 0x65, 0x2e, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x05, 0x62, 0x6c, 0x6f,
+	0x63, 0x6b, 0x22, 0x86, 0x01, 0x0a, 0x19, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69,
 	0x6f, 0x6e, 0x42, 0x79, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x12, 0x27, 0x0a, 0x0f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x5f, 0x6e,
 	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x62, 0x6c, 0x6f, 0x63, 0x6b,
@@ -3833,7 +3884,7 @@ func file_block_store_proto_rawDescGZIP() []byte {
 	return file_block_store_proto_rawDescData
 }
 
-var file_block_store_proto_msgTypes = make([]protoimpl.MessageInfo, 51)
+var file_block_store_proto_msgTypes = make([]protoimpl.MessageInfo, 52)
 var file_block_store_proto_goTypes = []interface{}{
 	(*EthLog)(nil),                             // 0: ankrscan.blockstore.EthLog
 	(*EthTransaction)(nil),                     // 1: ankrscan.blockstore.EthTransaction
@@ -3868,24 +3919,25 @@ var file_block_store_proto_goTypes = []interface{}{
 	(*GetBlockByHeightReply)(nil),              // 30: ankrscan.blockstore.GetBlockByHeightReply
 	(*BlockByNumberAndHashRequest)(nil),        // 31: ankrscan.blockstore.BlockByNumberAndHashRequest
 	(*BlockByNumberRequest)(nil),               // 32: ankrscan.blockstore.BlockByNumberRequest
-	(*TransactionByBlockRequest)(nil),          // 33: ankrscan.blockstore.TransactionByBlockRequest
-	(*TransactionByBlockAndIndexRequest)(nil),  // 34: ankrscan.blockstore.TransactionByBlockAndIndexRequest
-	(*TransactionsByBlockAndIndexRequest)(nil), // 35: ankrscan.blockstore.TransactionsByBlockAndIndexRequest
-	(*BlocksByNumberRequest)(nil),              // 36: ankrscan.blockstore.BlocksByNumberRequest
-	(*BlocksByNumberReply)(nil),                // 37: ankrscan.blockstore.BlocksByNumberReply
-	(*BlockRangeRequest)(nil),                  // 38: ankrscan.blockstore.BlockRangeRequest
-	(*BlockConsumer)(nil),                      // 39: ankrscan.blockstore.BlockConsumer
-	(*NextRequest)(nil),                        // 40: ankrscan.blockstore.NextRequest
-	(*NextReply)(nil),                          // 41: ankrscan.blockstore.NextReply
-	(*CommitRequest)(nil),                      // 42: ankrscan.blockstore.CommitRequest
-	(*CommitReply)(nil),                        // 43: ankrscan.blockstore.CommitReply
-	(*SeekRequest)(nil),                        // 44: ankrscan.blockstore.SeekRequest
-	(*SeekReply)(nil),                          // 45: ankrscan.blockstore.SeekReply
-	(*LastCommitRequest)(nil),                  // 46: ankrscan.blockstore.LastCommitRequest
-	(*LastCommitReply)(nil),                    // 47: ankrscan.blockstore.LastCommitReply
-	(*LatestBlockHeaderRequest)(nil),           // 48: ankrscan.blockstore.LatestBlockHeaderRequest
-	(*LatestBlockHeaderReply)(nil),             // 49: ankrscan.blockstore.LatestBlockHeaderReply
-	(*GetNodesReply_Node)(nil),                 // 50: ankrscan.blockstore.GetNodesReply.Node
+	(*BlockReply)(nil),                         // 33: ankrscan.blockstore.BlockReply
+	(*TransactionByBlockRequest)(nil),          // 34: ankrscan.blockstore.TransactionByBlockRequest
+	(*TransactionByBlockAndIndexRequest)(nil),  // 35: ankrscan.blockstore.TransactionByBlockAndIndexRequest
+	(*TransactionsByBlockAndIndexRequest)(nil), // 36: ankrscan.blockstore.TransactionsByBlockAndIndexRequest
+	(*BlocksByNumberRequest)(nil),              // 37: ankrscan.blockstore.BlocksByNumberRequest
+	(*BlocksByNumberReply)(nil),                // 38: ankrscan.blockstore.BlocksByNumberReply
+	(*BlockRangeRequest)(nil),                  // 39: ankrscan.blockstore.BlockRangeRequest
+	(*BlockConsumer)(nil),                      // 40: ankrscan.blockstore.BlockConsumer
+	(*NextRequest)(nil),                        // 41: ankrscan.blockstore.NextRequest
+	(*NextReply)(nil),                          // 42: ankrscan.blockstore.NextReply
+	(*CommitRequest)(nil),                      // 43: ankrscan.blockstore.CommitRequest
+	(*CommitReply)(nil),                        // 44: ankrscan.blockstore.CommitReply
+	(*SeekRequest)(nil),                        // 45: ankrscan.blockstore.SeekRequest
+	(*SeekReply)(nil),                          // 46: ankrscan.blockstore.SeekReply
+	(*LastCommitRequest)(nil),                  // 47: ankrscan.blockstore.LastCommitRequest
+	(*LastCommitReply)(nil),                    // 48: ankrscan.blockstore.LastCommitReply
+	(*LatestBlockHeaderRequest)(nil),           // 49: ankrscan.blockstore.LatestBlockHeaderRequest
+	(*LatestBlockHeaderReply)(nil),             // 50: ankrscan.blockstore.LatestBlockHeaderReply
+	(*GetNodesReply_Node)(nil),                 // 51: ankrscan.blockstore.GetNodesReply.Node
 }
 var file_block_store_proto_depIdxs = []int32{
 	0,  // 0: ankrscan.blockstore.EthTransaction.logs:type_name -> ankrscan.blockstore.EthLog
@@ -3900,60 +3952,61 @@ var file_block_store_proto_depIdxs = []int32{
 	7,  // 9: ankrscan.blockstore.Block.transactions:type_name -> ankrscan.blockstore.Transaction
 	11, // 10: ankrscan.blockstore.NodeChanged.configs:type_name -> ankrscan.blockstore.NodeConfig
 	10, // 11: ankrscan.blockstore.BlockRangeReply.blocks:type_name -> ankrscan.blockstore.Block
-	50, // 12: ankrscan.blockstore.GetNodesReply.nodes:type_name -> ankrscan.blockstore.GetNodesReply.Node
+	51, // 12: ankrscan.blockstore.GetNodesReply.nodes:type_name -> ankrscan.blockstore.GetNodesReply.Node
 	9,  // 13: ankrscan.blockstore.UpdateExtractorRequest.config:type_name -> ankrscan.blockstore.ExtractorConfig
 	22, // 14: ankrscan.blockstore.GetExtractorsReply.extractors:type_name -> ankrscan.blockstore.ExtractorDescription
 	9,  // 15: ankrscan.blockstore.ExtractorDescription.config:type_name -> ankrscan.blockstore.ExtractorConfig
 	9,  // 16: ankrscan.blockstore.ExtractorConfigs.configs:type_name -> ankrscan.blockstore.ExtractorConfig
 	7,  // 17: ankrscan.blockstore.GetTransactionByHashReply.details:type_name -> ankrscan.blockstore.Transaction
 	10, // 18: ankrscan.blockstore.GetBlockByHeightReply.details:type_name -> ankrscan.blockstore.Block
-	33, // 19: ankrscan.blockstore.TransactionsByBlockAndIndexRequest.requests:type_name -> ankrscan.blockstore.TransactionByBlockRequest
-	32, // 20: ankrscan.blockstore.BlocksByNumberRequest.requests:type_name -> ankrscan.blockstore.BlockByNumberRequest
-	10, // 21: ankrscan.blockstore.BlocksByNumberReply.blocks:type_name -> ankrscan.blockstore.Block
-	39, // 22: ankrscan.blockstore.NextRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
-	8,  // 23: ankrscan.blockstore.NextRequest.from:type_name -> ankrscan.blockstore.BlockHeader
-	10, // 24: ankrscan.blockstore.NextReply.blocks:type_name -> ankrscan.blockstore.Block
-	8,  // 25: ankrscan.blockstore.NextReply.commit:type_name -> ankrscan.blockstore.BlockHeader
-	8,  // 26: ankrscan.blockstore.NextReply.latest:type_name -> ankrscan.blockstore.BlockHeader
-	39, // 27: ankrscan.blockstore.CommitRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
-	8,  // 28: ankrscan.blockstore.CommitRequest.block:type_name -> ankrscan.blockstore.BlockHeader
-	8,  // 29: ankrscan.blockstore.CommitReply.committed:type_name -> ankrscan.blockstore.BlockHeader
-	39, // 30: ankrscan.blockstore.SeekRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
-	8,  // 31: ankrscan.blockstore.SeekReply.committed:type_name -> ankrscan.blockstore.BlockHeader
-	39, // 32: ankrscan.blockstore.LastCommitRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
-	8,  // 33: ankrscan.blockstore.LastCommitReply.committed:type_name -> ankrscan.blockstore.BlockHeader
-	8,  // 34: ankrscan.blockstore.LatestBlockHeaderReply.block:type_name -> ankrscan.blockstore.BlockHeader
-	15, // 35: ankrscan.blockstore.BlockStore.GetExtractors:input_type -> ankrscan.blockstore.GetExtractorsRequest
-	19, // 36: ankrscan.blockstore.BlockStore.UpdateExtractor:input_type -> ankrscan.blockstore.UpdateExtractorRequest
-	18, // 37: ankrscan.blockstore.BlockStore.DeleteExtractor:input_type -> ankrscan.blockstore.DeleteExtractorRequest
-	20, // 38: ankrscan.blockstore.BlockStore.UpdateExtractorLatest:input_type -> ankrscan.blockstore.UpdateExtractorLatestRequest
-	16, // 39: ankrscan.blockstore.BlockStore.GetNodes:input_type -> ankrscan.blockstore.GetNodesRequest
-	38, // 40: ankrscan.blockstore.BlockStore.BlockRange:input_type -> ankrscan.blockstore.BlockRangeRequest
-	40, // 41: ankrscan.blockstore.BlockStore.Next:input_type -> ankrscan.blockstore.NextRequest
-	42, // 42: ankrscan.blockstore.BlockStore.Commit:input_type -> ankrscan.blockstore.CommitRequest
-	44, // 43: ankrscan.blockstore.BlockStore.Seek:input_type -> ankrscan.blockstore.SeekRequest
-	46, // 44: ankrscan.blockstore.BlockStore.LastCommit:input_type -> ankrscan.blockstore.LastCommitRequest
-	36, // 45: ankrscan.blockstore.BlockStore.BlocksByNumber:input_type -> ankrscan.blockstore.BlocksByNumberRequest
-	48, // 46: ankrscan.blockstore.BlockStore.LatestBlockHeader:input_type -> ankrscan.blockstore.LatestBlockHeaderRequest
-	38, // 47: ankrscan.blockstore.BlockStore.BlockRangeContinuous:input_type -> ankrscan.blockstore.BlockRangeRequest
-	21, // 48: ankrscan.blockstore.BlockStore.GetExtractors:output_type -> ankrscan.blockstore.GetExtractorsReply
-	21, // 49: ankrscan.blockstore.BlockStore.UpdateExtractor:output_type -> ankrscan.blockstore.GetExtractorsReply
-	21, // 50: ankrscan.blockstore.BlockStore.DeleteExtractor:output_type -> ankrscan.blockstore.GetExtractorsReply
-	21, // 51: ankrscan.blockstore.BlockStore.UpdateExtractorLatest:output_type -> ankrscan.blockstore.GetExtractorsReply
-	17, // 52: ankrscan.blockstore.BlockStore.GetNodes:output_type -> ankrscan.blockstore.GetNodesReply
-	14, // 53: ankrscan.blockstore.BlockStore.BlockRange:output_type -> ankrscan.blockstore.BlockRangeReply
-	41, // 54: ankrscan.blockstore.BlockStore.Next:output_type -> ankrscan.blockstore.NextReply
-	43, // 55: ankrscan.blockstore.BlockStore.Commit:output_type -> ankrscan.blockstore.CommitReply
-	45, // 56: ankrscan.blockstore.BlockStore.Seek:output_type -> ankrscan.blockstore.SeekReply
-	47, // 57: ankrscan.blockstore.BlockStore.LastCommit:output_type -> ankrscan.blockstore.LastCommitReply
-	37, // 58: ankrscan.blockstore.BlockStore.BlocksByNumber:output_type -> ankrscan.blockstore.BlocksByNumberReply
-	49, // 59: ankrscan.blockstore.BlockStore.LatestBlockHeader:output_type -> ankrscan.blockstore.LatestBlockHeaderReply
-	14, // 60: ankrscan.blockstore.BlockStore.BlockRangeContinuous:output_type -> ankrscan.blockstore.BlockRangeReply
-	48, // [48:61] is the sub-list for method output_type
-	35, // [35:48] is the sub-list for method input_type
-	35, // [35:35] is the sub-list for extension type_name
-	35, // [35:35] is the sub-list for extension extendee
-	0,  // [0:35] is the sub-list for field type_name
+	10, // 19: ankrscan.blockstore.BlockReply.block:type_name -> ankrscan.blockstore.Block
+	34, // 20: ankrscan.blockstore.TransactionsByBlockAndIndexRequest.requests:type_name -> ankrscan.blockstore.TransactionByBlockRequest
+	32, // 21: ankrscan.blockstore.BlocksByNumberRequest.requests:type_name -> ankrscan.blockstore.BlockByNumberRequest
+	10, // 22: ankrscan.blockstore.BlocksByNumberReply.blocks:type_name -> ankrscan.blockstore.Block
+	40, // 23: ankrscan.blockstore.NextRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
+	8,  // 24: ankrscan.blockstore.NextRequest.from:type_name -> ankrscan.blockstore.BlockHeader
+	10, // 25: ankrscan.blockstore.NextReply.blocks:type_name -> ankrscan.blockstore.Block
+	8,  // 26: ankrscan.blockstore.NextReply.commit:type_name -> ankrscan.blockstore.BlockHeader
+	8,  // 27: ankrscan.blockstore.NextReply.latest:type_name -> ankrscan.blockstore.BlockHeader
+	40, // 28: ankrscan.blockstore.CommitRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
+	8,  // 29: ankrscan.blockstore.CommitRequest.block:type_name -> ankrscan.blockstore.BlockHeader
+	8,  // 30: ankrscan.blockstore.CommitReply.committed:type_name -> ankrscan.blockstore.BlockHeader
+	40, // 31: ankrscan.blockstore.SeekRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
+	8,  // 32: ankrscan.blockstore.SeekReply.committed:type_name -> ankrscan.blockstore.BlockHeader
+	40, // 33: ankrscan.blockstore.LastCommitRequest.consumer:type_name -> ankrscan.blockstore.BlockConsumer
+	8,  // 34: ankrscan.blockstore.LastCommitReply.committed:type_name -> ankrscan.blockstore.BlockHeader
+	8,  // 35: ankrscan.blockstore.LatestBlockHeaderReply.block:type_name -> ankrscan.blockstore.BlockHeader
+	15, // 36: ankrscan.blockstore.BlockStore.GetExtractors:input_type -> ankrscan.blockstore.GetExtractorsRequest
+	19, // 37: ankrscan.blockstore.BlockStore.UpdateExtractor:input_type -> ankrscan.blockstore.UpdateExtractorRequest
+	18, // 38: ankrscan.blockstore.BlockStore.DeleteExtractor:input_type -> ankrscan.blockstore.DeleteExtractorRequest
+	20, // 39: ankrscan.blockstore.BlockStore.UpdateExtractorLatest:input_type -> ankrscan.blockstore.UpdateExtractorLatestRequest
+	16, // 40: ankrscan.blockstore.BlockStore.GetNodes:input_type -> ankrscan.blockstore.GetNodesRequest
+	39, // 41: ankrscan.blockstore.BlockStore.BlockRange:input_type -> ankrscan.blockstore.BlockRangeRequest
+	41, // 42: ankrscan.blockstore.BlockStore.Next:input_type -> ankrscan.blockstore.NextRequest
+	43, // 43: ankrscan.blockstore.BlockStore.Commit:input_type -> ankrscan.blockstore.CommitRequest
+	45, // 44: ankrscan.blockstore.BlockStore.Seek:input_type -> ankrscan.blockstore.SeekRequest
+	47, // 45: ankrscan.blockstore.BlockStore.LastCommit:input_type -> ankrscan.blockstore.LastCommitRequest
+	37, // 46: ankrscan.blockstore.BlockStore.BlocksByNumber:input_type -> ankrscan.blockstore.BlocksByNumberRequest
+	49, // 47: ankrscan.blockstore.BlockStore.LatestBlockHeader:input_type -> ankrscan.blockstore.LatestBlockHeaderRequest
+	39, // 48: ankrscan.blockstore.BlockStore.BlockRangeContinuous:input_type -> ankrscan.blockstore.BlockRangeRequest
+	21, // 49: ankrscan.blockstore.BlockStore.GetExtractors:output_type -> ankrscan.blockstore.GetExtractorsReply
+	21, // 50: ankrscan.blockstore.BlockStore.UpdateExtractor:output_type -> ankrscan.blockstore.GetExtractorsReply
+	21, // 51: ankrscan.blockstore.BlockStore.DeleteExtractor:output_type -> ankrscan.blockstore.GetExtractorsReply
+	21, // 52: ankrscan.blockstore.BlockStore.UpdateExtractorLatest:output_type -> ankrscan.blockstore.GetExtractorsReply
+	17, // 53: ankrscan.blockstore.BlockStore.GetNodes:output_type -> ankrscan.blockstore.GetNodesReply
+	14, // 54: ankrscan.blockstore.BlockStore.BlockRange:output_type -> ankrscan.blockstore.BlockRangeReply
+	42, // 55: ankrscan.blockstore.BlockStore.Next:output_type -> ankrscan.blockstore.NextReply
+	44, // 56: ankrscan.blockstore.BlockStore.Commit:output_type -> ankrscan.blockstore.CommitReply
+	46, // 57: ankrscan.blockstore.BlockStore.Seek:output_type -> ankrscan.blockstore.SeekReply
+	48, // 58: ankrscan.blockstore.BlockStore.LastCommit:output_type -> ankrscan.blockstore.LastCommitReply
+	38, // 59: ankrscan.blockstore.BlockStore.BlocksByNumber:output_type -> ankrscan.blockstore.BlocksByNumberReply
+	50, // 60: ankrscan.blockstore.BlockStore.LatestBlockHeader:output_type -> ankrscan.blockstore.LatestBlockHeaderReply
+	14, // 61: ankrscan.blockstore.BlockStore.BlockRangeContinuous:output_type -> ankrscan.blockstore.BlockRangeReply
+	49, // [49:62] is the sub-list for method output_type
+	36, // [36:49] is the sub-list for method input_type
+	36, // [36:36] is the sub-list for extension type_name
+	36, // [36:36] is the sub-list for extension extendee
+	0,  // [0:36] is the sub-list for field type_name
 }
 
 func init() { file_block_store_proto_init() }
@@ -4359,7 +4412,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TransactionByBlockRequest); i {
+			switch v := v.(*BlockReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4371,7 +4424,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TransactionByBlockAndIndexRequest); i {
+			switch v := v.(*TransactionByBlockRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4383,7 +4436,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TransactionsByBlockAndIndexRequest); i {
+			switch v := v.(*TransactionByBlockAndIndexRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4395,7 +4448,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BlocksByNumberRequest); i {
+			switch v := v.(*TransactionsByBlockAndIndexRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4407,7 +4460,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BlocksByNumberReply); i {
+			switch v := v.(*BlocksByNumberRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4419,7 +4472,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BlockRangeRequest); i {
+			switch v := v.(*BlocksByNumberReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4431,7 +4484,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BlockConsumer); i {
+			switch v := v.(*BlockRangeRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4443,7 +4496,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NextRequest); i {
+			switch v := v.(*BlockConsumer); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4455,7 +4508,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NextReply); i {
+			switch v := v.(*NextRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4467,7 +4520,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CommitRequest); i {
+			switch v := v.(*NextReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4479,7 +4532,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CommitReply); i {
+			switch v := v.(*CommitRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4491,7 +4544,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeekRequest); i {
+			switch v := v.(*CommitReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4503,7 +4556,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeekReply); i {
+			switch v := v.(*SeekRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4515,7 +4568,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LastCommitRequest); i {
+			switch v := v.(*SeekReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4527,7 +4580,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[47].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LastCommitReply); i {
+			switch v := v.(*LastCommitRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4539,7 +4592,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[48].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LatestBlockHeaderRequest); i {
+			switch v := v.(*LastCommitReply); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4551,7 +4604,7 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[49].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*LatestBlockHeaderReply); i {
+			switch v := v.(*LatestBlockHeaderRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4563,6 +4616,18 @@ func file_block_store_proto_init() {
 			}
 		}
 		file_block_store_proto_msgTypes[50].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LatestBlockHeaderReply); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_block_store_proto_msgTypes[51].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetNodesReply_Node); i {
 			case 0:
 				return &v.state
@@ -4589,7 +4654,7 @@ func file_block_store_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_block_store_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   51,
+			NumMessages:   52,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

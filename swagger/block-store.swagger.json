@@ -55,7 +55,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/blockstoreLatestBlockHeaderReply"
+              "$ref": "#/definitions/ankrscanblockstoreLatestBlockHeaderReply"
             }
           },
           "default": {
@@ -71,7 +71,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/blockstoreLatestBlockHeaderRequest"
+              "$ref": "#/definitions/ankrscanblockstoreLatestBlockHeaderRequest"
             }
           }
         ],
@@ -254,6 +254,34 @@
         }
       }
     },
+    "ankrscanblockstoreBlockByNumberRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "ankrscanblockstoreLatestBlockHeaderReply": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "$ref": "#/definitions/blockstoreBlockHeader"
+        }
+      }
+    },
+    "ankrscanblockstoreLatestBlockHeaderRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        }
+      }
+    },
     "blockstoreBlock": {
       "type": "object",
       "properties": {
@@ -268,18 +296,6 @@
         }
       },
       "title": "*\nTopic: v1.blockchainextractor.blockchanged"
-    },
-    "blockstoreBlockByNumberRequest": {
-      "type": "object",
-      "properties": {
-        "blockchainName": {
-          "type": "string"
-        },
-        "blockHeight": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
     },
     "blockstoreBlockConsumer": {
       "type": "object",
@@ -377,7 +393,7 @@
         "requests": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/blockstoreBlockByNumberRequest"
+            "$ref": "#/definitions/ankrscanblockstoreBlockByNumberRequest"
           }
         }
       }
@@ -751,22 +767,6 @@
       "properties": {
         "consumer": {
           "$ref": "#/definitions/blockstoreBlockConsumer"
-        }
-      }
-    },
-    "blockstoreLatestBlockHeaderReply": {
-      "type": "object",
-      "properties": {
-        "block": {
-          "$ref": "#/definitions/blockstoreBlockHeader"
-        }
-      }
-    },
-    "blockstoreLatestBlockHeaderRequest": {
-      "type": "object",
-      "properties": {
-        "blockchainName": {
-          "type": "string"
         }
       }
     },

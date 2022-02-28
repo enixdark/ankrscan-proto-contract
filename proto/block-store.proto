@@ -335,6 +335,10 @@ message BlockByNumberRequest {
   uint64 block_height = 2;
 }
 
+message BlockReply {
+  Block block = 1;
+}
+
 message TransactionByBlockRequest {
   string blockchain_name = 1;
   uint64 block_height = 2;
