@@ -13,7 +13,7 @@ service NodeProxy {
   // microservice API
   rpc BlockByNumber (blockstore.BlockByNumberRequest) returns (blockstore.BlockByNumberReply);
   rpc LatestBlockHeader (blockstore.LatestBlockHeaderRequest) returns (blockstore.LatestBlockHeaderReply);
-  rpc CallContractBatch (CallContractBatchRequest) returns (CallContractBatchReply);
+  rpc CallContract (CallContractRequest) returns (CallContractReply);
 }
 
 message NodeConfig {
@@ -33,17 +33,17 @@ message NodeConfigsReply {
   repeated NodeConfig node_configs = 1;
 }
 
-message CallContractBatchRequest {
-  message Call {
+message CallContractRequest {
+  message SingleCall {
     bytes contract_address = 2;
     bytes arguments = 3;
     uint64 block_height = 4;
   }
 
-  repeated Call calls = 1;
+  repeated SingleCall calls = 1;
   string blockchain_name = 2;
 }
 
-message CallContractBatchReply {
+message CallContractReply {
   repeated bytes results = 1;
 }

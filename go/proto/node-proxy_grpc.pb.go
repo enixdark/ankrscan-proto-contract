@@ -23,7 +23,7 @@ type NodeProxyClient interface {
 	// microservice API
 	BlockByNumber(ctx context.Context, in *BlockByNumberRequest, opts ...grpc.CallOption) (*BlockByNumberReply, error)
 	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
-	CallContractBatch(ctx context.Context, in *CallContractBatchRequest, opts ...grpc.CallOption) (*CallContractBatchReply, error)
+	CallContract(ctx context.Context, in *CallContractRequest, opts ...grpc.CallOption) (*CallContractReply, error)
 }
 
 type nodeProxyClient struct {
@@ -70,9 +70,9 @@ func (c *nodeProxyClient) LatestBlockHeader(ctx context.Context, in *LatestBlock
 	return out, nil
 }
 
-func (c *nodeProxyClient) CallContractBatch(ctx context.Context, in *CallContractBatchRequest, opts ...grpc.CallOption) (*CallContractBatchReply, error) {
-	out := new(CallContractBatchReply)
-	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/CallContractBatch", in, out, opts...)
+func (c *nodeProxyClient) CallContract(ctx context.Context, in *CallContractRequest, opts ...grpc.CallOption) (*CallContractReply, error) {
+	out := new(CallContractReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/CallContract", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ type NodeProxyServer interface {
 	// microservice API
 	BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error)
 	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
-	CallContractBatch(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error)
+	CallContract(context.Context, *CallContractRequest) (*CallContractReply, error)
 	mustEmbedUnimplementedNodeProxyServer()
 }
 
@@ -109,8 +109,8 @@ func (UnimplementedNodeProxyServer) BlockByNumber(context.Context, *BlockByNumbe
 func (UnimplementedNodeProxyServer) LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LatestBlockHeader not implemented")
 }
-func (UnimplementedNodeProxyServer) CallContractBatch(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CallContractBatch not implemented")
+func (UnimplementedNodeProxyServer) CallContract(context.Context, *CallContractRequest) (*CallContractReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CallContract not implemented")
 }
 func (UnimplementedNodeProxyServer) mustEmbedUnimplementedNodeProxyServer() {}
 
@@ -197,20 +197,20 @@ func _NodeProxy_LatestBlockHeader_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NodeProxy_CallContractBatch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CallContractBatchRequest)
+func _NodeProxy_CallContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CallContractRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NodeProxyServer).CallContractBatch(ctx, in)
+		return srv.(NodeProxyServer).CallContract(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ankrscan.nodeproxy.NodeProxy/CallContractBatch",
+		FullMethod: "/ankrscan.nodeproxy.NodeProxy/CallContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NodeProxyServer).CallContractBatch(ctx, req.(*CallContractBatchRequest))
+		return srv.(NodeProxyServer).CallContract(ctx, req.(*CallContractRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -239,8 +239,8 @@ var NodeProxy_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _NodeProxy_LatestBlockHeader_Handler,
 		},
 		{
-			MethodName: "CallContractBatch",
-			Handler:    _NodeProxy_CallContractBatch_Handler,
+			MethodName: "CallContract",
+			Handler:    _NodeProxy_CallContract_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
