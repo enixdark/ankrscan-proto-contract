@@ -145,43 +145,6 @@ message ExtractorConfig {
 }
 
 /**
- *  _  __      __ _
- * | |/ /__ _ / _| | ____ _
- * | ' // _` | |_| |/ / _` |
- * | . \ (_| |  _|   < (_| |
- * |_|\_\__,_|_| |_|\_\__,_|
- *
- **/
-
-/**
- * Topic: v1.blockchainextractor.blockchanged
- */
-message Block {
-  BlockHeader header = 1;
-  repeated Transaction transactions = 2;
-}
-
-message NodeConfig {
-  string blockchain_name = 1;
-  string node_url = 2;
-}
-
-/**
- * Topic: v1.blockchainextractor.nodechanged
- */
-message NodeChanged {
-  repeated NodeConfig configs = 3;
-}
-
-/**
- * Topic: v1.blockchainextractor.latestchanged
- */
-message LatestBlockChanged {
-  string blockchain_name = 1;
-  uint64 block_height = 2;
-}
-
-/**
  *        ____  ____   ____
  *   __ _|  _ \|  _ \ / ___|
  *  / _` | |_) | |_) | |
