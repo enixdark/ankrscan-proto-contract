@@ -118,6 +118,7 @@ message NftTransfer {
   bytes to = 3;
   bytes value = 4;
   uint64 block_number = 5;
+  bytes transaction_hash = 6;
 }
 
 message NftBalance {
