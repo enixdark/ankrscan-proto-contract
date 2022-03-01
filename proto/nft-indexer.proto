@@ -76,6 +76,7 @@ message NftContractDetails {
   NftType nft_type = 3;
   string blockchain_name = 4;
   bytes contract_address = 5;
+  bool implements_spec = 6;
 }
 
 message Attribute{
