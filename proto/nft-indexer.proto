@@ -73,9 +73,7 @@ enum NftType {
 message NftContractDetails {
   string name = 1;
   string symbol = 2;
-  repeated NftType support_interface = 3;
-  string blockchain_name = 4;
-  bytes contract_address = 5;
+  NftType nft_type = 3;
 }
 
 message Attribute{
@@ -118,7 +116,6 @@ message NftTransfer {
   bytes to = 3;
   bytes value = 4;
   uint64 block_number = 5;
-  bytes transaction_hash = 6;
 }
 
 message NftBalance {
