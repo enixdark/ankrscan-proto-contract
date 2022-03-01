@@ -17,6 +17,7 @@ enum NamespaceFdb {
   // ankrscan-nft-indexer
   NftBalances = 8;
   NftContractDetails = 9;
+  NftContractDetailsV2 = 12; // structure was changed, lets save full protobuf files instead
   NftAttributes = 10;
 
   // ankrscan-node-proxy
