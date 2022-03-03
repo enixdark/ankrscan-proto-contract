@@ -419,6 +419,12 @@
             "type": "string",
             "format": "byte"
           }
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
