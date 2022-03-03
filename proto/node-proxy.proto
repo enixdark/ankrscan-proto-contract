@@ -45,6 +45,7 @@ message CallContractRequest {
 
   repeated SingleCall calls = 1;
   string blockchain_name = 2;
+  string description = 3;
 }
 
 message CallContractReply {
