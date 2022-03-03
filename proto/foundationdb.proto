@@ -22,5 +22,6 @@ enum NamespaceFdb {
 
   // ankrscan-node-proxy
   NodeProxyNodesConfig = 11;
+  NodeProxyNodesConfig2 = 13;
 }
 
