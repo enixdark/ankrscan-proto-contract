@@ -156,3 +156,7 @@ func (x *BlockConsumer) ConsumerId() string {
 	hasher.Write([]byte(x.UserId))
 	return fmt.Sprintf("%s-%s-%x", x.BlockchainName, x.ConsumerName, hasher.Sum(nil))
 }
+
+func (x *BlockConsumer) FullName() string {
+	return fmt.Sprintf("%s@%s", x.ConsumerName, x.BlockchainName)
+}
