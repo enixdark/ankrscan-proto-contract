@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package ankrscan.tokenindexer;
+
+option go_package = "./;proto";
+
+service TokenIndexer {
+}
+
+message TokenContractDetails {
+  string blockchain_name = 1;
+  string address = 2;
+  string name = 3;
+  int32 decimals = 4;
+  string symbol = 5;
+}
