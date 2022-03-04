@@ -13,7 +13,7 @@ service NodeProxy {
   // microservice API
   rpc BlockByNumber (blockstore.BlockByNumberRequest) returns (blockstore.BlockByNumberReply);
   rpc LatestBlockHeader (blockstore.LatestBlockHeaderRequest) returns (blockstore.LatestBlockHeaderReply);
-  rpc CallContract (CallContractRequest) returns (CallContractReply);
+  rpc CallContract (CallContractBatchRequest) returns (CallContractBatchReply);
 }
 
 message NodeConfig {

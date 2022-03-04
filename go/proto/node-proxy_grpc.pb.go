@@ -23,7 +23,7 @@ type NodeProxyClient interface {
 	// microservice API
 	BlockByNumber(ctx context.Context, in *BlockByNumberRequest, opts ...grpc.CallOption) (*BlockByNumberReply, error)
 	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
-	CallContract(ctx context.Context, in *CallContractRequest, opts ...grpc.CallOption) (*CallContractReply, error)
+	CallContract(ctx context.Context, in *CallContractBatchRequest, opts ...grpc.CallOption) (*CallContractBatchReply, error)
 }
 
 type nodeProxyClient struct {
@@ -70,8 +70,8 @@ func (c *nodeProxyClient) LatestBlockHeader(ctx context.Context, in *LatestBlock
 	return out, nil
 }
 
-func (c *nodeProxyClient) CallContract(ctx context.Context, in *CallContractRequest, opts ...grpc.CallOption) (*CallContractReply, error) {
-	out := new(CallContractReply)
+func (c *nodeProxyClient) CallContract(ctx context.Context, in *CallContractBatchRequest, opts ...grpc.CallOption) (*CallContractBatchReply, error) {
+	out := new(CallContractBatchReply)
 	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/CallContract", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -89,7 +89,7 @@ type NodeProxyServer interface {
 	// microservice API
 	BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error)
 	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
-	CallContract(context.Context, *CallContractRequest) (*CallContractReply, error)
+	CallContract(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error)
 	mustEmbedUnimplementedNodeProxyServer()
 }
 
@@ -109,7 +109,7 @@ func (UnimplementedNodeProxyServer) BlockByNumber(context.Context, *BlockByNumbe
 func (UnimplementedNodeProxyServer) LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LatestBlockHeader not implemented")
 }
-func (UnimplementedNodeProxyServer) CallContract(context.Context, *CallContractRequest) (*CallContractReply, error) {
+func (UnimplementedNodeProxyServer) CallContract(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CallContract not implemented")
 }
 func (UnimplementedNodeProxyServer) mustEmbedUnimplementedNodeProxyServer() {}
@@ -198,7 +198,7 @@ func _NodeProxy_LatestBlockHeader_Handler(srv interface{}, ctx context.Context, 
 }
 
 func _NodeProxy_CallContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CallContractRequest)
+	in := new(CallContractBatchRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -210,7 +210,7 @@ func _NodeProxy_CallContract_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: "/ankrscan.nodeproxy.NodeProxy/CallContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NodeProxyServer).CallContract(ctx, req.(*CallContractRequest))
+		return srv.(NodeProxyServer).CallContract(ctx, req.(*CallContractBatchRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

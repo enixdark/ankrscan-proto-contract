@@ -393,6 +393,17 @@
         }
       }
     },
+    "nodeproxyCallContractBatchReply": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/nodeproxyCallContractReply"
+          }
+        }
+      }
+    },
     "nodeproxyCallContractReply": {
       "type": "object",
       "properties": {
@@ -405,6 +416,29 @@
         },
         "success": {
           "type": "boolean"
+        }
+      }
+    },
+    "nodeproxyCallContractRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "argument": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "description": {
+          "type": "string"
         }
       }
     },
