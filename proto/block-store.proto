@@ -396,11 +396,11 @@ message LatestBlockHeaderReply {
   BlockHeader block = 1;
 }
 
-message Topics {
-  repeated bytes topics = 1;
-}
-
 message FilterQuery {
+  message Topics {
+    repeated bytes topics = 1;
+  }
+
   bytes block_hash = 1;
   uint64 from_block = 2;
   uint64 to_block = 3;
