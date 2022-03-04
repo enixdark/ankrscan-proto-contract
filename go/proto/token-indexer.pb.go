@@ -170,6 +170,61 @@ func (x *TokenBalance) GetBalance() []byte {
 	return nil
 }
 
+type TokenContractDetailsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	BlockchainName string `protobuf:"bytes,1,opt,name=blockchain_name,json=blockchainName,proto3" json:"blockchain_name,omitempty"`
+	Address        string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (x *TokenContractDetailsRequest) Reset() {
+	*x = TokenContractDetailsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_token_indexer_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TokenContractDetailsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TokenContractDetailsRequest) ProtoMessage() {}
+
+func (x *TokenContractDetailsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_token_indexer_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TokenContractDetailsRequest.ProtoReflect.Descriptor instead.
+func (*TokenContractDetailsRequest) Descriptor() ([]byte, []int) {
+	return file_token_indexer_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *TokenContractDetailsRequest) GetBlockchainName() string {
+	if x != nil {
+		return x.BlockchainName
+	}
+	return ""
+}
+
+func (x *TokenContractDetailsRequest) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
 var File_token_indexer_proto protoreflect.FileDescriptor
 
 var file_token_indexer_proto_rawDesc = []byte{
@@ -196,9 +251,15 @@ var file_token_indexer_proto_rawDesc = []byte{
 	0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x0d, 0x68,
 	0x6f, 0x6c, 0x64, 0x65, 0x72, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x18, 0x0a, 0x07,
 	0x62, 0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x07, 0x62,
-	0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x32, 0x0e, 0x0a, 0x0c, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x49,
-	0x6e, 0x64, 0x65, 0x78, 0x65, 0x72, 0x42, 0x0a, 0x5a, 0x08, 0x2e, 0x2f, 0x3b, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x22, 0x60, 0x0a, 0x1b, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x43,
+	0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x27, 0x0a, 0x0f, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x63, 0x68,
+	0x61, 0x69, 0x6e, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e,
+	0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x18,
+	0x0a, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x32, 0x0e, 0x0a, 0x0c, 0x54, 0x6f, 0x6b, 0x65,
+	0x6e, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x72, 0x42, 0x0a, 0x5a, 0x08, 0x2e, 0x2f, 0x3b, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -213,10 +274,11 @@ func file_token_indexer_proto_rawDescGZIP() []byte {
 	return file_token_indexer_proto_rawDescData
 }
 
-var file_token_indexer_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_token_indexer_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_token_indexer_proto_goTypes = []interface{}{
-	(*TokenContractDetails)(nil), // 0: ankrscan.tokenindexer.TokenContractDetails
-	(*TokenBalance)(nil),         // 1: ankrscan.tokenindexer.TokenBalance
+	(*TokenContractDetails)(nil),        // 0: ankrscan.tokenindexer.TokenContractDetails
+	(*TokenBalance)(nil),                // 1: ankrscan.tokenindexer.TokenBalance
+	(*TokenContractDetailsRequest)(nil), // 2: ankrscan.tokenindexer.TokenContractDetailsRequest
 }
 var file_token_indexer_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -256,6 +318,18 @@ func file_token_indexer_proto_init() {
 				return nil
 			}
 		}
+		file_token_indexer_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TokenContractDetailsRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -263,7 +337,7 @@ func file_token_indexer_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_token_indexer_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
