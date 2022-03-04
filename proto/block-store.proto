@@ -395,3 +395,16 @@ message LatestBlockHeaderRequest {
 message LatestBlockHeaderReply {
   BlockHeader block = 1;
 }
+
+message FilterQuery {
+  bytes block_hash = 1;
+  uint64 from_block = 2;
+  uint64 to_block = 3;
+  bytes address = 4;
+  repeated bytes topics = 5;
+}
+
+message FilterLogsRequest {
+  string blockchain_name = 1;
+  FilterQuery filter_query = 2;
+}
