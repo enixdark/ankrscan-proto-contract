@@ -17,23 +17,6 @@
   ],
   "paths": {},
   "definitions": {
-    "CallContractRequestSingleCall": {
-      "type": "object",
-      "properties": {
-        "contractAddress": {
-          "type": "string",
-          "format": "byte"
-        },
-        "argument": {
-          "type": "string",
-          "format": "byte"
-        },
-        "blockHeight": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
     "blockstoreBlock": {
       "type": "object",
       "properties": {
@@ -413,18 +396,15 @@
     "nodeproxyCallContractReply": {
       "type": "object",
       "properties": {
-        "results": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "format": "byte"
-          }
+        "result": {
+          "type": "string",
+          "format": "byte"
         },
-        "errors": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "error": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
         }
       }
     },
