@@ -396,7 +396,7 @@ message LatestBlockHeaderReply {
   BlockHeader block = 1;
 }
 
-message TopicList {
+message Topics {
   repeated bytes topics = 1;
 }
 
@@ -405,7 +405,7 @@ message FilterQuery {
   uint64 from_block = 2;
   uint64 to_block = 3;
   repeated bytes addresses = 4;
-  repeated TopicList topics = 5;
+  repeated Topics topics = 5;
 }
 
 message FilterLogsRequest {
