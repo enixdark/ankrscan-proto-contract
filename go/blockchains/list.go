@@ -38,6 +38,15 @@ func BlockConfirmedAfter(blockchainName string) uint64 {
 	}
 }
 
+func Decimal(blockchainName string) uint64 {
+	blockchainProperties, ok := Blockchain(blockchainName)
+	if ok {
+		return blockchainProperties.Decimals
+	} else {
+		return 18
+	}
+}
+
 var blockchains = []*proto.BlockchainProperties{
 	{
 		BlockchainName:      "arbitrum",
