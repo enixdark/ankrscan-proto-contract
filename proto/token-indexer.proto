@@ -26,3 +26,9 @@ message TokenContractRequest {
   string blockchain_name = 1;
   bytes address = 2;
 }
+
+message TokenBalanceRequest {
+  string blockchain_name = 1;
+  bytes address = 2;
+  uint64 block_height = 3;
+}
