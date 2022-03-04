@@ -38,7 +38,7 @@ func BlockConfirmedAfter(blockchainName string) uint64 {
 	}
 }
 
-func Decimal(blockchainName string) uint64 {
+func Decimals(blockchainName string) uint64 {
 	blockchainProperties, ok := Blockchain(blockchainName)
 	if ok {
 		return blockchainProperties.Decimals
