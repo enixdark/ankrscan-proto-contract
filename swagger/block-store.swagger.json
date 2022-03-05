@@ -80,6 +80,38 @@
         ]
       }
     },
+    "/v1/multichain/block/logs": {
+      "post": {
+        "operationId": "BlockStore_FilterLogs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/blockstoreFilterLogsReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blockstoreFilterLogsRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BlockStore"
+        ]
+      }
+    },
     "/v1/multichain/block/range": {
       "post": {
         "operationId": "BlockStore_BlockRangeContinuous",
@@ -243,6 +275,18 @@
     }
   },
   "definitions": {
+    "FilterQueryTopics": {
+      "type": "object",
+      "properties": {
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        }
+      }
+    },
     "GetNodesReplyNode": {
       "type": "object",
       "properties": {
@@ -709,6 +753,58 @@
         "latest": {
           "type": "string",
           "format": "uint64"
+        }
+      }
+    },
+    "blockstoreFilterLogsReply": {
+      "type": "object",
+      "properties": {
+        "logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreEthLog"
+          }
+        }
+      }
+    },
+    "blockstoreFilterLogsRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "filterQuery": {
+          "$ref": "#/definitions/blockstoreFilterQuery"
+        }
+      }
+    },
+    "blockstoreFilterQuery": {
+      "type": "object",
+      "properties": {
+        "blockHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "fromBlock": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "toBlock": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FilterQueryTopics"
+          }
         }
       }
     },

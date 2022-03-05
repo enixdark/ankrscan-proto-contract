@@ -33,6 +33,7 @@ type BlockStoreClient interface {
 	BlocksByNumber(ctx context.Context, in *BlocksByNumberRequest, opts ...grpc.CallOption) (*BlocksByNumberReply, error)
 	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
 	BlockRangeContinuous(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
+	FilterLogs(ctx context.Context, in *FilterLogsRequest, opts ...grpc.CallOption) (*FilterLogsReply, error)
 }
 
 type blockStoreClient struct {
@@ -160,6 +161,15 @@ func (c *blockStoreClient) BlockRangeContinuous(ctx context.Context, in *BlockRa
 	return out, nil
 }
 
+func (c *blockStoreClient) FilterLogs(ctx context.Context, in *FilterLogsRequest, opts ...grpc.CallOption) (*FilterLogsReply, error) {
+	out := new(FilterLogsReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/FilterLogs", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BlockStoreServer is the server API for BlockStore service.
 // All implementations must embed UnimplementedBlockStoreServer
 // for forward compatibility
@@ -179,6 +189,7 @@ type BlockStoreServer interface {
 	BlocksByNumber(context.Context, *BlocksByNumberRequest) (*BlocksByNumberReply, error)
 	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
 	BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
+	FilterLogs(context.Context, *FilterLogsRequest) (*FilterLogsReply, error)
 	mustEmbedUnimplementedBlockStoreServer()
 }
 
@@ -224,6 +235,9 @@ func (UnimplementedBlockStoreServer) LatestBlockHeader(context.Context, *LatestB
 }
 func (UnimplementedBlockStoreServer) BlockRangeContinuous(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockRangeContinuous not implemented")
+}
+func (UnimplementedBlockStoreServer) FilterLogs(context.Context, *FilterLogsRequest) (*FilterLogsReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FilterLogs not implemented")
 }
 func (UnimplementedBlockStoreServer) mustEmbedUnimplementedBlockStoreServer() {}
 
@@ -472,6 +486,24 @@ func _BlockStore_BlockRangeContinuous_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BlockStore_FilterLogs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FilterLogsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).FilterLogs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.blockstore.BlockStore/FilterLogs",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).FilterLogs(ctx, req.(*FilterLogsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BlockStore_ServiceDesc is the grpc.ServiceDesc for BlockStore service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -530,6 +562,10 @@ var BlockStore_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BlockRangeContinuous",
 			Handler:    _BlockStore_BlockRangeContinuous_Handler,
+		},
+		{
+			MethodName: "FilterLogs",
+			Handler:    _BlockStore_FilterLogs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

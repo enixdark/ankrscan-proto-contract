@@ -213,6 +213,13 @@ service BlockStore {
     };
   };
 
+  rpc FilterLogs (FilterLogsRequest) returns (FilterLogsReply) {
+    option (google.api.http) = {
+      post: "/v1/multichain/block/logs"
+      body: "*"
+    };
+  };
+
 }
 
 message BlockRangeReply {
@@ -411,4 +418,8 @@ message FilterQuery {
 message FilterLogsRequest {
   string blockchain_name = 1;
   FilterQuery filter_query = 2;
+}
+
+message FilterLogsReply {
+  repeated EthLog logs = 1;
 }
