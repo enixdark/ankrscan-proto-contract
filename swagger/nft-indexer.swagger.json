@@ -94,6 +94,22 @@
         }
       }
     },
+    "nftindexerContractAddressTokenIdFilter": {
+      "type": "object",
+      "properties": {
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "tokenIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        }
+      }
+    },
     "nftindexerGetBalanceRequest": {
       "type": "object",
       "properties": {
