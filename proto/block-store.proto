@@ -421,5 +421,14 @@ message FilterLogsRequest {
 }
 
 message FilterLogsReply {
-  repeated EthLog logs = 1;
+  message Log {
+    EthLog eth_log = 1;
+    uint64 log_index = 2;
+    uint64 transaction_index = 3;
+    bytes transaction_hash = 4;
+    bytes  blockHash = 5;
+    uint64 block_number = 6;
+  }
+
+  repeated Log logs = 1;
 }

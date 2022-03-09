@@ -275,6 +275,34 @@
     }
   },
   "definitions": {
+    "FilterLogsReplyLog": {
+      "type": "object",
+      "properties": {
+        "ethLog": {
+          "$ref": "#/definitions/blockstoreEthLog"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockNumber": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "FilterQueryTopics": {
       "type": "object",
       "properties": {
@@ -762,7 +790,7 @@
         "logs": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/blockstoreEthLog"
+            "$ref": "#/definitions/FilterLogsReplyLog"
           }
         }
       }
