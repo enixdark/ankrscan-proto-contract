@@ -22,6 +22,21 @@ message EthLog {
   bool removed = 4;
 }
 
+message EthLogExtended {
+  // EthLog
+  bytes address = 1;
+  repeated bytes topics = 2;
+  bytes data = 3;
+  bool removed = 4;
+
+  // Meta
+  uint64 log_index = 5;
+  uint64 transaction_index = 6;
+  bytes transaction_hash = 7;
+  bytes  block_hash = 8;
+  uint64 block_height = 9;
+}
+
 message EthTransaction {
   // eth_getTransactionByHash
   uint64 nonce = 1;
@@ -213,6 +228,13 @@ service BlockStore {
     };
   };
 
+  rpc FilterLogs (FilterLogsRequest) returns (FilterLogsReply) {
+    option (google.api.http) = {
+      post: "/v1/multichain/block/logs"
+      body: "*"
+    };
+  };
+
 }
 
 message BlockRangeReply {
@@ -394,4 +416,25 @@ message LatestBlockHeaderRequest {
 
 message LatestBlockHeaderReply {
   BlockHeader block = 1;
+}
+
+message FilterQuery {
+  message Topics {
+    repeated bytes topics = 1;
+  }
+
+  bytes block_hash = 1;
+  uint64 from_block = 2;
+  uint64 to_block = 3;
+  repeated bytes addresses = 4;
+  repeated Topics topics = 5;
+}
+
+message FilterLogsRequest {
+  string blockchain_name = 1;
+  FilterQuery filter_query = 2;
+}
+
+message FilterLogsReply {
+  repeated EthLogExtended logs = 1;
 }
