@@ -416,6 +416,10 @@
         },
         "success": {
           "type": "boolean"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

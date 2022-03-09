@@ -57,4 +57,5 @@ message CallContractReply {
   bytes result = 1;
   string error = 2;
   bool success = 3;
+  uint64 block_height = 4;
 }
