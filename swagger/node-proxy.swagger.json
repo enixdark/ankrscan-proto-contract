@@ -454,6 +454,10 @@
         },
         "nodeUrl": {
           "type": "string"
+        },
+        "historicalStateRetentionBlocks": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
