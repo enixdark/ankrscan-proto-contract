@@ -275,34 +275,6 @@
     }
   },
   "definitions": {
-    "FilterLogsReplyLog": {
-      "type": "object",
-      "properties": {
-        "ethLog": {
-          "$ref": "#/definitions/blockstoreEthLog"
-        },
-        "logIndex": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "transactionIndex": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "transactionHash": {
-          "type": "string",
-          "format": "byte"
-        },
-        "blockHash": {
-          "type": "string",
-          "format": "byte"
-        },
-        "blockNumber": {
-          "type": "string",
-          "format": "uint64"
-        }
-      }
-    },
     "FilterQueryTopics": {
       "type": "object",
       "properties": {
@@ -669,6 +641,51 @@
         }
       }
     },
+    "blockstoreEthLogExtended": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "format": "byte",
+          "title": "EthLog"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "data": {
+          "type": "string",
+          "format": "byte"
+        },
+        "removed": {
+          "type": "boolean"
+        },
+        "logIndex": {
+          "type": "string",
+          "format": "uint64",
+          "title": "Meta"
+        },
+        "transactionIndex": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "transactionHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHash": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
     "blockstoreEthTransaction": {
       "type": "object",
       "properties": {
@@ -790,7 +807,7 @@
         "logs": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/FilterLogsReplyLog"
+            "$ref": "#/definitions/blockstoreEthLogExtended"
           }
         }
       }

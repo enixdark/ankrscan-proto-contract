@@ -22,6 +22,21 @@ message EthLog {
   bool removed = 4;
 }
 
+message EthLogExtended {
+  // EthLog
+  bytes address = 1;
+  repeated bytes topics = 2;
+  bytes data = 3;
+  bool removed = 4;
+
+  // Meta
+  uint64 log_index = 5;
+  uint64 transaction_index = 6;
+  bytes transaction_hash = 7;
+  bytes  block_hash = 8;
+  uint64 block_height = 9;
+}
+
 message EthTransaction {
   // eth_getTransactionByHash
   uint64 nonce = 1;
@@ -421,14 +436,5 @@ message FilterLogsRequest {
 }
 
 message FilterLogsReply {
-  message Log {
-    EthLog eth_log = 1;
-    uint64 log_index = 2;
-    uint64 transaction_index = 3;
-    bytes transaction_hash = 4;
-    bytes  blockHash = 5;
-    uint64 block_number = 6;
-  }
-
-  repeated Log logs = 1;
+  repeated EthLogExtended logs = 1;
 }
