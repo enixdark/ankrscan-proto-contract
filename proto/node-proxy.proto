@@ -21,6 +21,7 @@ message NodeConfig {
   string blockchain_name = 2;
   string node_url = 3;
   uint64 historical_state_retention_blocks = 4; // 0 for archive node
+  uint64 parallel_contract_calls_batch = 5; // 0 for archive node
 }
 
 message NodeConfigsRequest {

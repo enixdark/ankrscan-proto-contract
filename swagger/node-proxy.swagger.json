@@ -462,6 +462,10 @@
         "historicalStateRetentionBlocks": {
           "type": "string",
           "format": "uint64"
+        },
+        "parallelContractCallsBatch": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },
