@@ -24,6 +24,7 @@ enum NamespaceFdb {
 
   // ankrscan-token-indexer
   TokenContractDetails = 12;
-  TokenBalance = 13;
+  TokenBalanceByHolder = 13;
+  TokenHoldersByContract = 14;
 }
 
