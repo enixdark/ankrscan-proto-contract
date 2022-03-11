@@ -44,22 +44,7 @@
         }
       }
     },
-    "tokenindexerBalancesWithContractDetailsReply": {
-      "type": "object",
-      "properties": {
-        "balances": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/tokenindexerTokenBalanceWithContract"
-          }
-        },
-        "nextPageToken": {
-          "type": "string",
-          "format": "byte"
-        }
-      }
-    },
-    "tokenindexerTokenBalanceWithContract": {
+    "tokenindexerTokenBalanceWithContractDetails": {
       "type": "object",
       "properties": {
         "blockchainName": {
@@ -84,6 +69,21 @@
           "format": "byte"
         },
         "balance": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "tokenindexerTokenBalancesWithContractDetailsReply": {
+      "type": "object",
+      "properties": {
+        "balances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerTokenBalanceWithContractDetails"
+          }
+        },
+        "nextPageToken": {
           "type": "string",
           "format": "byte"
         }
