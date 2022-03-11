@@ -44,7 +44,7 @@
         }
       }
     },
-    "tokenindexerBalanceByHolderReply": {
+    "tokenindexerBalancesWithContractDetailsReply": {
       "type": "object",
       "properties": {
         "balances": {

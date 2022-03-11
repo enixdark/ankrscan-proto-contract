@@ -5,7 +5,7 @@ package ankrscan.tokenindexer;
 option go_package = "./;proto";
 
 service TokenIndexer {
-  rpc BalanceByHolder (BalanceByHolderRequest) returns (BalanceByHolderReply);
+  rpc BalanceByHolder (BalanceByHolderRequest) returns (BalancesWithContractDetailsReply);
 }
 
 message BalanceByHolderRequest {
@@ -15,8 +15,13 @@ message BalanceByHolderRequest {
   int32 page_size = 4;
 }
 
-message BalanceByHolderReply {
+message BalancesWithContractDetailsReply {
   repeated TokenBalanceWithContract balances = 1;
+  bytes next_page_token = 2;
+}
+
+message BalancesReply {
+  repeated TokenBalance balances = 1;
   bytes next_page_token = 2;
 }
 
