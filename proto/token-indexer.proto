@@ -16,7 +16,7 @@ message BalanceByHolderRequest {
 }
 
 message BalanceByHolderReply {
-  repeated TokenBalanceWithContract tokens = 1;
+  repeated TokenBalanceWithContract balances = 1;
   bytes next_page_token = 2;
 }
 

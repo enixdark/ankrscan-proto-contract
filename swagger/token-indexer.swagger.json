@@ -47,7 +47,7 @@
     "tokenindexerBalanceByHolderReply": {
       "type": "object",
       "properties": {
-        "tokens": {
+        "balances": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/tokenindexerTokenBalanceWithContract"
