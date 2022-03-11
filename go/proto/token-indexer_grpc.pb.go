@@ -3,7 +3,10 @@
 package proto
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -14,6 +17,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TokenIndexerClient interface {
+	BalanceByHolder(ctx context.Context, in *BalanceByHolderRequest, opts ...grpc.CallOption) (*BalanceByHolderReply, error)
 }
 
 type tokenIndexerClient struct {
@@ -24,10 +28,20 @@ func NewTokenIndexerClient(cc grpc.ClientConnInterface) TokenIndexerClient {
 	return &tokenIndexerClient{cc}
 }
 
+func (c *tokenIndexerClient) BalanceByHolder(ctx context.Context, in *BalanceByHolderRequest, opts ...grpc.CallOption) (*BalanceByHolderReply, error) {
+	out := new(BalanceByHolderReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.tokenindexer.TokenIndexer/BalanceByHolder", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TokenIndexerServer is the server API for TokenIndexer service.
 // All implementations must embed UnimplementedTokenIndexerServer
 // for forward compatibility
 type TokenIndexerServer interface {
+	BalanceByHolder(context.Context, *BalanceByHolderRequest) (*BalanceByHolderReply, error)
 	mustEmbedUnimplementedTokenIndexerServer()
 }
 
@@ -35,6 +49,9 @@ type TokenIndexerServer interface {
 type UnimplementedTokenIndexerServer struct {
 }
 
+func (UnimplementedTokenIndexerServer) BalanceByHolder(context.Context, *BalanceByHolderRequest) (*BalanceByHolderReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BalanceByHolder not implemented")
+}
 func (UnimplementedTokenIndexerServer) mustEmbedUnimplementedTokenIndexerServer() {}
 
 // UnsafeTokenIndexerServer may be embedded to opt out of forward compatibility for this service.
@@ -48,13 +65,36 @@ func RegisterTokenIndexerServer(s grpc.ServiceRegistrar, srv TokenIndexerServer)
 	s.RegisterService(&TokenIndexer_ServiceDesc, srv)
 }
 
+func _TokenIndexer_BalanceByHolder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BalanceByHolderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TokenIndexerServer).BalanceByHolder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.tokenindexer.TokenIndexer/BalanceByHolder",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TokenIndexerServer).BalanceByHolder(ctx, req.(*BalanceByHolderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TokenIndexer_ServiceDesc is the grpc.ServiceDesc for TokenIndexer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TokenIndexer_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "ankrscan.tokenindexer.TokenIndexer",
 	HandlerType: (*TokenIndexerServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "token-indexer.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "BalanceByHolder",
+			Handler:    _TokenIndexer_BalanceByHolder_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "token-indexer.proto",
 }

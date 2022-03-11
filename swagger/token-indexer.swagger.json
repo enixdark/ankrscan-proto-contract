@@ -4,6 +4,11 @@
     "title": "token-indexer.proto",
     "version": "version not set"
   },
+  "tags": [
+    {
+      "name": "TokenIndexer"
+    }
+  ],
   "consumes": [
     "application/json"
   ],
@@ -36,6 +41,51 @@
           "items": {
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "tokenindexerBalanceByHolderReply": {
+      "type": "object",
+      "properties": {
+        "tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerTokenBalanceWithContract"
+          }
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "tokenindexerTokenBalanceWithContract": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "name": {
+          "type": "string"
+        },
+        "decimals": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "holderAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "balance": {
+          "type": "string",
+          "format": "byte"
         }
       }
     }
