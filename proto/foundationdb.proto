@@ -26,5 +26,6 @@ enum NamespaceFdb {
   TokenContractDetails = 12;
   TokenBalanceByHolder = 13;
   TokenHoldersByContract = 14;
+  TokenWalletOnChainExistence = 15;
 }
 
