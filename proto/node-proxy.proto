@@ -50,7 +50,6 @@ message CallContractRequest {
 
 message CallContractBatchRequest {
   repeated CallContractRequest calls = 1;
-  bool enable_caching = 2;
 }
 
 message BalanceOfRequest {
