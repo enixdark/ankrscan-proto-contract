@@ -463,7 +463,11 @@
           "type": "string",
           "format": "uint64"
         },
-        "parallelContractCallsBatch": {
+        "parallelCallsBatch": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "parallelCallsWorkers": {
           "type": "string",
           "format": "uint64"
         }
