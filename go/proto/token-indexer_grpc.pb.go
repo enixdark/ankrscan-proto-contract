@@ -17,7 +17,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TokenIndexerClient interface {
-	BalanceByHolder(ctx context.Context, in *BalanceByHolderRequest, opts ...grpc.CallOption) (*TokenBalancesWithContractDetailsReply, error)
+	BalanceByHolder(ctx context.Context, in *BalanceByHolderRequest, opts ...grpc.CallOption) (*TokenBalancesDetailed, error)
 }
 
 type tokenIndexerClient struct {
@@ -28,8 +28,8 @@ func NewTokenIndexerClient(cc grpc.ClientConnInterface) TokenIndexerClient {
 	return &tokenIndexerClient{cc}
 }
 
-func (c *tokenIndexerClient) BalanceByHolder(ctx context.Context, in *BalanceByHolderRequest, opts ...grpc.CallOption) (*TokenBalancesWithContractDetailsReply, error) {
-	out := new(TokenBalancesWithContractDetailsReply)
+func (c *tokenIndexerClient) BalanceByHolder(ctx context.Context, in *BalanceByHolderRequest, opts ...grpc.CallOption) (*TokenBalancesDetailed, error) {
+	out := new(TokenBalancesDetailed)
 	err := c.cc.Invoke(ctx, "/ankrscan.tokenindexer.TokenIndexer/BalanceByHolder", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -41,7 +41,7 @@ func (c *tokenIndexerClient) BalanceByHolder(ctx context.Context, in *BalanceByH
 // All implementations must embed UnimplementedTokenIndexerServer
 // for forward compatibility
 type TokenIndexerServer interface {
-	BalanceByHolder(context.Context, *BalanceByHolderRequest) (*TokenBalancesWithContractDetailsReply, error)
+	BalanceByHolder(context.Context, *BalanceByHolderRequest) (*TokenBalancesDetailed, error)
 	mustEmbedUnimplementedTokenIndexerServer()
 }
 
@@ -49,7 +49,7 @@ type TokenIndexerServer interface {
 type UnimplementedTokenIndexerServer struct {
 }
 
-func (UnimplementedTokenIndexerServer) BalanceByHolder(context.Context, *BalanceByHolderRequest) (*TokenBalancesWithContractDetailsReply, error) {
+func (UnimplementedTokenIndexerServer) BalanceByHolder(context.Context, *BalanceByHolderRequest) (*TokenBalancesDetailed, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BalanceByHolder not implemented")
 }
 func (UnimplementedTokenIndexerServer) mustEmbedUnimplementedTokenIndexerServer() {}

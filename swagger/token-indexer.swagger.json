@@ -44,7 +44,7 @@
         }
       }
     },
-    "tokenindexerTokenBalanceWithContractDetails": {
+    "tokenindexerTokenBalanceDetailed": {
       "type": "object",
       "properties": {
         "blockchainName": {
@@ -71,16 +71,19 @@
         "balance": {
           "type": "string",
           "format": "byte"
+        },
+        "type": {
+          "$ref": "#/definitions/tokenindexerTokenType"
         }
       }
     },
-    "tokenindexerTokenBalancesWithContractDetailsReply": {
+    "tokenindexerTokenBalancesDetailed": {
       "type": "object",
       "properties": {
         "balances": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/tokenindexerTokenBalanceWithContractDetails"
+            "$ref": "#/definitions/tokenindexerTokenBalanceDetailed"
           }
         },
         "nextPageToken": {
@@ -88,6 +91,15 @@
           "format": "byte"
         }
       }
+    },
+    "tokenindexerTokenType": {
+      "type": "string",
+      "enum": [
+        "UNDEFINED",
+        "NATIVE",
+        "ERC20"
+      ],
+      "default": "UNDEFINED"
     }
   }
 }
