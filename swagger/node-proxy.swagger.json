@@ -393,6 +393,15 @@
         }
       }
     },
+    "nodeproxyBalanceOfResponse": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
     "nodeproxyCallContractBatchReply": {
       "type": "object",
       "properties": {

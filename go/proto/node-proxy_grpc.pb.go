@@ -24,6 +24,7 @@ type NodeProxyClient interface {
 	BlockByNumber(ctx context.Context, in *BlockByNumberRequest, opts ...grpc.CallOption) (*BlockByNumberReply, error)
 	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
 	CallContract(ctx context.Context, in *CallContractBatchRequest, opts ...grpc.CallOption) (*CallContractBatchReply, error)
+	BalanceOf(ctx context.Context, in *BalanceOfRequest, opts ...grpc.CallOption) (*BalanceOfResponse, error)
 }
 
 type nodeProxyClient struct {
@@ -79,6 +80,15 @@ func (c *nodeProxyClient) CallContract(ctx context.Context, in *CallContractBatc
 	return out, nil
 }
 
+func (c *nodeProxyClient) BalanceOf(ctx context.Context, in *BalanceOfRequest, opts ...grpc.CallOption) (*BalanceOfResponse, error) {
+	out := new(BalanceOfResponse)
+	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/BalanceOf", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NodeProxyServer is the server API for NodeProxy service.
 // All implementations must embed UnimplementedNodeProxyServer
 // for forward compatibility
@@ -90,6 +100,7 @@ type NodeProxyServer interface {
 	BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error)
 	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
 	CallContract(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error)
+	BalanceOf(context.Context, *BalanceOfRequest) (*BalanceOfResponse, error)
 	mustEmbedUnimplementedNodeProxyServer()
 }
 
@@ -111,6 +122,9 @@ func (UnimplementedNodeProxyServer) LatestBlockHeader(context.Context, *LatestBl
 }
 func (UnimplementedNodeProxyServer) CallContract(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CallContract not implemented")
+}
+func (UnimplementedNodeProxyServer) BalanceOf(context.Context, *BalanceOfRequest) (*BalanceOfResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BalanceOf not implemented")
 }
 func (UnimplementedNodeProxyServer) mustEmbedUnimplementedNodeProxyServer() {}
 
@@ -215,6 +229,24 @@ func _NodeProxy_CallContract_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NodeProxy_BalanceOf_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BalanceOfRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NodeProxyServer).BalanceOf(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.nodeproxy.NodeProxy/BalanceOf",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NodeProxyServer).BalanceOf(ctx, req.(*BalanceOfRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NodeProxy_ServiceDesc is the grpc.ServiceDesc for NodeProxy service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -241,6 +273,10 @@ var NodeProxy_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CallContract",
 			Handler:    _NodeProxy_CallContract_Handler,
+		},
+		{
+			MethodName: "BalanceOf",
+			Handler:    _NodeProxy_BalanceOf_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
