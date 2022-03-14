@@ -285,8 +285,8 @@ type CallContractRequest struct {
 	BlockchainName  string `protobuf:"bytes,1,opt,name=blockchain_name,json=blockchainName,proto3" json:"blockchain_name,omitempty"`
 	ContractAddress []byte `protobuf:"bytes,2,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
 	Argument        []byte `protobuf:"bytes,3,opt,name=argument,proto3" json:"argument,omitempty"`
-	BlockHeight     uint64 `protobuf:"varint,4,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
-	Description     string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	BlockHeight     uint64 `protobuf:"varint,4,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"` // set to 0 if you want to make a call in the latest block
+	Description     string `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`                     // set human readable description in a format similar to "ERC20.balanceOf(0x0000)", this description is used in logs
 }
 
 func (x *CallContractRequest) Reset() {
