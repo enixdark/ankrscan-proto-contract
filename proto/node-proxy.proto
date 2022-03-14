@@ -14,7 +14,7 @@ service NodeProxy {
   rpc BlockByNumber (blockstore.BlockByNumberRequest) returns (blockstore.BlockByNumberReply);
   rpc LatestBlockHeader (blockstore.LatestBlockHeaderRequest) returns (blockstore.LatestBlockHeaderReply);
   rpc CallContract (CallContractBatchRequest) returns (CallContractBatchReply);
-  rpc BalanceOf (BalanceOfRequest) returns (BalanceOfResponse);
+  rpc BalanceOf (BalanceOfRequest) returns (BalanceOfReply);
 }
 
 message NodeConfig {
@@ -62,7 +62,7 @@ message CallContractBatchReply {
   repeated CallContractReply results = 1;
 }
 
-message BalanceOfResponse {
+message BalanceOfReply {
   bytes value = 1;
 }
 

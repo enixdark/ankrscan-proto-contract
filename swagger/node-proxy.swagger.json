@@ -393,7 +393,7 @@
         }
       }
     },
-    "nodeproxyBalanceOfResponse": {
+    "nodeproxyBalanceOfReply": {
       "type": "object",
       "properties": {
         "value": {

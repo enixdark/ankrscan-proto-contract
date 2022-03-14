@@ -24,7 +24,7 @@ type NodeProxyClient interface {
 	BlockByNumber(ctx context.Context, in *BlockByNumberRequest, opts ...grpc.CallOption) (*BlockByNumberReply, error)
 	LatestBlockHeader(ctx context.Context, in *LatestBlockHeaderRequest, opts ...grpc.CallOption) (*LatestBlockHeaderReply, error)
 	CallContract(ctx context.Context, in *CallContractBatchRequest, opts ...grpc.CallOption) (*CallContractBatchReply, error)
-	BalanceOf(ctx context.Context, in *BalanceOfRequest, opts ...grpc.CallOption) (*BalanceOfResponse, error)
+	BalanceOf(ctx context.Context, in *BalanceOfRequest, opts ...grpc.CallOption) (*BalanceOfReply, error)
 }
 
 type nodeProxyClient struct {
@@ -80,8 +80,8 @@ func (c *nodeProxyClient) CallContract(ctx context.Context, in *CallContractBatc
 	return out, nil
 }
 
-func (c *nodeProxyClient) BalanceOf(ctx context.Context, in *BalanceOfRequest, opts ...grpc.CallOption) (*BalanceOfResponse, error) {
-	out := new(BalanceOfResponse)
+func (c *nodeProxyClient) BalanceOf(ctx context.Context, in *BalanceOfRequest, opts ...grpc.CallOption) (*BalanceOfReply, error) {
+	out := new(BalanceOfReply)
 	err := c.cc.Invoke(ctx, "/ankrscan.nodeproxy.NodeProxy/BalanceOf", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -100,7 +100,7 @@ type NodeProxyServer interface {
 	BlockByNumber(context.Context, *BlockByNumberRequest) (*BlockByNumberReply, error)
 	LatestBlockHeader(context.Context, *LatestBlockHeaderRequest) (*LatestBlockHeaderReply, error)
 	CallContract(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error)
-	BalanceOf(context.Context, *BalanceOfRequest) (*BalanceOfResponse, error)
+	BalanceOf(context.Context, *BalanceOfRequest) (*BalanceOfReply, error)
 	mustEmbedUnimplementedNodeProxyServer()
 }
 
@@ -123,7 +123,7 @@ func (UnimplementedNodeProxyServer) LatestBlockHeader(context.Context, *LatestBl
 func (UnimplementedNodeProxyServer) CallContract(context.Context, *CallContractBatchRequest) (*CallContractBatchReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CallContract not implemented")
 }
-func (UnimplementedNodeProxyServer) BalanceOf(context.Context, *BalanceOfRequest) (*BalanceOfResponse, error) {
+func (UnimplementedNodeProxyServer) BalanceOf(context.Context, *BalanceOfRequest) (*BalanceOfReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BalanceOf not implemented")
 }
 func (UnimplementedNodeProxyServer) mustEmbedUnimplementedNodeProxyServer() {}
