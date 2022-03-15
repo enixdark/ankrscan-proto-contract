@@ -108,12 +108,14 @@ message Nft {
   string blockchain_name = 1;
   string name = 2;
   bytes token_id = 3;
-  string image_uri = 4;
-  string collection_name = 5;
-  string symbol = 6;
-  NftType nft_type = 7;
-  bytes contract_address = 8;
-  repeated Attribute traits = 9;
+  string token_uri = 4;
+  string image_uri = 5;
+  string collection_name = 6;
+  string symbol = 7;
+  NftType nft_type = 8;
+  bytes contract_address = 9;
+  bytes quantity = 10;
+  repeated Attribute traits = 11;
 }
 
 message NftTransfer {
