@@ -12,6 +12,7 @@ enum NamespaceFdb {
   TransactionByHash = 4;
   ExtractorConfig = 5;
   ConsumerOffset = 6;
+  Consumer = 16;
   ExtractorLatest = 7;
 
   // ankrscan-nft-indexer
