@@ -67,3 +67,14 @@ message TokenBalanceRequest {
   bytes address = 2;
   uint64 block_height = 3;
 }
+
+message TokenLiquidPoolDetails {
+  string blockchain_name = 1;
+  bytes address = 2;
+  string name = 3;
+  uint64 decimals = 4;
+  string symbol = 5;
+  bytes token0_address = 6;
+  bytes token1_address = 7;
+}
+

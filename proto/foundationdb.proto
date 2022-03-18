@@ -27,5 +27,6 @@ enum NamespaceFdb {
   TokenBalanceByHolder = 13;
   TokenHoldersByContract = 14;
   TokenWalletInteractions = 15;
+  TokenLiquidPoolDetails = 16;
 }
 
