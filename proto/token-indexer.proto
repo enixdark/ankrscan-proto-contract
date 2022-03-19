@@ -68,7 +68,7 @@ message TokenBalanceRequest {
   uint64 block_height = 3;
 }
 
-message TokenLiquidPoolDetails {
+message LiquidPoolDetails {
   string blockchain_name = 1;
   bytes lp_token_address = 2;
   bytes token0_address = 3;
@@ -83,11 +83,10 @@ message LiquidPoolUpdated{
   uint64 log_index = 4;
   uint64 timestamp = 5;
 
-  TokenLiquidPoolDetails liquid_pool = 6;
+  LiquidPoolDetails liquid_pool = 6;
+  bytes token0_reserved = 7; // human readable big float
+  bytes token1_reserved = 8; // human readable big float
 
-  bytes token0_reserved = 7; // big float
-  bytes token1_reserved = 8; // big float
-
-  bytes base_token0_price_usd = 9;
-  bytes base_token1_price_usd = 10;
+  bytes base_token0_price_usd = 9; // human readable big float
+  bytes base_token1_price_usd = 10; // human readable big float
 }
