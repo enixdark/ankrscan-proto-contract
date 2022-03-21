@@ -76,7 +76,7 @@ message LiquidPoolDetails {
   bytes factory_address = 5;
 }
 
-message LiquidPoolSyncedEthEvent{
+message LpSyncEvent{
   // event metadata
   string blockchain_name = 1;
   uint64 block_height = 2;
@@ -102,10 +102,15 @@ message TokenUsdPrice {
   bytes usd_price = 3; // big float
 }
 
-message TokenUsdPriceAfterEventRequest {
+message TokenUsdPriceAfterRequest {
   string blockchain_name = 1;
   bytes address = 2;
   uint64 block_height = 3;
   uint64 transaction_index = 4;
   uint64 log_index = 5;
+}
+
+message LpSyncEventByBlockRequest {
+  LiquidPoolDetails liquid_pool = 1;
+  uint64 block_height = 2;
 }
