@@ -139,7 +139,7 @@ func (x *EthTransaction) ContractAddressAsString() *string {
 	}
 }
 
-func (x *Transaction) EthLogs() []*EthLogExtended {
+func (x *Transaction) EthExtendedLogs() []*EthLogExtended {
 	logs := make([]*EthLogExtended, 0, 300)
 	if x.GetEthTx() != nil {
 		for i, log := range x.GetEthTx().Logs {
