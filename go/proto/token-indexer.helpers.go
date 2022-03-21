@@ -8,9 +8,8 @@ package proto
 
 import (
 	"fmt"
-	"github.com/ethereum/go-ethereum/common"
 )
 
 func (x *TokenId) AsString() string {
-	return fmt.Sprintf("%s/%s", x.BlockchainName, common.BytesToAddress(x.Address).String())
+	return fmt.Sprintf("%s/0x%x", x.BlockchainName, x.Address)
 }
