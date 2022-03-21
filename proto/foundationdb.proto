@@ -30,6 +30,5 @@ enum NamespaceFdb {
   TokenWalletInteractions = 15;
   TokenLiquidPoolDetails = 17;
   TokenLiquidPoolSyncEvent = 18;
-  TokenLiquidPoolLatestSyncEvent = 19;
 }
 
