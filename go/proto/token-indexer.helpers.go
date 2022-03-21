@@ -10,6 +10,6 @@ import (
 	"fmt"
 )
 
-func (x *TokenId) AsString() string {
+func (x *TokenContractId) AsString() string {
 	return fmt.Sprintf("%s/0x%x", x.BlockchainName, x.Address)
 }

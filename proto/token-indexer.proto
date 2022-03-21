@@ -91,7 +91,7 @@ message LiquidPoolSyncedEthEvent{
   bytes token1_reserved = 10;
 }
 
-message TokenId {
+message TokenContractId {
   string blockchain_name = 1;
   bytes address = 2;
 }
