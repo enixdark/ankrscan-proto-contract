@@ -139,6 +139,26 @@ func (x *EthTransaction) ContractAddressAsString() *string {
 	}
 }
 
+func (x *Transaction) ExtendedLogs() []*EthLogExtended {
+	logs := make([]*EthLogExtended, 0, 300)
+	if x.GetEthTx() != nil {
+		for i, log := range x.GetEthTx().Logs {
+			logs = append(logs, &EthLogExtended{
+				Address:          log.Address,
+				Topics:           log.Topics,
+				Data:             log.Data,
+				Removed:          log.Removed,
+				LogIndex:         uint64(i),
+				TransactionIndex: x.TransactionIndex,
+				TransactionHash:  x.TransactionHash,
+				BlockHash:        x.BlockHash,
+				BlockHeight:      x.BlockHeight,
+			})
+		}
+	}
+	return logs
+}
+
 func (x *EthLog) TopicsAsHash() []common.Hash {
 	topics := make([]common.Hash, 0)
 	for _, topic := range x.Topics {
