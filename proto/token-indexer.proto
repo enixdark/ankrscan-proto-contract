@@ -135,3 +135,9 @@ message LpSyncEventByBlockRequest {
   LiquidPoolDetails liquid_pool = 1;
   uint64 block_height = 2;
 }
+
+message LiquidPoolsByPairRequest {
+  string blockchain_name = 1;
+  bytes token0_address = 2;
+  bytes token1_address = 3;
+}
