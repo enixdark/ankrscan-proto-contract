@@ -89,7 +89,7 @@ message LiquidPoolUpdated{
 
 message TokenPriceUpdated {
   string blockchain_name = 1;
-  uint64 timestamp = 2;
+  uint64 block_height = 2;
   bytes base_token_address = 3;
   bytes quote_token_address = 4;
   bytes liquid_pool_address = 5;
