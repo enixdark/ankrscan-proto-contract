@@ -91,12 +91,11 @@ message LiquidPoolUpdated{
 message TokenPriceUpdate {
   string blockchain_name = 1;
   uint64 block_height = 2;
-  bytes base_token_address = 3;
-  bytes quote_token_address = 4;
-  bytes price = 5; // big float
-
-  bytes liquid_pool_address = 6;
-  bytes total_reserved_quote_tokens = 7;
+  TokenContractDetails base = 3;
+  TokenContractDetails quote = 4;
+  bytes base_reserved = 5;
+  bytes quote_reserved = 6;
+  bytes liquid_pool_address = 7;
 }
 
 message TokenContractId {
