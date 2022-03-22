@@ -70,10 +70,11 @@ message TokenBalanceRequest {
 
 message LiquidPoolDetails {
   string blockchain_name = 1;
-  bytes lp_token_address = 2;
-  bytes token0_address = 3;
-  bytes token1_address = 4;
-  bytes factory_address = 5;
+  bytes token0_address = 2;
+  bytes token1_address = 3;
+
+  bytes liquid_pool_address = 4;
+  bytes liquid_pool_factory_address = 5;
 }
 
 message LiquidPoolUpdated{
@@ -92,11 +93,10 @@ message TokenPriceUpdated {
   uint64 block_height = 2;
   bytes base_token_address = 3;
   bytes quote_token_address = 4;
-  bytes liquid_pool_address = 5;
-  bytes liquid_pool_usd_address = 6;
-  bytes price = 7; // big float
-  bytes price_usd = 8; // big float
-  bytes total_reserved_usd = 9; // big float
+  bytes price = 5; // big float
+
+  bytes liquid_pool_address = 6;
+  bytes total_reserved_quote_tokens = 7;
 }
 
 message TokenContractId {
@@ -108,6 +108,13 @@ message TokenUsdPrice {
   string blockchain_name = 1;
   bytes address = 2;
   bytes usd_price = 3; // big float
+}
+
+message TokenPriceRequest {
+  string blockchain_name = 1;
+  bytes base_token_address = 2;
+  bytes quote_token_address = 3;
+  uint64 block_height = 4; // zero for latest
 }
 
 message TokenUsdPriceAfterRequest {
