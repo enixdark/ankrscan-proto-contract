@@ -104,6 +104,12 @@ message TokenContractId {
   bytes address = 2;
 }
 
+message TokenPair {
+  string blockchain_name = 1;
+  bytes base_token_address = 2;
+  bytes quote_token_address = 3;
+}
+
 message TokenUsdPrice {
   string blockchain_name = 1;
   bytes address = 2;
