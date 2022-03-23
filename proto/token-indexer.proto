@@ -73,8 +73,8 @@ message LiquidPoolDetails {
   bytes token0_address = 2;
   bytes token1_address = 3;
 
-  bytes liquid_pool_address = 4;
-  bytes liquid_pool_factory_address = 5;
+  bytes address = 4;
+  bytes factory = 5;
 }
 
 message LiquidPoolUpdated{
@@ -88,14 +88,20 @@ message LiquidPoolUpdated{
   bytes token1_reserved = 10;
 }
 
-message TokenPriceUpdate {
+message PriceUpdate {
   string blockchain_name = 1;
   uint64 block_height = 2;
-  TokenContractDetails base = 3;
-  TokenContractDetails quote = 4;
-  bytes base_reserved = 5;
-  bytes quote_reserved = 6;
+  bytes base_token_address = 3;
+  bytes quote_token_address = 4;
+  string price = 5; // human readable float value
+  string quote_reserved = 6; // human readable float value
   bytes liquid_pool_address = 7;
+}
+
+message PriceUpdateWithUsd {
+  PriceUpdate price = 1;
+  string usd_price = 2; // human readable float value
+  string usd_reserved = 6; // human readable float value
 }
 
 message TokenContractId {
@@ -103,42 +109,23 @@ message TokenContractId {
   bytes address = 2;
 }
 
-message TokenPair {
+message PriceByPairRequest {
   string blockchain_name = 1;
   bytes base_token_address = 2;
   bytes quote_token_address = 3;
+  uint64 block_height = 4;
+}
+
+message UsdPriceRequest {
+  string blockchain_name = 1;
+  bytes base_token_address = 2;
+  uint64 block_height = 3;
 }
 
 message TokenUsdPrice {
   string blockchain_name = 1;
   bytes address = 2;
   bytes usd_price = 3; // big float
-}
-
-message TokenPriceRequest {
-  string blockchain_name = 1;
-  bytes base_token_address = 2;
-  bytes quote_token_address = 3;
-  uint64 block_height = 4; // zero for latest
-}
-
-message TokenUsdPriceRequest {
-  string blockchain_name = 1;
-  bytes base_token_address = 2;
-  uint64 block_height = 4; // zero for latest
-}
-
-message TokenUsdPriceAfterRequest {
-  string blockchain_name = 1;
-  bytes address = 2;
-  uint64 block_height = 3;
-  uint64 transaction_index = 4;
-  uint64 log_index = 5;
-}
-
-message LpSyncEventByBlockRequest {
-  LiquidPoolDetails liquid_pool = 1;
-  uint64 block_height = 2;
 }
 
 message LiquidPoolsByPairRequest {
