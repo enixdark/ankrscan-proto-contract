@@ -24,12 +24,12 @@ enum NamespaceFdb {
   NodeProxyNodesConfig = 11;
 
   // ankrscan-token-indexer
-  TokenContractDetails = 12;
+  TokenCurrencyDetails = 12;
   TokenBalanceByHolder = 13;
   TokenHoldersByContract = 14;
   TokenWalletInteractions = 15;
   TokenLiquidPoolDetails = 17;
-  TokenPriceByLiquidPool = 18;
-  TokenPriceByPair = 19;
+  TokenUsdPriceUpdate = 18;
+  TokenTopQuoteCurrencies = 19;
 }
 

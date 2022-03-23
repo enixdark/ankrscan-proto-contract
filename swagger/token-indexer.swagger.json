@@ -44,7 +44,7 @@
         }
       }
     },
-    "tokenindexerTokenBalanceDetailed": {
+    "tokenindexerBalanceDetailed": {
       "type": "object",
       "properties": {
         "blockchainName": {
@@ -77,13 +77,13 @@
         }
       }
     },
-    "tokenindexerTokenBalancesDetailed": {
+    "tokenindexerBalancesDetailedReply": {
       "type": "object",
       "properties": {
         "balances": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/tokenindexerTokenBalanceDetailed"
+            "$ref": "#/definitions/tokenindexerBalanceDetailed"
           }
         },
         "nextPageToken": {

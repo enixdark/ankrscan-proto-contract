@@ -5,13 +5,19 @@ package ankrscan.tokenindexer;
 option go_package = "./;proto";
 
 service TokenIndexer {
-  rpc BalanceByHolder (BalanceByHolderRequest) returns (TokenBalancesDetailed);
+  rpc BalanceByHolder (BalanceByHolderRequest) returns (BalancesDetailedReply);
 }
 
 enum TokenType {
   UNDEFINED = 0;
   NATIVE = 1;
   ERC20 = 2;
+}
+
+enum PegType {
+  NO_PEG = 0;
+  NATIVE_PEG = 1;
+  USD_PEG = 2;
 }
 
 message BalanceByHolderRequest {
@@ -21,17 +27,24 @@ message BalanceByHolderRequest {
   int32 page_size = 4;
 }
 
-message TokenBalancesDetailed {
-  repeated TokenBalanceDetailed balances = 1;
+message BalancesDetailedReply {
+  repeated BalanceDetailed balances = 1;
   bytes next_page_token = 2;
 }
 
-message TokenBalancesReply {
-  repeated TokenBalance balances = 1;
+message BalancesReply {
+  repeated Balance balances = 1;
   bytes next_page_token = 2;
 }
 
-message TokenBalanceDetailed {
+message Balance {
+  string blockchain_name = 1;
+  bytes contract_address = 2;
+  bytes holder_address = 3;
+  bytes balance = 4;
+}
+
+message BalanceDetailed {
   string blockchain_name = 1;
   bytes contract_address = 2;
   string name = 3;
@@ -42,94 +55,50 @@ message TokenBalanceDetailed {
   TokenType type = 8;
 }
 
-message TokenContractDetails {
+message CurrencyDetails {
   string blockchain_name = 1;
   bytes address = 2;
   string name = 3;
   uint64 decimals = 4;
   string symbol = 5;
+  TokenType type = 8;
+  PegType peg_type = 9;
 }
 
-message TokenBalance {
-  string blockchain_name = 1;
-  bytes contract_address = 2;
-  bytes holder_address = 3;
-  bytes balance = 4;
-}
-
-message TokenContractRequest {
+message CurrencyRequest {
   string blockchain_name = 1;
   bytes address = 2;
 }
 
-message TokenBalanceRequest {
+message LiquidPoolRequest {
   string blockchain_name = 1;
   bytes address = 2;
-  uint64 block_height = 3;
 }
 
 message LiquidPoolDetails {
   string blockchain_name = 1;
   bytes token0_address = 2;
   bytes token1_address = 3;
-
   bytes address = 4;
   bytes factory = 5;
 }
 
-message LiquidPoolUpdated{
+message UsdPrice {
   string blockchain_name = 1;
-  uint64 timestamp = 2;
-
-  bytes liquid_pool_address = 6;
-  bytes token0_address = 7;
-  bytes token1_address = 8;
-  bytes token0_reserved = 9; // big int
-  bytes token1_reserved = 10;
+  bytes token_address = 2;
+  uint64 block_height = 3;
+  string price = 4; // human readable float value
 }
 
-message PriceUpdate {
+message TradeExecuted {
   string blockchain_name = 1;
   uint64 block_height = 2;
-  bytes base_token_address = 3;
-  bytes quote_token_address = 4;
-  string price = 5; // human readable float value
-  string quote_reserved = 6; // human readable float value
-  bytes liquid_pool_address = 7;
+  uint64 transaction_index = 3;
+  uint64 log_index = 4;
+
+  bytes base_token_address = 5;
+  bytes quote_token_address = 6;
+  string price = 7; // human readable float value
+  bytes liquid_pool_address = 9;
 }
 
-message PriceUpdateWithUsd {
-  PriceUpdate price = 1;
-  string usd_price = 2; // human readable float value
-  string usd_reserved = 6; // human readable float value
-}
-
-message TokenContractId {
-  string blockchain_name = 1;
-  bytes address = 2;
-}
-
-message PriceByPairRequest {
-  string blockchain_name = 1;
-  bytes base_token_address = 2;
-  bytes quote_token_address = 3;
-  uint64 block_height = 4;
-}
-
-message UsdPriceRequest {
-  string blockchain_name = 1;
-  bytes base_token_address = 2;
-  uint64 block_height = 3;
-}
-
-message TokenUsdPrice {
-  string blockchain_name = 1;
-  bytes address = 2;
-  bytes usd_price = 3; // big float
-}
-
-message LiquidPoolsByPairRequest {
-  string blockchain_name = 1;
-  bytes token0_address = 2;
-  bytes token1_address = 3;
-}
