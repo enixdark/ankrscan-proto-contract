@@ -146,8 +146,8 @@ func (x *Transaction) EthLogs() []*types.Log {
 		for i, protoLog := range x.GetEthTx().Logs {
 			topics := make([]common.Hash, len(protoLog.Topics))
 
-			for i, topic := range protoLog.Topics {
-				topics[i] = common.BytesToHash(topic)
+			for j, topic := range protoLog.Topics {
+				topics[j] = common.BytesToHash(topic)
 			}
 			logs = append(logs, &types.Log{
 				Address:     common.BytesToAddress(protoLog.Address),
