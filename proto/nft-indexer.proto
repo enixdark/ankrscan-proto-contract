@@ -41,7 +41,7 @@ message ContractAddressTokenIdFilter{
 
 message NftBalanceByAddressRequest {
   bytes wallet = 1; // wallet address e.g. 0x134acfa283884ae586f96e24d40dd6c894a620bb
-  string blockchain_name = 2; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
+  repeated string blockchain_name = 2; // check github.com/ankr-network/ankrscan-proto-contract/go/blockchains/list.go
   bytes page_token = 3; // field to support pagination
   int32 page_size = 4;
   repeated ContractAddressTokenIdFilter filter = 5;
