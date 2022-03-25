@@ -117,7 +117,10 @@
           "type": "string"
         },
         "blockchainName": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "pageToken": {
           "type": "string"
