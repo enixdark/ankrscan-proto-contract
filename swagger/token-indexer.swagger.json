@@ -121,7 +121,7 @@
             "$ref": "#/definitions/tokenindexerHolderBalance"
           }
         },
-        "pageToken": {
+        "nextPageToken": {
           "type": "string",
           "format": "byte"
         }
