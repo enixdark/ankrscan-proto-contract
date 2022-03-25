@@ -39,6 +39,15 @@ func CurrencyPeg(blockchainName string, address []byte) proto.Peg {
 	return proto.Peg_NO_PEG
 }
 
+func NativePegTokenAddress(blockchainName string) ([]byte, bool) {
+	for _, peg := range Pegs(blockchainName) {
+		if peg.Peg == proto.Peg_NATIVE_PEG {
+			return peg.Address, true
+		}
+	}
+	return []byte{}, false
+}
+
 var pegs = []*proto.CurrencyPeg{
 	/*
 		░█████╗░██████╗░██████╗░██╗████████╗██████╗░██╗░░░██╗███╗░░░███╗
