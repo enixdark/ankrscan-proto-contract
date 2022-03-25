@@ -92,6 +92,41 @@
         }
       }
     },
+    "tokenindexerHolderBalance": {
+      "type": "object",
+      "properties": {
+        "holderAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "balance": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "tokenindexerTokenHoldersReply": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "holders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerHolderBalance"
+          }
+        },
+        "pageToken": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
     "tokenindexerTokenType": {
       "type": "string",
       "enum": [
