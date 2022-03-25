@@ -6,6 +6,7 @@ option go_package = "./;proto";
 
 service TokenIndexer {
   rpc BalanceByHolder (BalanceByHolderRequest) returns (BalancesDetailedReply);
+  rpc UsdPrice (UsdPricesRequest) returns (UsdPricesReply);
 }
 
 enum TokenType {
@@ -18,6 +19,14 @@ enum Peg {
   NO_PEG = 0;
   NATIVE_PEG = 1;
   USD_PEG = 2;
+}
+
+message UsdPricesRequest {
+  repeated UsdPriceRequest requests = 1;
+}
+
+message UsdPricesReply {
+  repeated UsdPriceUpdate prices = 1;
 }
 
 message BalanceByHolderRequest {
