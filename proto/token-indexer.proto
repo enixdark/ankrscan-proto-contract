@@ -136,3 +136,7 @@ message HolderBalance {
   bytes holder_address = 1;
   bytes balance = 2;
 }
+
+message TokenMetaInfo {
+  string thumbnail = 1;
+}
