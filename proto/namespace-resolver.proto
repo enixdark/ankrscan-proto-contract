@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ankrscan.namespaceresolver;
+
+option go_package = "./;proto";
+
+service NamespaceResolver {
+  // internal APIs
+  rpc ResolveNamespace (ResolveNamespaceRequest) returns (ResolveNamespaceReply);
+}
+
+message ResolveNamespaceRequest {
+  string namespace = 1;
+}
+
+message ResolveNamespaceReply{
+  bytes address = 1;
+}
