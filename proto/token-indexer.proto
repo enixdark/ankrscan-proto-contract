@@ -79,6 +79,16 @@ message CurrencyDetails {
   string symbol = 5;
 }
 
+message CurrencyDetailsExtended {
+  string blockchain_name = 1;
+  bytes address = 2;
+  string name = 3;
+  uint64 decimals = 4;
+  string symbol = 5;
+
+  TokenMetaInfo meta_info = 6;
+}
+
 message CurrencyRequest {
   string blockchain_name = 1;
   bytes address = 2;
