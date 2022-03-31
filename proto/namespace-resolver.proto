@@ -16,3 +16,9 @@ message ResolveNamespaceRequest {
 message ResolveNamespaceReply{
   bytes address = 1;
 }
+
+message NamespaceResolverConfig {
+  uint64 id = 1;
+  string blockchain_name = 2;
+  string node_url = 4;
+}
