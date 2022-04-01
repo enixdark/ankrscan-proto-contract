@@ -8,6 +8,7 @@ service TokenIndexer {
   rpc BalanceByHolder (BalanceByHolderRequest) returns (BalancesDetailedReply);
   rpc UsdPrice (UsdPricesRequest) returns (UsdPricesReply);
   rpc TokenHolders (TokenHoldersRequest) returns (TokenHoldersReply);
+  rpc Currencies (CurrenciesRequest) returns (CurrenciesReply);
 }
 
 enum TokenType {
@@ -98,11 +99,11 @@ message CurrencyRequest {
   bytes address = 2;
 }
 
-message CurrencyListRequest {
-  string blockchain_name = 1;
+message CurrenciesRequest {
+  repeated string blockchain_names = 1;
 }
 
-message CurrencyListReply {
+message CurrenciesReply {
   repeated CurrencyDetailsExtended currencies = 1;
 }
 

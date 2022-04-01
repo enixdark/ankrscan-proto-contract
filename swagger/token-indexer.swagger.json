@@ -92,6 +92,50 @@
         }
       }
     },
+    "tokenindexerCurrenciesReply": {
+      "type": "object",
+      "properties": {
+        "currencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerCurrencyDetailsExtended"
+          }
+        }
+      }
+    },
+    "tokenindexerCurrencyDetailsExtended": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string",
+          "format": "byte"
+        },
+        "name": {
+          "type": "string"
+        },
+        "decimals": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "metaInfo": {
+          "$ref": "#/definitions/tokenindexerCurrencyMetaInfo"
+        }
+      }
+    },
+    "tokenindexerCurrencyMetaInfo": {
+      "type": "object",
+      "properties": {
+        "thumbnail": {
+          "type": "string"
+        }
+      }
+    },
     "tokenindexerHolderBalance": {
       "type": "object",
       "properties": {
