@@ -1,6 +1,6 @@
 package blockchains
 
-import "ankr/ankrscan-proto-contract/go/proto"
+import "github.com/Ankr-network/ankrscan-proto-contract/go/proto"
 
 var blockchains = []*proto.BlockchainProperties{
 	{
