@@ -30,5 +30,5 @@ enum NamespaceFdb {
   TokenWalletInteractions = 15;
   TokenLiquidPoolDetails = 17;
   TokenUsdPriceUpdate = 18;
-  TokenMetaInfo = 19; // Thumbnails and etc.
+  TokenCurrencyMetaInfo = 19; // Thumbnails and etc.
 }
