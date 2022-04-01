@@ -79,6 +79,10 @@ message CurrencyDetails {
   string symbol = 5;
 }
 
+message CurrencyMetaInfo {
+  string thumbnail = 1;
+}
+
 message CurrencyDetailsExtended {
   string blockchain_name = 1;
   bytes address = 2;
@@ -86,12 +90,20 @@ message CurrencyDetailsExtended {
   uint64 decimals = 4;
   string symbol = 5;
 
-  TokenMetaInfo meta_info = 6;
+  CurrencyMetaInfo meta_info = 6;
 }
 
 message CurrencyRequest {
   string blockchain_name = 1;
   bytes address = 2;
+}
+
+message CurrencyListRequest {
+  string blockchain_name = 1;
+}
+
+message CurrencyListReply {
+  repeated CurrencyDetailsExtended currencies = 1;
 }
 
 message LiquidPoolRequest {
@@ -145,8 +157,4 @@ message TokenHoldersReply {
 message HolderBalance {
   bytes holder_address = 1;
   bytes balance = 2;
-}
-
-message TokenMetaInfo {
-  string thumbnail = 1;
 }
