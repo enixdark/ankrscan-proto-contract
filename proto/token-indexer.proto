@@ -100,7 +100,7 @@ message CurrencyRequest {
 }
 
 message CurrenciesRequest {
-  repeated string blockchain_names = 1;
+  string blockchain_name = 1;
   bytes page_token = 2;
   int32 page_size = 3;
 }
