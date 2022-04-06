@@ -101,13 +101,10 @@ message CurrencyRequest {
 
 message CurrenciesRequest {
   string blockchain_name = 1;
-  bytes page_token = 2;
-  int32 page_size = 3;
 }
 
 message CurrenciesReply {
   repeated CurrencyDetailsExtended currencies = 1;
-  bytes next_page_token = 2;
 }
 
 message LiquidPoolRequest {

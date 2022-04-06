@@ -100,10 +100,6 @@
           "items": {
             "$ref": "#/definitions/tokenindexerCurrencyDetailsExtended"
           }
-        },
-        "nextPageToken": {
-          "type": "string",
-          "format": "byte"
         }
       }
     },
