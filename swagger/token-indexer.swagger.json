@@ -127,12 +127,12 @@
         "symbol": {
           "type": "string"
         },
-        "metaInfo": {
-          "$ref": "#/definitions/tokenindexerCurrencyMetaInfo"
+        "metadata": {
+          "$ref": "#/definitions/tokenindexerCurrencyMetadata"
         }
       }
     },
-    "tokenindexerCurrencyMetaInfo": {
+    "tokenindexerCurrencyMetadata": {
       "type": "object",
       "properties": {
         "thumbnail": {
