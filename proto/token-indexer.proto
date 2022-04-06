@@ -80,7 +80,7 @@ message CurrencyDetails {
   string symbol = 5;
 }
 
-message CurrencyMetaInfo {
+message CurrencyMetadata {
   string thumbnail = 1;
 }
 
@@ -91,7 +91,7 @@ message CurrencyDetailsExtended {
   uint64 decimals = 4;
   string symbol = 5;
 
-  CurrencyMetaInfo meta_info = 6;
+  CurrencyMetadata metadata = 6;
 }
 
 message CurrencyRequest {
