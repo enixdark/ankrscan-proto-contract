@@ -159,6 +159,10 @@
           "type": "string",
           "format": "byte"
         },
+        "decimals": {
+          "type": "string",
+          "format": "uint64"
+        },
         "holders": {
           "type": "array",
           "items": {
