@@ -1,8 +1,6 @@
 package blockchains
 
-import (
-	"github.com/Ankr-network/ankrscan-proto-contract/go/proto"
-)
+import "github.com/Ankr-network/ankrscan-proto-contract/go/proto"
 
 var blockchains = []*proto.BlockchainProperties{
 	{
@@ -13,6 +11,7 @@ var blockchains = []*proto.BlockchainProperties{
 		Decimals:            18,
 		BlockchainNumber:    proto.BlockchainNumber_BLOCKCHAIN_ARBITRUM,
 		BlockConfirmedAfter: 12,
+		ThumbnailUrl:        "",
 	},
 	{
 		BlockchainName:      "avalanche",
@@ -22,6 +21,7 @@ var blockchains = []*proto.BlockchainProperties{
 		Decimals:            18,
 		BlockchainNumber:    proto.BlockchainNumber_BLOCKCHAIN_AVALANCHE,
 		BlockConfirmedAfter: 12,
+		ThumbnailUrl:        "https://assets.coingecko.com/coins/images/12559/large/coin-round-red.png",
 	},
 	{
 		BlockchainName:      "bsc",
@@ -31,6 +31,7 @@ var blockchains = []*proto.BlockchainProperties{
 		Decimals:            18,
 		BlockchainNumber:    proto.BlockchainNumber_BLOCKCHAIN_BSC,
 		BlockConfirmedAfter: 12,
+		ThumbnailUrl:        "https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png",
 	},
 	{
 		BlockchainName:      "eth",
@@ -40,6 +41,7 @@ var blockchains = []*proto.BlockchainProperties{
 		Decimals:            18,
 		BlockchainNumber:    proto.BlockchainNumber_BLOCKCHAIN_ETH,
 		BlockConfirmedAfter: 12,
+		ThumbnailUrl:        "https://assets.coingecko.com/coins/images/279/large/ethereum.png",
 	},
 	{
 		BlockchainName:      "fantom",
@@ -49,6 +51,7 @@ var blockchains = []*proto.BlockchainProperties{
 		Decimals:            18,
 		BlockchainNumber:    proto.BlockchainNumber_BLOCKCHAIN_FANTOM,
 		BlockConfirmedAfter: 12,
+		ThumbnailUrl:        "https://assets.coingecko.com/coins/images/4001/large/Fantom.png",
 	},
 	{
 		BlockchainName:      "polygon",
@@ -58,6 +61,7 @@ var blockchains = []*proto.BlockchainProperties{
 		Decimals:            18,
 		BlockchainNumber:    proto.BlockchainNumber_BLOCKCHAIN_POLYGON,
 		BlockConfirmedAfter: 12,
+		ThumbnailUrl:        "https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png",
 	},
 }
 

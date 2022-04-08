@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package ankrscan.namespaceresolver;
+
+option go_package = "./;proto";
+
+service NamespaceResolver {
+  // internal APIs
+  rpc ResolveNamespace (ResolveNamespaceRequest) returns (ResolveNamespaceReply);
+}
+
+message ResolveNamespaceRequest {
+  string namespace = 1;
+}
+
+message ResolveNamespaceReply{
+  bytes address = 1;
+}
+
+message NamespaceResolverConfig {
+  uint64 id = 1;
+  string blockchain_name = 2;
+  string node_url = 4;
+}

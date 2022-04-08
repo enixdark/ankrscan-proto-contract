@@ -7,6 +7,8 @@ option go_package = "./;proto";
 service TokenIndexer {
   rpc BalanceByHolder (BalanceByHolderRequest) returns (BalancesDetailedReply);
   rpc UsdPrice (UsdPricesRequest) returns (UsdPricesReply);
+  rpc TokenHolders (TokenHoldersRequest) returns (TokenHoldersReply);
+  rpc Currencies (CurrenciesRequest) returns (CurrenciesReply);
 }
 
 enum TokenType {
@@ -78,9 +80,31 @@ message CurrencyDetails {
   string symbol = 5;
 }
 
+message CurrencyMetadata {
+  string thumbnail = 1;
+}
+
+message CurrencyDetailsExtended {
+  string blockchain_name = 1;
+  bytes address = 2;
+  string name = 3;
+  uint64 decimals = 4;
+  string symbol = 5;
+
+  CurrencyMetadata metadata = 6;
+}
+
 message CurrencyRequest {
   string blockchain_name = 1;
   bytes address = 2;
+}
+
+message CurrenciesRequest {
+  string blockchain_name = 1;
+}
+
+message CurrenciesReply {
+  repeated CurrencyDetailsExtended currencies = 1;
 }
 
 message LiquidPoolRequest {
@@ -117,3 +141,22 @@ message PriceUpdate {
   string price = 7; // human readable float value
 }
 
+message TokenHoldersRequest {
+  string blockchain_name = 1;
+  bytes contract_address = 2;
+  bytes page_token = 3;
+  int32 page_size = 4;
+}
+
+message TokenHoldersReply {
+  string blockchain_name = 1;
+  bytes contract_address = 2;
+  uint64 decimals = 5;
+  repeated HolderBalance holders = 3;
+  bytes next_page_token = 4;
+}
+
+message HolderBalance {
+  bytes holder_address = 1;
+  bytes balance = 2;
+}

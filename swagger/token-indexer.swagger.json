@@ -92,6 +92,89 @@
         }
       }
     },
+    "tokenindexerCurrenciesReply": {
+      "type": "object",
+      "properties": {
+        "currencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerCurrencyDetailsExtended"
+          }
+        }
+      }
+    },
+    "tokenindexerCurrencyDetailsExtended": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string",
+          "format": "byte"
+        },
+        "name": {
+          "type": "string"
+        },
+        "decimals": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/tokenindexerCurrencyMetadata"
+        }
+      }
+    },
+    "tokenindexerCurrencyMetadata": {
+      "type": "object",
+      "properties": {
+        "thumbnail": {
+          "type": "string"
+        }
+      }
+    },
+    "tokenindexerHolderBalance": {
+      "type": "object",
+      "properties": {
+        "holderAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "balance": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "tokenindexerTokenHoldersReply": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "decimals": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "holders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerHolderBalance"
+          }
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
     "tokenindexerTokenType": {
       "type": "string",
       "enum": [
