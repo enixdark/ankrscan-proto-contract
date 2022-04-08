@@ -31,4 +31,12 @@ enum NamespaceFdb {
   TokenLiquidPoolDetails = 17;
   TokenUsdPriceUpdate = 18;
   TokenCurrencyMetadata = 19; // Thumbnails and etc.
+
+  // ankrscan-transaction-indexer
+  SimpleTransactionByAddress = 30;
+  LogByTimestamp = 31;
+  LogByContractAndTopics = 32;
+  EventsAmountByTopic = 33;
+  EventsAmount = 34;
+  TransactionAmount = 35;
 }

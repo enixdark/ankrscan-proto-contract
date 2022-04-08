@@ -107,3 +107,11 @@ func Decimals(blockchainName string) uint64 {
 		return 18
 	}
 }
+
+func ChainType(blockchainName string) proto.ChainType {
+	blockchain, ok := Blockchain(blockchainName)
+	if !ok {
+		return proto.ChainType_CHAIN_TYPE_UNKNOWN
+	}
+	return blockchain.ChainType
+}

@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package ankrscan.transactionindexer;
+
+option go_package = "./;proto";
+
+service TransactionIndexer {
+  rpc TransactionStats (TransactionStatsRequest) returns (TransactionsStats);
+}
+
+message TransactionStatsRequest {
+  string blockchain_name = 1;
+}
+
+message TransactionsStats {
+  uint64 transactions_amount = 1;
+  uint64 events_amount = 2;
+}
+
+/* Transaction of each type is stored separately and accessed separately */
+enum SimpleTransactionType {
+  REGULAR_TRANSACTION = 0;
+  TRANSFER_TOKEN = 1;
+}
+
+message SimpleTransaction {
+  string blockchain_name = 1;
+  bytes transaction_hash = 2;
+  bytes transaction_id = 3;
+  uint64 block_height = 4;
+  bytes block_hash = 5;
+  bytes from_address = 6;
+  bytes contract_address = 7;
+  bytes to_address = 8;
+  bytes value = 9;
+  uint64 timestamp = 10;
+  bool success = 11;
+  string action_description = 12;
+  SimpleTransactionType type = 13;
+  uint64 transaction_index = 14;
+  uint64 log_index = 15;
+  bool is_log = 16;
+}
+
+message TransactionByTypeAndAddressRequest {
+  string blockchain_name = 1;
+  bytes address = 2;
+  SimpleTransactionType type = 3;
+  uint64 timestamp = 4;
+  bool order_asc = 5;
+  bytes page_token = 6;
+  int32 page_size = 7;
+}
+
+message SimpleTransactionsReply {
+  repeated SimpleTransaction transactions = 1;
+  bytes next_page_token = 2;
+}
+
+message TransactionByTypeAndAddressAndBlockchainRequest {
+  repeated string blockchain_name = 1;
+  bytes address = 2;
+  SimpleTransactionType type = 3;
+  bytes page_token = 4;
+  int32 page_size = 5;
+}
