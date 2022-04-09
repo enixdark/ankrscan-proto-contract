@@ -34,8 +34,8 @@ enum NamespaceFdb {
 
   // ankrscan-transaction-indexer
   SimpleTransactionByAddress = 30;
-  LogByTimestamp = 31;
-  LogByContractAndTopics = 32;
+  LogKeyToTransactionId = 31;
+  LogByQuery = 32;
   EventsAmountByTopic = 33;
   EventsAmount = 34;
   TransactionAmount = 35;

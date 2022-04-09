@@ -64,3 +64,8 @@ message TransactionByTypeAndAddressAndBlockchainRequest {
   bytes page_token = 4;
   int32 page_size = 5;
 }
+
+message LogReference {
+  bytes transaction_id = 1;
+  uint64 log_index = 2;
+}

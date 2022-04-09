@@ -140,6 +140,27 @@ func (x *EthTransaction) ContractAddressAsString() *string {
 	}
 }
 
+func (x *Transaction) GetEthLogExtended() []*EthLogExtended {
+	logs := make([]*EthLogExtended, 0, 300)
+	if x.GetEthTx() != nil {
+		for i, protoLog := range x.GetEthTx().Logs {
+			logs = append(logs, &EthLogExtended{
+				Address:          protoLog.Address,
+				Topics:           protoLog.Topics,
+				Data:             protoLog.Data,
+				Removed:          protoLog.Removed,
+				LogIndex:         uint64(i),
+				TransactionIndex: x.TransactionIndex,
+				TransactionHash:  x.TransactionHash,
+				BlockHash:        x.BlockHash,
+				BlockHeight:      x.BlockHeight,
+				TransactionId:    x.TransactionId,
+			})
+		}
+	}
+	return logs
+}
+
 func (x *Transaction) EthLogs() []*types.Log {
 	logs := make([]*types.Log, 0, 300)
 	if x.GetEthTx() != nil {

@@ -35,6 +35,8 @@ message EthLogExtended {
   bytes transaction_hash = 7;
   bytes  block_hash = 8;
   uint64 block_height = 9;
+  bytes transaction_id = 10;
+  uint64 timestamp = 11;
 }
 
 message EthTransaction {
