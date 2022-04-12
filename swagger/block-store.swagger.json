@@ -783,17 +783,6 @@
         "parallelBlocks": {
           "type": "string",
           "format": "uint64"
-        },
-        "parallelTxsBatch": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "parallelTxsWorkers": {
-          "type": "string",
-          "format": "uint64"
-        },
-        "nodeUrl": {
-          "type": "string"
         }
       }
     },
