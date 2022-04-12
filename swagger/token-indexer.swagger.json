@@ -44,7 +44,7 @@
         }
       }
     },
-    "tokenindexerTokenBalanceDetailed": {
+    "tokenindexerBalanceDetailed": {
       "type": "object",
       "properties": {
         "blockchainName": {
@@ -77,13 +77,96 @@
         }
       }
     },
-    "tokenindexerTokenBalancesDetailed": {
+    "tokenindexerBalancesDetailedReply": {
       "type": "object",
       "properties": {
         "balances": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/tokenindexerTokenBalanceDetailed"
+            "$ref": "#/definitions/tokenindexerBalanceDetailed"
+          }
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "tokenindexerCurrenciesReply": {
+      "type": "object",
+      "properties": {
+        "currencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerCurrencyDetailsExtended"
+          }
+        }
+      }
+    },
+    "tokenindexerCurrencyDetailsExtended": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string",
+          "format": "byte"
+        },
+        "name": {
+          "type": "string"
+        },
+        "decimals": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/tokenindexerCurrencyMetadata"
+        }
+      }
+    },
+    "tokenindexerCurrencyMetadata": {
+      "type": "object",
+      "properties": {
+        "thumbnail": {
+          "type": "string"
+        }
+      }
+    },
+    "tokenindexerHolderBalance": {
+      "type": "object",
+      "properties": {
+        "holderAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "balance": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "tokenindexerTokenHoldersReply": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "contractAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "decimals": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "holders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerHolderBalance"
           }
         },
         "nextPageToken": {
@@ -100,6 +183,52 @@
         "ERC20"
       ],
       "default": "UNDEFINED"
+    },
+    "tokenindexerUsdPriceRequest": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "tokenAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "tokenindexerUsdPriceUpdate": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "tokenAddress": {
+          "type": "string",
+          "format": "byte"
+        },
+        "blockHeight": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "price": {
+          "type": "string"
+        }
+      }
+    },
+    "tokenindexerUsdPricesReply": {
+      "type": "object",
+      "properties": {
+        "prices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tokenindexerUsdPriceUpdate"
+          }
+        }
+      }
     }
   }
 }

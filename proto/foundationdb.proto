@@ -12,6 +12,7 @@ enum NamespaceFdb {
   TransactionByHash = 4;
   ExtractorConfig = 5;
   ConsumerOffset = 6;
+  ConsumerDetails = 16;
   ExtractorLatest = 7;
 
   // ankrscan-nft-indexer
@@ -23,9 +24,19 @@ enum NamespaceFdb {
   NodeProxyNodesConfig = 11;
 
   // ankrscan-token-indexer
-  TokenContractDetails = 12;
+  TokenCurrencyDetails = 12;
   TokenBalanceByHolder = 13;
   TokenHoldersByContract = 14;
   TokenWalletInteractions = 15;
-}
+  TokenLiquidPoolDetails = 17;
+  TokenUsdPriceUpdate = 18;
+  TokenCurrencyMetadata = 19; // Thumbnails and etc.
 
+  // ankrscan-transaction-indexer
+  SimpleTransactionByAddress = 30;
+  LogKeyToTransactionId = 31;
+  LogByQuery = 32;
+  EventsAmountByTopic = 33;
+  EventsAmount = 34;
+  TransactionAmount = 35;
+}

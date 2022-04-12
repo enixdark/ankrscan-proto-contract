@@ -35,4 +35,5 @@ message BlockchainProperties {
   uint64 decimals = 7;
   BlockchainNumber blockchain_number = 8;
   uint64 block_confirmed_after = 9;
+  string thumbnail_url = 10;
 }

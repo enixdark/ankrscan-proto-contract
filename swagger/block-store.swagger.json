@@ -683,6 +683,14 @@
         "blockHeight": {
           "type": "string",
           "format": "uint64"
+        },
+        "transactionId": {
+          "type": "string",
+          "format": "byte"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

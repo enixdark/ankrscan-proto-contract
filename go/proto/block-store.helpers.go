@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"math/big"
 	"strings"
 	"time"
@@ -137,6 +138,52 @@ func (x *EthTransaction) ContractAddressAsString() *string {
 		asString := strings.ToLower(toAddress.String())
 		return &asString
 	}
+}
+
+func (x *Transaction) GetEthLogExtended() []*EthLogExtended {
+	logs := make([]*EthLogExtended, 0, 300)
+	if x.GetEthTx() != nil {
+		for i, protoLog := range x.GetEthTx().Logs {
+			logs = append(logs, &EthLogExtended{
+				Address:          protoLog.Address,
+				Topics:           protoLog.Topics,
+				Data:             protoLog.Data,
+				Removed:          protoLog.Removed,
+				LogIndex:         uint64(i),
+				TransactionIndex: x.TransactionIndex,
+				TransactionHash:  x.TransactionHash,
+				BlockHash:        x.BlockHash,
+				BlockHeight:      x.BlockHeight,
+				TransactionId:    x.TransactionId,
+			})
+		}
+	}
+	return logs
+}
+
+func (x *Transaction) EthLogs() []*types.Log {
+	logs := make([]*types.Log, 0, 300)
+	if x.GetEthTx() != nil {
+		for i, protoLog := range x.GetEthTx().Logs {
+			topics := make([]common.Hash, len(protoLog.Topics))
+
+			for j, topic := range protoLog.Topics {
+				topics[j] = common.BytesToHash(topic)
+			}
+			logs = append(logs, &types.Log{
+				Address:     common.BytesToAddress(protoLog.Address),
+				Topics:      topics,
+				Data:        protoLog.Data,
+				Removed:     protoLog.Removed,
+				Index:       uint(i),
+				TxIndex:     uint(x.TransactionIndex),
+				TxHash:      common.BytesToHash(x.TransactionHash),
+				BlockHash:   common.BytesToHash(x.BlockHash),
+				BlockNumber: x.BlockHeight,
+			})
+		}
+	}
+	return logs
 }
 
 func (x *EthLog) TopicsAsHash() []common.Hash {
