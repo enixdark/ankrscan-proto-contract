@@ -479,6 +479,14 @@
         "parallelCallsWorkers": {
           "type": "string",
           "format": "uint64"
+        },
+        "extractorParallelTxsBatch": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "extractorParallelTxsWorkers": {
+          "type": "string",
+          "format": "uint64"
         }
       }
     },

@@ -156,9 +156,6 @@ message ExtractorConfig {
   string blockchain_name = 2;
   bool enabled = 3;
   uint64 parallel_blocks = 4;
-  uint64 parallel_txs_batch = 5;
-  uint64 parallel_txs_workers = 6;
-  string node_url = 7;
 }
 
 message Block {

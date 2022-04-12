@@ -24,6 +24,8 @@ message NodeConfig {
   uint64 historical_state_retention_blocks = 4; // 0 for archive node
   uint64 parallel_calls_batch = 5; // how many contract calls will be done in one JSON-RPC batch
   uint64 parallel_calls_workers = 6; // how many parallel workers will send batches to the node
+  uint64 extractor_parallel_txs_batch = 7;
+  uint64 extractor_parallel_txs_workers = 8;
 }
 
 message NodeConfigsRequest {
