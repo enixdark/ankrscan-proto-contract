@@ -1,0 +1,97 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "health.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Health"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "HealthCheckResponseMethod": {
+      "type": "object",
+      "properties": {
+        "blockchains": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MethodBlockchain"
+          }
+        }
+      }
+    },
+    "MethodBlockchain": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "blockchainNumber": {
+          "$ref": "#/definitions/blockchainBlockchainNumber"
+        },
+        "healthy": {
+          "type": "boolean"
+        }
+      }
+    },
+    "blockchainBlockchainNumber": {
+      "type": "string",
+      "enum": [
+        "BLOCKCHAIN_UNKNOWN",
+        "BLOCKCHAIN_ETH",
+        "BLOCKCHAIN_BSC",
+        "BLOCKCHAIN_POLYGON",
+        "BLOCKCHAIN_FANTOM",
+        "BLOCKCHAIN_AVALANCHE",
+        "BLOCKCHAIN_ARBITRUM"
+      ],
+      "default": "BLOCKCHAIN_UNKNOWN"
+    },
+    "healthHealthCheckResponse": {
+      "type": "object",
+      "properties": {
+        "methods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HealthCheckResponseMethod"
+          }
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
