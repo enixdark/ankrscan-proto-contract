@@ -20,6 +20,9 @@
     "HealthCheckResponseMethod": {
       "type": "object",
       "properties": {
+        "methodName": {
+          "type": "string"
+        },
         "blockchains": {
           "type": "array",
           "items": {

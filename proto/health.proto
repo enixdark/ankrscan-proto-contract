@@ -13,10 +13,11 @@ service Health {
 message HealthCheckRequest {}
 
 message HealthCheckResponse {
-    repeated Method methods = 1;
+    repeated Method methods = 2;
 
     message Method {
-        repeated Blockchain blockchains = 1;
+        string method_name = 1;
+        repeated Blockchain blockchains = 2;
 
         message Blockchain {
             string blockchain_name = 1;
