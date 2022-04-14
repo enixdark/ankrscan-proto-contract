@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// HealthClient is the client API for Health service.
+// MethodHealthClient is the client API for MethodHealth service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type HealthClient interface {
-	Check(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+type MethodHealthClient interface {
+	Check(ctx context.Context, in *MethodHealthRequest, opts ...grpc.CallOption) (*MethodHealthResponse, error)
 }
 
-type healthClient struct {
+type methodHealthClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewHealthClient(cc grpc.ClientConnInterface) HealthClient {
-	return &healthClient{cc}
+func NewMethodHealthClient(cc grpc.ClientConnInterface) MethodHealthClient {
+	return &methodHealthClient{cc}
 }
 
-func (c *healthClient) Check(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
-	out := new(HealthCheckResponse)
-	err := c.cc.Invoke(ctx, "/ankrscan.health.Health/Check", in, out, opts...)
+func (c *methodHealthClient) Check(ctx context.Context, in *MethodHealthRequest, opts ...grpc.CallOption) (*MethodHealthResponse, error) {
+	out := new(MethodHealthResponse)
+	err := c.cc.Invoke(ctx, "/ankrscan.health.MethodHealth/Check", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// HealthServer is the server API for Health service.
-// All implementations must embed UnimplementedHealthServer
+// MethodHealthServer is the server API for MethodHealth service.
+// All implementations must embed UnimplementedMethodHealthServer
 // for forward compatibility
-type HealthServer interface {
-	Check(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
-	mustEmbedUnimplementedHealthServer()
+type MethodHealthServer interface {
+	Check(context.Context, *MethodHealthRequest) (*MethodHealthResponse, error)
+	mustEmbedUnimplementedMethodHealthServer()
 }
 
-// UnimplementedHealthServer must be embedded to have forward compatible implementations.
-type UnimplementedHealthServer struct {
+// UnimplementedMethodHealthServer must be embedded to have forward compatible implementations.
+type UnimplementedMethodHealthServer struct {
 }
 
-func (UnimplementedHealthServer) Check(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+func (UnimplementedMethodHealthServer) Check(context.Context, *MethodHealthRequest) (*MethodHealthResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Check not implemented")
 }
-func (UnimplementedHealthServer) mustEmbedUnimplementedHealthServer() {}
+func (UnimplementedMethodHealthServer) mustEmbedUnimplementedMethodHealthServer() {}
 
-// UnsafeHealthServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to HealthServer will
+// UnsafeMethodHealthServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to MethodHealthServer will
 // result in compilation errors.
-type UnsafeHealthServer interface {
-	mustEmbedUnimplementedHealthServer()
+type UnsafeMethodHealthServer interface {
+	mustEmbedUnimplementedMethodHealthServer()
 }
 
-func RegisterHealthServer(s grpc.ServiceRegistrar, srv HealthServer) {
-	s.RegisterService(&Health_ServiceDesc, srv)
+func RegisterMethodHealthServer(s grpc.ServiceRegistrar, srv MethodHealthServer) {
+	s.RegisterService(&MethodHealth_ServiceDesc, srv)
 }
 
-func _Health_Check_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HealthCheckRequest)
+func _MethodHealth_Check_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MethodHealthRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(HealthServer).Check(ctx, in)
+		return srv.(MethodHealthServer).Check(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/ankrscan.health.Health/Check",
+		FullMethod: "/ankrscan.health.MethodHealth/Check",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(HealthServer).Check(ctx, req.(*HealthCheckRequest))
+		return srv.(MethodHealthServer).Check(ctx, req.(*MethodHealthRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Health_ServiceDesc is the grpc.ServiceDesc for Health service.
+// MethodHealth_ServiceDesc is the grpc.ServiceDesc for MethodHealth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Health_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "ankrscan.health.Health",
-	HandlerType: (*HealthServer)(nil),
+var MethodHealth_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "ankrscan.health.MethodHealth",
+	HandlerType: (*MethodHealthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Check",
-			Handler:    _Health_Check_Handler,
+			Handler:    _MethodHealth_Check_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

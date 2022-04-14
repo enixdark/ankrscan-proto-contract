@@ -6,7 +6,7 @@
   },
   "tags": [
     {
-      "name": "Health"
+      "name": "MethodHealth"
     }
   ],
   "consumes": [
@@ -17,7 +17,18 @@
   ],
   "paths": {},
   "definitions": {
-    "HealthCheckResponseMethod": {
+    "MethodBlockchain": {
+      "type": "object",
+      "properties": {
+        "blockchainName": {
+          "type": "string"
+        },
+        "healthy": {
+          "type": "boolean"
+        }
+      }
+    },
+    "MethodHealthResponseMethod": {
       "type": "object",
       "properties": {
         "methodName": {
@@ -31,40 +42,13 @@
         }
       }
     },
-    "MethodBlockchain": {
-      "type": "object",
-      "properties": {
-        "blockchainName": {
-          "type": "string"
-        },
-        "blockchainNumber": {
-          "$ref": "#/definitions/blockchainBlockchainNumber"
-        },
-        "healthy": {
-          "type": "boolean"
-        }
-      }
-    },
-    "blockchainBlockchainNumber": {
-      "type": "string",
-      "enum": [
-        "BLOCKCHAIN_UNKNOWN",
-        "BLOCKCHAIN_ETH",
-        "BLOCKCHAIN_BSC",
-        "BLOCKCHAIN_POLYGON",
-        "BLOCKCHAIN_FANTOM",
-        "BLOCKCHAIN_AVALANCHE",
-        "BLOCKCHAIN_ARBITRUM"
-      ],
-      "default": "BLOCKCHAIN_UNKNOWN"
-    },
-    "healthHealthCheckResponse": {
+    "healthMethodHealthResponse": {
       "type": "object",
       "properties": {
         "methods": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/HealthCheckResponseMethod"
+            "$ref": "#/definitions/MethodHealthResponseMethod"
           }
         }
       }
