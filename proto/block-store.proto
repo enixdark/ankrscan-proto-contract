@@ -37,6 +37,7 @@ message EthLogExtended {
   uint64 block_height = 9;
   bytes transaction_id = 10;
   uint64 timestamp = 11;
+  string blockchain_name = 12;
 }
 
 message EthTransaction {
@@ -183,6 +184,7 @@ service BlockStore {
   rpc BlockRange (BlockRangeRequest) returns (BlockRangeReply);
 
   // public APIs
+  rpc LogsByQuery (LogsByQueryRequest) returns (LogsByQueryReply);
   rpc Next (NextRequest) returns (NextReply) {
     option (google.api.http) = {
       post: "/v1/multichain/consumer/next"
@@ -436,4 +438,33 @@ message FilterLogsRequest {
 
 message FilterLogsReply {
   repeated EthLogExtended logs = 1;
+}
+
+message LogsByQueryReply {
+  repeated EthLogExtended logs = 1;
+  bytes next_page_token = 2;
+}
+
+message LogsReferencesByQueryReply {
+  repeated LogByBlockAndIndexRequest references = 1;
+  bytes next_page_token = 2;
+}
+
+message LogsByQueryRequest {
+  string blockchain_name = 1;
+  // to access in DESC order set from_block < to_block
+  uint64 from_block = 2;
+  uint64 to_block = 3;
+  bytes contract = 4;
+  repeated bytes topics = 5;
+  bytes page_token = 7;
+  int32 page_size = 8;
+}
+
+message LogByBlockAndIndexRequest {
+  string blockchain_name = 1;
+  uint64 block_height = 2;
+  bytes  block_hash = 3;
+  uint64 transaction_index = 4;
+  uint64 log_index = 5;
 }

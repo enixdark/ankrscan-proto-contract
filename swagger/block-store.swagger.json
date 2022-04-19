@@ -210,7 +210,6 @@
     },
     "/v1/multichain/consumer/next": {
       "post": {
-        "summary": "public APIs",
         "operationId": "BlockStore_Next",
         "responses": {
           "200": {
@@ -691,6 +690,9 @@
         "timestamp": {
           "type": "string",
           "format": "uint64"
+        },
+        "blockchainName": {
+          "type": "string"
         }
       }
     },
@@ -904,6 +906,21 @@
       "properties": {
         "blockchainName": {
           "type": "string"
+        }
+      }
+    },
+    "blockstoreLogsByQueryReply": {
+      "type": "object",
+      "properties": {
+        "logs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/blockstoreEthLogExtended"
+          }
+        },
+        "nextPageToken": {
+          "type": "string",
+          "format": "byte"
         }
       }
     },

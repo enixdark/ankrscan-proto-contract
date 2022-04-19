@@ -11,7 +11,6 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
 // BlockStoreClient is the client API for BlockStore service.
@@ -26,6 +25,7 @@ type BlockStoreClient interface {
 	GetNodes(ctx context.Context, in *GetNodesRequest, opts ...grpc.CallOption) (*GetNodesReply, error)
 	BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error)
 	// public APIs
+	LogsByQuery(ctx context.Context, in *LogsByQueryRequest, opts ...grpc.CallOption) (*LogsByQueryReply, error)
 	Next(ctx context.Context, in *NextRequest, opts ...grpc.CallOption) (*NextReply, error)
 	Commit(ctx context.Context, in *CommitRequest, opts ...grpc.CallOption) (*CommitReply, error)
 	Seek(ctx context.Context, in *SeekRequest, opts ...grpc.CallOption) (*SeekReply, error)
@@ -92,6 +92,15 @@ func (c *blockStoreClient) GetNodes(ctx context.Context, in *GetNodesRequest, op
 func (c *blockStoreClient) BlockRange(ctx context.Context, in *BlockRangeRequest, opts ...grpc.CallOption) (*BlockRangeReply, error) {
 	out := new(BlockRangeReply)
 	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/BlockRange", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *blockStoreClient) LogsByQuery(ctx context.Context, in *LogsByQueryRequest, opts ...grpc.CallOption) (*LogsByQueryReply, error) {
+	out := new(LogsByQueryReply)
+	err := c.cc.Invoke(ctx, "/ankrscan.blockstore.BlockStore/LogsByQuery", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,6 +191,7 @@ type BlockStoreServer interface {
 	GetNodes(context.Context, *GetNodesRequest) (*GetNodesReply, error)
 	BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error)
 	// public APIs
+	LogsByQuery(context.Context, *LogsByQueryRequest) (*LogsByQueryReply, error)
 	Next(context.Context, *NextRequest) (*NextReply, error)
 	Commit(context.Context, *CommitRequest) (*CommitReply, error)
 	Seek(context.Context, *SeekRequest) (*SeekReply, error)
@@ -214,6 +224,9 @@ func (UnimplementedBlockStoreServer) GetNodes(context.Context, *GetNodesRequest)
 }
 func (UnimplementedBlockStoreServer) BlockRange(context.Context, *BlockRangeRequest) (*BlockRangeReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BlockRange not implemented")
+}
+func (UnimplementedBlockStoreServer) LogsByQuery(context.Context, *LogsByQueryRequest) (*LogsByQueryReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LogsByQuery not implemented")
 }
 func (UnimplementedBlockStoreServer) Next(context.Context, *NextRequest) (*NextReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Next not implemented")
@@ -356,6 +369,24 @@ func _BlockStore_BlockRange_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BlockStoreServer).BlockRange(ctx, req.(*BlockRangeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _BlockStore_LogsByQuery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogsByQueryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BlockStoreServer).LogsByQuery(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/ankrscan.blockstore.BlockStore/LogsByQuery",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BlockStoreServer).LogsByQuery(ctx, req.(*LogsByQueryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -534,6 +565,10 @@ var BlockStore_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BlockRange",
 			Handler:    _BlockStore_BlockRange_Handler,
+		},
+		{
+			MethodName: "LogsByQuery",
+			Handler:    _BlockStore_LogsByQuery_Handler,
 		},
 		{
 			MethodName: "Next",

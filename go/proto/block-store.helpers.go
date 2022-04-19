@@ -155,6 +155,7 @@ func (x *Transaction) GetEthLogExtended() []*EthLogExtended {
 				BlockHash:        x.BlockHash,
 				BlockHeight:      x.BlockHeight,
 				TransactionId:    x.TransactionId,
+				BlockchainName:   x.BlockchainName,
 			})
 		}
 	}
